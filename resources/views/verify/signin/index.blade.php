@@ -1,7 +1,6 @@
-@extends('template.main')
-
-@section('container')
-<section style="margin-top: 55px; display: flex; justify-content: center; align-items: center; min-height: 70vh">
+@include('template.header')
+@include('template.navbar')
+<section style="padding-top: 55px; display: flex; justify-content: center; align-items: center; min-height: 100vh">
   <form action="" method="post">
     @csrf
     <div class="" style="display: flex; justify-content: center; align-content: center; flex-wrap: wrap; flex-direction: column; padding: 30px 10px; box-shadow: 0px 0px 3px black; width: 300px; border-radius: 15px; gap: 15px">
@@ -18,4 +17,3 @@
     </div>
   </form>
 </section>
-@endsection

@@ -9,8 +9,9 @@
                 <li class="nav-item"><a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">HOME</a></li>
                 <li class="nav-item"><a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">DASHBOARD</a></li>
                 <li class="nav-item"><a class="nav-link {{ Request::is('user') ? 'active' : '' }}" href="/user">USER</a></li>
-                <li class="nav-item dropdown {{ Request::is('signin') ? 'active' : '' }}">
-                    <a class="nav-link dropdown-toggle" href="/signin" role="button" data-bs-toggle="dropdown" aria-expanded="false">LOG IN</a>
+                <li class="nav-item"><a class="nav-link {{ Request::is('signin') ? 'active' : '' }}" href="/signin">signin</a></li>
+                {{-- <li class="nav-item dropdown {{ Request::is('signin') ? 'active' : '' }}">
+                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">LOG IN</a>
                     <ul class="dropdown-menu">
                     <li><a class="dropdown-item" href="#">Dashboard</a></li>
                     <li><a class="dropdown-item" href="#">Buat Kontes</a></li>
@@ -20,7 +21,7 @@
                     <li><a class="dropdown-item" href="/signin">login</a></li>
                     <li><a class="dropdown-item" href="#">logout</a></li>
                     </ul>
-                </li>
+                </li> --}}
             </ul>
         </div>
     </div>
