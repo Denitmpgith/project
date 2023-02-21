@@ -6,22 +6,25 @@
         </button>
         <div class="collapse navbar-collapse" id="navbarNavDropdown">
             <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">HOME</a></li>
-                <li class="nav-item"><a class="nav-link {{ Request::is('dashboard') ? 'active' : '' }}" href="/dashboard">DASHBOARD</a></li>
-                <li class="nav-item"><a class="nav-link {{ Request::is('user') ? 'active' : '' }}" href="/user">USER</a></li>
-                <li class="nav-item"><a class="nav-link {{ Request::is('signin') ? 'active' : '' }}" href="/signin">signin</a></li>
-                {{-- <li class="nav-item dropdown {{ Request::is('signin') ? 'active' : '' }}">
-                    <a class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">LOG IN</a>
+                <li class="nav-item"><a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Home</a></li>
+                @auth
+                <li class="nav-item dropdown {{ Request::is('signin') ? 'active' : '' }}">
+                    <a class="nav-link dropdown-toggle {{ Request::is('dashboard*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ auth()->User()->username }}</a>
                     <ul class="dropdown-menu">
-                    <li><a class="dropdown-item" href="#">Dashboard</a></li>
-                    <li><a class="dropdown-item" href="#">Buat Kontes</a></li>
-                    <li><a class="dropdown-item" href="#">Ikut Kontes</a></li>
-                    <li><a class="dropdown-item" href="/fortopolio">fortopolio</a></li>
-                    <li><a class="dropdown-item" href="/signup">register</a></li>
-                    <li><a class="dropdown-item" href="/signin">login</a></li>
-                    <li><a class="dropdown-item" href="#">logout</a></li>
+                        <li><a class="dropdown-item" href="/dashboard">lihat Kontes</a></li>
+                        <li><a class="dropdown-item" href="#">Buat Kontes</a></li>
+                        <li><a class="dropdown-item" href="/fortopolio">fortopolio</a></li>
+                        <li><a class="dropdown-item" href="/user">my Profile</a></li>
+                        <li>
+                        <form action="/logout" method="post">
+                            @csrf
+                            <button type ="submit" class="dropdown-item">logout</button>
+                        </form>
                     </ul>
-                </li> --}}
+                </li>
+                @else
+                <li class="nav-item"><a class="nav-link {{ Request::is('signin') ? 'active' : '' }}" href="/signin">Login</a></li>    
+                @endauth
             </ul>
         </div>
     </div>

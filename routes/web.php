@@ -8,29 +8,21 @@ use App\Http\Controllers\signinController;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\fortopolioController;
 
-/*
-|--------------------------------------------------------------------------
-| Web Routes
-|--------------------------------------------------------------------------
-|
-| Here is where you can register web routes for your application. These
-| routes are loaded by the RouteServiceProvider within a group which
-| contains the "web" middleware group. Now create something great!
-|
-*/
-
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/dashboard', [postController::class, 'index']);
-Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show');
+Route::get('/dashboard', [postController::class, 'index'])->middleware('auth');
+Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show')->middleware('auth');
 
-Route::get('/user', [userController::class, 'index']);
+Route::get('/user', [userController::class, 'index'])->middleware('auth');
 
-Route::get('/fortopolio', [fortopolioController::class, 'index']);
+Route::get('/fortopolio', [fortopolioController::class, 'index'])->middleware('auth');
 
-Route::get('/signup', [signupController::class, 'index']);
+Route::get('/signup', [signupController::class, 'index'])->middleware('guest');
+Route::post('/signup', [signupController::class, 'store'])->middleware('guest');
 
-Route::get('/signin', [signinController::class, 'index']);
+Route::get('/signin', [signinController::class, 'index'])->name('login')->middleware('guest');
+Route::post('/signin', [signinController::class, 'authenticate'])->middleware('guest');
+Route::post('/logout', [signinController::class, 'logout']);
 
 Route::fallback(function () {return redirect('/');});
