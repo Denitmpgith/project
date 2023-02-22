@@ -1,31 +1,59 @@
-<nav class="navbar fixed-top navbar-expand-lg" style="background-color: rgb(125,125,125)">
-    <div class="container">
-        <a class="navbar-brand fw-bold fst-italic" href="/">website contest</a>
-        <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
-            <span class="navbar-toggler-icon"></span>
-        </button>
-        <div class="collapse navbar-collapse" id="navbarNavDropdown">
-            <ul class="navbar-nav ms-auto">
-                <li class="nav-item"><a class="nav-link {{ Request::is('/') ? 'active' : '' }}" href="/">Home</a></li>
-                @auth
-                <li class="nav-item dropdown {{ Request::is('signin') ? 'active' : '' }}">
-                    <a class="nav-link dropdown-toggle {{ Request::is('dashboard*') ? 'active' : '' }}" href="#" role="button" data-bs-toggle="dropdown" aria-expanded="false">{{ auth()->User()->username }}</a>
-                    <ul class="dropdown-menu">
-                        <li><a class="dropdown-item" href="/dashboard">lihat Kontes</a></li>
-                        <li><a class="dropdown-item" href="#">Buat Kontes</a></li>
-                        <li><a class="dropdown-item" href="/fortopolio">fortopolio</a></li>
-                        <li><a class="dropdown-item" href="/user">my Profile</a></li>
-                        <li>
-                        <form action="/logout" method="post">
-                            @csrf
-                            <button type ="submit" class="dropdown-item">logout</button>
-                        </form>
-                    </ul>
-                </li>
-                @else
-                <li class="nav-item"><a class="nav-link {{ Request::is('signin') ? 'active' : '' }}" href="/signin">Login</a></li>    
-                @endauth
-            </ul>
+<nav class="absolute top-0 left-0 right-0 w-full shadow h-16">
+    <div class="grid grid-cols-12">
+        <div class="col-span-1"></div>
+        <div class="col-span-3 flex justify-start items-center h-16">
+            <a class="text-2xl italic text-cyan-500 align-content-center" href="/">website</a>
         </div>
+        <div class="col-span-7 ">
+            <div class="flex justify-start items-center h-16">
+                <button id="hamburger" name="hamburger" type="button" class="block absolute right-12 lg:hidden">
+                    <span class="hamburger-line transsition duration-300 ease-in out origin-top-left "></span>
+                    <span class="hamburger-line transsition duration-300 ease-in out"></span>
+                    <span class="hamburger-line transsition duration-300 ease-in out origin-bottom-left"></span>
+                </button>
+                <navbar id="nav-menu" class="hidden absolute py-5 bg-white shadow rounded-xl max-w-[200px] w-full right-0 top-full lg:flex lg:justify-end lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
+                    <ul class="block lg:flex">
+                        <li class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('/') ? 'active' : '' }}"><a class="" href="/">Home</a></li>
+                        <hr class="my-2">
+                        @auth
+                        <li {{ auth()->User()->username }}></li>
+                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/dashboard">Lihat Kontes</a></li>
+                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/fortopolio">Fortopolio</a></li>
+                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/user">My Profile</a></li>
+                        <hr class="mt-4">
+                            <form action="/logout" method="post">
+                            @csrf
+                            <button class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 " type ="submit">logout</button>
+                            </form>
+                        </ul>
+                        @else
+                        <li ><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500  {{ Request::is('signin') ? 'active' : '' }}" href="/signin">Login</a></li>    
+                        @endauth
+                    </ul>
+                </navbar>
+            </div>
+        </div>
+        <div class="col-span-1"></div>
     </div>
 </nav>
+<script>
+    //navbar fixed
+window.onscroll = function() {
+    const header = document.querySelector('nav');
+    const fixedNav = header.offsetTop;
+
+    if(window.pageYOffset > fixedNav) {
+        header.classList.add('navbar-fixed');
+    } else {
+        header.classList.remove('navbar-fixed');
+    }
+}
+    //hamburger
+const hamburger = document.querySelector("#hamburger");
+const navMenu = document.querySelector("#nav-menu");
+
+hamburger.addEventListener("click", function () {
+    hamburger.classList.toggle("hamburger-active");
+    navMenu.classList.toggle("hidden");
+});
+</script>

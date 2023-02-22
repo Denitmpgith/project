@@ -1,7 +1,22 @@
-<footer class="container">
-    <p class="float-end"><a href="#">Back to top</a></p>
-    <p>&copy; 2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+<footer class="col-span-12 grid grid-cols-12 bg-slate-500">
+    <div class="col-start-2 col-span-10">
+        <div class="grid grid-cols-12 pt-3 gap-3">
+            <div class="col-span-3 h-20 text-center bg-slate-200 rounded">
+                <p>about us</p>
+            </div>
+            <div class="col-span-3 h-20 text-center bg-slate-200 rounded">
+                <p>about us</p>
+            </div>
+            <div class="col-span-3 h-20 text-center bg-slate-200 rounded">
+                <p>about us</p>
+            </div>
+            <div class="col-span-3 h-20 text-center bg-slate-200 rounded">
+                <p>about us</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-start-2 col-span-10 pb-3">
+        <p class="text-center text-white">&copy; 2023 Company, Inc. &middot; <a href="#">Privacy</a> &middot; <a href="#">Terms</a></p>
+    </div>
 </footer>
-<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js" integrity="sha384-w76AqPfDkMBDXo30jS1Sgez6pr3x5MlQ1ZAGC+nuZB+EYdgRZgiwxhTBTkF7CXvN" crossorigin="anonymous"></script>
-<script src="../assets/dist/js/bootstrap.bundle.min.js"></script>
 </html>

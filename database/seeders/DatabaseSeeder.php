@@ -33,7 +33,7 @@ class DatabaseSeeder extends Seeder
             'password' => bcrypt('password'),
         ]);
         User::create([
-            'username' => 'Udin',
+            'username' => 'Udina',
             'password' => bcrypt('password'),
         ]);
         user_detiles::create([
@@ -74,17 +74,33 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'level_id' => 1,
             'reward' => 100,
-            'title' => 'Mencari yang Bisa menggambar Sampul buku',
+            'title' => 'Saya mencari yang Bisa menggambar Sampul buku',
             'slug' => 'mencari_yang_bisa_menggambar_sampul_buku',
-            'description' => 'Saya memiliki hasil karya tulis, saya ingin membuat buku dari hasil karya tulis saya ini.Sya butuh mode sampul buku yang sesusai dengan isi dari karya tulis saya. Thema karya tulis saya "tertawa saat bermain permainan jadul",'
+            'description' => 'Saya memiliki hasil karya tulis, saya ingin membuat buku dari hasil karya tulis saya ini. Saya butuh mode sampul buku yang sesusai dengan isi dari karya tulis saya. Tema karya tulis saya "tertawa saat bermain permainan jadul",'
         ]);
         Post::create([
             'user_id' => 1,
             'level_id' => 1,
             'reward' => 50,
-            'title' => 'buatkan saya Logo',
+            'title' => 'Buatkan saya Logo',
             'slug' => 'buatkan_saya_logo',
-            'description' => 'saya mencari logo untuk thems "mari Bermain Bersama kami", buatkan gambar atau ilustrasi orang anak kecil mengajak orang dewasa untuk bermain bersama.'
+            'description' => 'Saya mencari resep terbaik, untuk pembuatan bakso, yang sekarang lagi viral terbuat dari sayur, dan tidak menggunakan pengawet. jangan cuma copas dari google, tapi memang resep asli,resep asli terjamin dan pernah di coba, khusus yang karyawan perusahaan bakso sayur saya utamakan.'
+        ]);
+        Post::create([
+            'user_id' => 1,
+            'level_id' => 1,
+            'reward' => 50,
+            'title' => 'Buatkan saya lagu',
+            'slug' => 'buatkan_saya_lagu',
+            'description' => 'Saya mencari lagu untuk intro di youtube,durasi minta minimal 5 menit, gunakan cara accoustic. buat saya tertarik dengan karya terbaik anda, Terimakasih.'
+        ]);
+        Post::create([
+            'user_id' => 2,
+            'level_id' => 1,
+            'reward' => 50,
+            'title' => 'Carikan Resep membuat Bakso',
+            'slug' => 'carikan_resep_membuat_bakso',
+            'description' => 'Saya mencari resep terbaik, untuk pembuatan bakso, yang sekarang lagi viral terbuat dari sayur, dan tidak menggunakan pengawet. jangan cuma copas dari google, tapi memang resep asli, dan sudah terjamin dan pernah di coba, khusus yang karyawan perusahaan bakso sayur saya utamakan'
         ]);
         fortfolio::create([
             'user_id' => 1,
@@ -117,16 +133,44 @@ class DatabaseSeeder extends Seeder
         ]);
         apply::create([
             'post_id' => 1,
-            'user_id' => 1,
-            'title' => 'Apply Postingan Pertama',
-            'slug' => 'apply_postingan_pertama',
+            'user_id' => 2,
+            'title' => 'Apply pertama Postingan Pertama',
+            'slug' => 'apply_pertama_postingan_pertama',
             'description' => 'Terimakasih anda sudah membaca Apply pertama dari postingan pertama',
         ]);
         apply::create([
             'post_id' => 1,
+            'user_id' => 3,
+            'title' => 'Apply pertama Postingan Pertama',
+            'slug' => 'apply_pertama_postingan_pertama_2',
+            'description' => 'Terimakasih anda sudah membaca Apply kedua dari postingan pertama',
+        ]);
+        apply::create([
+            'post_id' => 1,
             'user_id' => 2,
-            'title' => 'Apply Postingan Pertama',
-            'slug' => 'apply_postingan_pertama',
+            'title' => 'Apply kedua Postingan Pertama',
+            'slug' => 'apply_kedua_postingan_pertama_3',
+            'description' => 'Terimakasih anda sudah membaca Apply kedua dari postingan pertama',
+        ]);
+        apply::create([
+            'post_id' => 1,
+            'user_id' => 3,
+            'title' => 'Apply kedua Postingan Pertama',
+            'slug' => 'apply_kedua_postingan_pertama_4',
+            'description' => 'Terimakasih anda sudah membaca Apply kedua dari postingan pertama',
+        ]);
+        apply::create([
+            'post_id' => 1,
+            'user_id' => 2,
+            'title' => 'Apply ketiga Postingan Pertama',
+            'slug' => 'apply_ketiga_postingan_pertama_5',
+            'description' => 'Terimakasih anda sudah membaca Apply kedua dari postingan pertama',
+        ]);
+        apply::create([
+            'post_id' => 1,
+            'user_id' => 3,
+            'title' => 'Apply ketiga Postingan Pertama',
+            'slug' => 'apply_ketiga_postingan_pertama_6',
             'description' => 'Terimakasih anda sudah membaca Apply kedua dari postingan pertama',
         ]);
         applyFile::create([
@@ -154,7 +198,7 @@ class DatabaseSeeder extends Seeder
         comment::create([
             'post_id' => 1,
             'user_id' => 3,
-            'comment' => 'apakah bole menggunakan software opensouce',
+            'comment' => 'apakah boleh menggunakan software opensouce',
             'slug' => 'apakah_bol_menggunakan_software_opensouce',
         ]);
         replyComment::create([
