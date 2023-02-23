@@ -8,7 +8,7 @@ class postController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('applies','comments', 'comments.replyComments')->latest()->get();
+        $posts = Post::with('applies','comments', 'comments.replyComments')->latest('id')->get();
         return view('post.index', compact('posts'));
     }
     public function show($slug)
