@@ -15,9 +15,11 @@ Route::get('/dashboard', [postController::class, 'index'])->middleware('auth');
 Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show')->middleware('auth');
 
 Route::get('/user', [userController::class, 'index'])->middleware('auth');
-Route::get('/user/{slug}', [userController::class, 'show']);
+Route::get('/user/create', [userController::class, 'create'])->middleware('auth');
+Route::post('/user', [userController::class, 'store'])->middleware('auth');
+Route::get('/user/{slug}', [userController::class, 'show'])->middleware('auth');
 
-Route::get('/fortopolio', [fortopolioController::class, 'index'])->middleware('auth');
+Route::get('/fortopolio', [fortopolioController::class, 'index']);
 
 Route::get('/signup', [signupController::class, 'index'])->middleware('guest');
 Route::post('/signup', [signupController::class, 'store'])->middleware('guest');

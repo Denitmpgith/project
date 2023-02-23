@@ -17,11 +17,11 @@ return new class extends Migration
         Schema::create('posts', function (Blueprint $table) {
             $table->id();
             $table->timestamps();
-            $table->timestamp('published')->nullable();
+            $table->integer('deadline');
             $table->foreignId('user_id')->unsignedBigInteger()->constrained();
-            $table->integer('level_id');
-            $table->integer('reward');
+            $table->string('level');
             $table->string('title');
+            $table->integer('reward');
             $table->string('slug');
             $table->text('description');
         });

@@ -1,27 +1,42 @@
 @extends('template.main')
 @section('container')
 <section class="grid grid-cols-12 ">
-    <div class="col-span-12 flex justify-center items-center bg-slate-200 m-3 rounded-xl p-2">
-        <span class="">Welcome... {{ $user_detiles->first_name }} {{ $user_detiles->middle_name }} {{ $user_detiles->last_name }}</span>
-        <span>&nbsp;, hari ini mencari perkerjaan seperti apa ?</spa>
-    </div>
+    @include('user.welcome')
     <div class="col-span-12 grid grid-cols-12">
-        @include('template.acc')
+    @include('user.acc')
         <div class="col-span-12 m-3 p-3 rounded-xl shadow md:col-span-12 lg:col-span-9">        
             <div class="grid grid-cols-12 rounded-xl mb-1 p-3">
-                <div class="col-span-12 items-end mb-1 p-3 rounded-lg bg-slate-200"">
-                    <div class="flex justify-between items-end pb-3">
-                        <h5 class="text-2xl bold text-cyan-500">{{ $post->title }}</h5>
-                        <spa>Reward $ : {{ $post->reward }}</spa>
+                <div class="col-span-12 items-end mb-1 p-3 rounded-lg bg-slate-200">
+                    <div class="grid grid-cols-12 rounded mb-1">
+                        <div class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-10 flex justify-between items-center">
+                            <h5 class="text-2xl bold text-cyan-500"><span class="text-yellow-700 text-base">{{ $post->level }}</span>&nbsp;{{ $post->title }}</h5>
+                        </div>
+                        <div class="col-span-12 md:col-start-10 md:col-span-3 lg:col-start-10 lg:col-span-3 xl:col-start-11 xl:col-span-2 flex justify-between items-end">
+                            <p>Reward : {{ $post->reward }}</p>
+                            @if ( $post->deadline - time() < 3600 )
+                            <small class="text-red-600">{{ floor(($post->deadline - time())/60) }} minute left</small>
+                            @elseif ( $post->deadline - time() < 86400 )
+                            <small class="text-yellow-600">{{ floor(($post->deadline - time())/3600) }} hour left</small>
+                            @elseif ( $post->deadline - time() < 604800 )
+                            <small class="text-green-600">{{ floor(($post->deadline - time())/86400) }} day left</small>
+                            @elseif ( $post->deadline - time() < 2419200 )
+                            <small class="text-green-600">{{ floor(($post->deadline - time())/604800) }} week left</small>
+                            @endif 
+                        </div>
                     </div>
                     <small>create at : {{ $post->created_at->diffForHumans() }} | </small>
                     <small>Owner: {{ $post->user->user_detiles->first_name }}</small>
                     <p>{{ $post->description }}</p>
+                    <div class="flex justify-end mt-2">
+                        <a href="/user/entry" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg">Membuat Entry Baru</a>
+                    </div>
                 </div>
-                <hr class="col-start-10 col-span-3 mt-3">
-                <div class="col-span-12 pb-2 flex justify-end text-cyan-500">
-                    <p >Total apply Contest : {{ $post->applies->count()}} applies,</p>
-                    <p >&nbsp;from : {{ $post->user->count()}} user</p>
+                <hr class="col-span-2 mt-3">
+                <div class="col-span-12 pb-2 flex justify-start text-cyan-500">
+                    <p>Apply Contest :</p>
+                    {{-- <p >&nbsp;from : {{ $post->user->count() }} user</p>
+                    <p >Total apply Contest : {{ $post->applies->count() }} applies ,</p>
+                    <p >&nbsp;from : {{ $post->user->count() }} user</p> --}}
                 </div>
                 <hr class="col-span-12 mb-3">
                 <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
@@ -37,6 +52,7 @@
                         </div>
                     </div>
                     @endforeach
+                    
                 </ul>
                 <hr class="col-span-2 mt-3">
                 <h1 class="col-span-12 pb-1 text-cyan-500">Question and Answer :</h1>

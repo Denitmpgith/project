@@ -52,6 +52,8 @@ class DatabaseSeeder extends Seeder
             'user_id' => 2,
             'profile' => Str::random(10) . ".jpg",
             'first_name' => 'Susanna',
+            'middle_name' => 'Minako',
+            'last_name' => 'Hinata',
             'address' => 'Pameungpeuk',
             'city' => 'Kab. Bandung',
             'country' => 'Indonesia',
@@ -71,33 +73,37 @@ class DatabaseSeeder extends Seeder
             'email' => 'udir@gmail.com',
         ]);
         Post::create([
+            'deadline' => time()+(1*60*60*24),
             'user_id' => 1,
-            'level_id' => 1,
+            'level' => 'Bronze',
             'reward' => 100,
             'title' => 'Saya mencari yang Bisa menggambar Sampul buku',
             'slug' => 'mencari_yang_bisa_menggambar_sampul_buku',
             'description' => 'Saya memiliki hasil karya tulis, saya ingin membuat buku dari hasil karya tulis saya ini. Saya butuh mode sampul buku yang sesusai dengan isi dari karya tulis saya. Tema karya tulis saya "tertawa saat bermain permainan jadul",'
         ]);
         Post::create([
+            'deadline' => time()+(2*60*60*24),
             'user_id' => 1,
-            'level_id' => 1,
-            'reward' => 50,
+            'level' => 'Silver',
+            'reward' => 150,
             'title' => 'Buatkan saya Logo',
             'slug' => 'buatkan_saya_logo',
             'description' => 'Saya mencari resep terbaik, untuk pembuatan bakso, yang sekarang lagi viral terbuat dari sayur, dan tidak menggunakan pengawet. jangan cuma copas dari google, tapi memang resep asli,resep asli terjamin dan pernah di coba, khusus yang karyawan perusahaan bakso sayur saya utamakan.'
         ]);
         Post::create([
+            'deadline' => time()+(3*60*60*24),
             'user_id' => 1,
-            'level_id' => 1,
+            'level' => 'Stone',
             'reward' => 50,
             'title' => 'Buatkan saya lagu',
             'slug' => 'buatkan_saya_lagu',
             'description' => 'Saya mencari lagu untuk intro di youtube,durasi minta minimal 5 menit, gunakan cara accoustic. buat saya tertarik dengan karya terbaik anda, Terimakasih.'
         ]);
         Post::create([
+            'deadline' => time()+(4*60*60*24),
             'user_id' => 2,
-            'level_id' => 1,
-            'reward' => 50,
+            'level' => 'Gold',
+            'reward' => 200,
             'title' => 'Carikan Resep membuat Bakso',
             'slug' => 'carikan_resep_membuat_bakso',
             'description' => 'Saya mencari resep terbaik, untuk pembuatan bakso, yang sekarang lagi viral terbuat dari sayur, dan tidak menggunakan pengawet. jangan cuma copas dari google, tapi memang resep asli, dan sudah terjamin dan pernah di coba, khusus yang karyawan perusahaan bakso sayur saya utamakan'
