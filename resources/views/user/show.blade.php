@@ -13,7 +13,9 @@
                         </div>
                         <div class="col-span-12 md:col-start-10 md:col-span-3 lg:col-start-10 lg:col-span-3 xl:col-start-11 xl:col-span-2 flex justify-between items-end">
                             <p>Reward : {{ $post->reward }}</p>
-                            @if ( $post->deadline - time() < 3600 )
+                            @if ( $post->deadline - time() < 0 )
+                            <small class="text-red-600">End Contest</small>
+                            @elseif ( $post->deadline - time() < 3600 )
                             <small class="text-red-600">{{ floor(($post->deadline - time())/60) }} minute left</small>
                             @elseif ( $post->deadline - time() < 86400 )
                             <small class="text-yellow-600">{{ floor(($post->deadline - time())/3600) }} hour left</small>

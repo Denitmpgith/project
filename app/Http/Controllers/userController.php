@@ -82,7 +82,7 @@ class userController extends Controller
             'deadline' => 'required|numeric',
             'level' => 'required',
             'title' => 'required',
-            'reward' => 'required',
+            'reward' => 'required|numeric',
             'description' => 'required',
         ]);        
 

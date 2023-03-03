@@ -6,6 +6,7 @@ use App\Http\Controllers\postController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\signinController;
 use App\Http\Controllers\signupController;
+use App\Http\Controllers\applyController;
 use App\Http\Controllers\fortopolioController;
 
 Route::get('/', function () {
@@ -19,6 +20,8 @@ Route::get('/user/create', [userController::class, 'create'])->middleware('auth'
 Route::post('/user', [userController::class, 'store'])->middleware('auth');
 Route::get('/user/{slug}', [userController::class, 'show'])->middleware('auth');
 
+Route::get('/apply', [applyController::class, 'index'])->middleware('auth');
+
 Route::get('/fortopolio', [fortopolioController::class, 'index']);
 
 Route::get('/signup', [signupController::class, 'index'])->middleware('guest');
@@ -28,4 +31,4 @@ Route::get('/signin', [signinController::class, 'index'])->name('login')->middle
 Route::post('/signin', [signinController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [signinController::class, 'logout']);
 
-Route::fallback(function () {return redirect('/');});
+// Route::fallback(function () {return redirect('/');});

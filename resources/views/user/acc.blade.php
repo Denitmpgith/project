@@ -1,6 +1,6 @@
 <div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 m-3 p-3 rounded-xl shadow h-fit">
     <div class="col-span-12 flex justify-center mb-3">
-        <img src="{{ $picture }}" width="200"></p>
+        <img src="{{ $picture }}" width="200"/>
     </div>
     <div class="col-span-12 p-2 rounded-lg text-base bg-slate-200 md:text-xs lg:text-sm">
         <span class="">{{ $user_detiles->first_name }}</span>

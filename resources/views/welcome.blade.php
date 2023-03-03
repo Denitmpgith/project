@@ -1,9 +1,9 @@
 @extends('template.main')
 
 @section('container')
-<section class="flex justify-center items-center w-full">
-    <div class="container flex justify-between items-center">
-    <h1>hi, ini adalah halaman home</h1>
+<section class="grid grid-cols-12">
+    <div class="container col-start-2 col-span-10 h-full bg-slate-700">
+    <h1 class="text-white">hi, ini adalah halaman home</h1>
     </div>
 </section>
 @endsection
