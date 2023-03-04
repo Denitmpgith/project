@@ -15,9 +15,9 @@
                     <ul class="block lg:flex">
                         <li class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('/') ? 'active' : '' }}"><a class="" href="/">Home</a></li>
                         <hr class="my-2">
+                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/dashboard">Lihat Kontes</a></li>
                         @auth
                         <li {{ auth()->User()->username }}></li>
-                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/dashboard">Lihat Kontes</a></li>
                         <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/fortopolio">Fortopolio</a></li>
                         <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/user">My Profile</a></li>
                         <hr class="mt-4">

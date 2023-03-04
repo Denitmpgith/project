@@ -29,52 +29,79 @@
                     <small>create at : {{ $post->created_at->diffForHumans() }} | </small>
                     <small>Owner: {{ $post->user->user_detiles->first_name }}</small>
                     <p>{{ $post->description }}</p>
-                    <div class="flex justify-end mt-2">
-                        <a href="/user/entry" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg">Membuat Entry Baru</a>
+                </div>
+                {{-- <p >&nbsp;from : {{ $post->user->count() }} user</p> --}}
+                @if($post->applies->count() > 0)
+                    <hr class="col-span-2 mt-3">
+                    <div class="col-span-12 pb-2 flex justify-start text-cyan-500">
+                        <p>{{ $post->applies->count() }} applies ,&nbsp;</p>
+                        <p>from {{ $post->applies->groupBy('user_id')->count() }} user</p>
                     </div>
-                </div>
-                <hr class="col-span-2 mt-3">
-                <div class="col-span-12 pb-2 flex justify-start text-cyan-500">
-                    <p>Apply Contest :</p>
-                    {{-- <p >&nbsp;from : {{ $post->user->count() }} user</p>
-                    <p >Total apply Contest : {{ $post->applies->count() }} applies ,</p>
-                    <p >&nbsp;from : {{ $post->user->count() }} user</p> --}}
-                </div>
-                <hr class="col-span-12 mb-3">
-                <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
-                    @foreach ($post->applies as $apply)
-                    <div class="col-span-3 bg-slate-200 p-2 rounded-lg">
-                        <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ $apply->title }}</a></li>
-                        @foreach($apply->applyFile as $applyFile)
-                        <li>{{ $applyFile->file }}</li>
-                        @endforeach
-                        <div class="flex justify-between">
-                            <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
-                            <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                    <hr class="col-span-12 mb-3">
+                    <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
+                        @foreach ($post->applies as $apply)
+                        <div class="col-span-12 bg-slate-200 p-2 rounded-lg lg:col-span-3">
+                            <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ $apply->title }}</a></li>
+                            {{-- @foreach($apply->applyFile as $applyFile)
+                            <li>{{ $applyFile->file }}</li>
+                            @endforeach --}}
+                            @if($apply->applyFile->count() > 0)
+                            <p>{{ $apply->applyFile->count() }} file uploaded</p>
+                            @endif
+                            <div class="flex justify-between">
+                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                            </div>
                         </div>
-                    </div>
-                    @endforeach
-                    
-                </ul>
+                        @endforeach
+                    </ul>
+                @endif                   
+                @if($post->comments->count() > 0)
                 <hr class="col-span-2 mt-3">
                 <h1 class="col-span-12 pb-1 text-cyan-500">Question and Answer :</h1>
                 <hr class="col-span-12 mb-3">
                 @foreach ($post->comments as $comment)
                 <ul class="col-span-12">
-                    <div class="grid grid-cols-12 bg-slate-200 py-1 px-1 rounded-lg my-1">
-                        <li class="col-span-1">{{ $comment->user->user_detiles->first_name }}</li>
-                        <li class="col-span-9">: {{ $comment->comment }}</li>
-                        <small class="col-start-11 col-span-2 text-right">{{ $post->created_at->diffForHumans() }}</small>
+                    <div class="col-span-12 grid grid-cols-12 bg-slate-200 p-2 mb-2 rounded lg:rounded-l-full ">
+                        <div class="hidden col-start-1 col-span-1 p-1 lg:flex lg:justify-start">
+                            <div class="shadow h-12 w-12 rounded-full bg-white">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                        <div class="col-span-12 mb-2 lg:col-start-2 lg:col-span-10">
+                            <p>{{ $comment->user->user_detiles->first_name }}</p>
+                            <div class="flex justify-between">
+                                <p>{{ $comment->comment }}</p>
+                                <p class="text-xs">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>
+                        </div>
                     </div>
                     @foreach ($comment->replyComments as $reply)
-                    <ul class="grid grid-cols-12 py-1 px-1">
-                        <li class="col-span-1">{{ $reply->user->user_detiles->first_name }}</li>
-                        <li class="col-span-9">: {{ $reply->replycomment }}</li>
-                        <small class="col-start-11 col-span-2 text-right">{{ $post->created_at->diffForHumans() }}</small>
+                    <ul class="col-span-12 grid grid-cols-12 mb-1">
+                        <div class="hidden col-start-1 col-span-1 lg:flex lg:justify-end p-2 ">
+                            <div class="shadow h-10 w-10 rounded-full bg-slate-300">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                        <div class="lg:col-start-2 col-span-12 bg-slate-200 p-2 rounded-l-lg">
+                            <p>{{ $reply->user->user_detiles->first_name }}&nbsp;</p>
+                            <div class="flex justify-between">
+                                <p>{{ $reply->replycomment }}</p>
+                                <p class="text-xs">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>
+                        </div>
                     </ul>
                     @endforeach
                 </ul>
                 @endforeach
+                @endif  
+            </div>
+            <div class="col-span-12 flex justify-end align-bottom gap-3">
+                {{-- @if($post->user, auth)
+                @else
+                @endif --}}
+                <a class="bg-slate-500 rounded-lg p-1 w-32 h-8 text-center text-white hover:bg-slate-600" href="/user/entry" >Upload Entry</a>
+                <a class="bg-slate-500 rounded-lg p-1 w-32 h-8 text-center text-white hover:bg-slate-600" href="/user">Back</a>
             </div>
         </div>
     </div>

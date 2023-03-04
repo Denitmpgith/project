@@ -9,7 +9,7 @@
                 <div class="flex justify-start mt-2">
                     <h1 class="text-lg mb-5 font-bold">Membuat Kontes</h1>
                 </div>
-                <form action="/user" method="post">
+                <form action="/user" method="post" enctype="multipart/form-data">
                     @csrf
                     <div class="space-y-4">
                         <div class="grid grid-cols-12 gap-5 items-end">

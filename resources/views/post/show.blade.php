@@ -1,37 +1,70 @@
 @extends('template.main')
 
 @section('container')
-<section class="container">
-    <h5>{{ $post->title }}</h5>
-    <p>{{ $post->description }}</p>
-    <p>reward $ : {{ $post->reward }}</p>
-    <p>Owner: {{ $post->user->user_detiles->first_name }}</p>
-    <h5>Applies job:</h5>
-    <hr>
-    <ul>
-        @foreach ($post->applies as $apply)
-            <p>{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</p>
-            <li>{{ $apply->title }}</li>
-            @foreach($apply->applyFile as $applyFile)
-                <li>{{ $applyFile->file }}</li>
-            @endforeach
-            <hr>
-        @endforeach
-    </ul>
-    <h5>Question and Answer:</h5>
-    <hr>
-    <ul>
-        @foreach ($post->comments as $comment)
-            <li>{{ $comment->user->user_detiles->first_name }}</li>
-            <li>{{ $comment->comment }}</li>
-            <ul>
-                @foreach ($comment->replyComments as $reply)
-                    <li>{{ $reply->user->user_detiles->first_name }}</li>
-                    <li>{{ $reply->replycomment }}</li>
+<section class="container grid grid-cols-12 gap-2 mt-2">
+    <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-1 shadow lg:col-span-10">
+        <div class="col-span-12 flex justify-start">
+            @if ( $post->level == "Stone" )
+            <span class="text-stone-500 text-base">{{ $post->level }}&nbsp;</span>
+            @elseif ( $post->level =="Bronze" )
+            <span class="text-red-500 text-base">{{ $post->level }}&nbsp;</span>
+            @elseif ( $post->level == "Silver" )
+            <span class="text-yellow-500 text-base">{{ $post->level }}&nbsp;</span>
+            @elseif ( $post->level == "Gold" )
+            <span class="text-lime-500 text-base">{{ $post->level }}&nbsp;</span>
+            @elseif ( $post->level == "Platinum" )
+            <span class="text-cyan-500 text-base">{{ $post->level }}&nbsp;</span>
+            @elseif ( $post->level == "Diamond" )
+            <span class="text-purple-500 text-base">{{ $post->level }}&nbsp;</span>
+            @endif
+            <div class="flex justify-between w-full ">
+                {{-- <p>{{ $post->user->user_detiles->first_name }}</p> --}}
+                <p class="text-cyan-500">{{ $post->title }}</p>
+                <p>Reward $ {{ $post->reward }}&nbsp;</p>
+            </div>
+        </div>
+        <div class="col-span-12">
+            <p>{{ $post->description }}</p>
+        </div>
+    </div>
+    @if($post->applies->count() > 0)
+    <div class="col-span-12 lg:col-span-10">
+        <h5>Applies job:</h5>
+        <hr>
+        <ul>
+            @foreach ($post->applies as $apply)
+                <p>{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</p>
+                <li>{{ $apply->title }}</li>
+                @foreach($apply->applyFile as $applyFile)
+                    <li>{{ $applyFile->file }}</li>
                 @endforeach
                 <hr>
-            </ul>
-        @endforeach
-    </ul>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    @if($post->comments->count() > 0)
+    <div class="col-span-12 lg:col-span-10">
+        <h5>Question and Answer:</h5>
+        <hr>
+        <ul>
+            @foreach ($post->comments as $comment)
+                <li>{{ $comment->user->user_detiles->first_name }}</li>
+                <li>{{ $comment->comment }}</li>
+                <ul>
+                    @foreach ($comment->replyComments as $reply)
+                        <li>{{ $reply->user->user_detiles->first_name }}</li>
+                        <li>{{ $reply->replycomment }}</li>
+                    @endforeach
+                    <hr>
+                </ul>
+            @endforeach
+        </ul>
+    </div>
+    @endif
+    <div class="col-span-12 lg:col-span-10 flex justify-end mt-3 gap-3">
+        <a class="bg-blue-500 rounded-lg p-1 w-32 text-center text-white hover:bg-blue-600" href="#">Join Contest</a>
+        <a class="bg-slate-500 rounded-lg p-1 w-32 text-center text-white hover:bg-slate-600" href="/dashboard">Back</a>
+    </div>
 </section>
 @endsection

@@ -63,7 +63,7 @@ class userController extends Controller
         $auth = Auth::user();
         $user_detiles = User_detiles::where('user_id', Auth::user()->id)->first();
         $picture = '/default/potraid120x150.png';
-    
+        
         if ($user_detiles && $user_detiles->profile && file_exists(public_path('/img/' . $user_detiles->profile))) {
             $picture = '/img/' . $user_detiles->profile;
         } else {
@@ -84,7 +84,7 @@ class userController extends Controller
             'title' => 'required',
             'reward' => 'required|numeric',
             'description' => 'required',
-        ]);        
+        ]);      
 
         // dd($validatedData);
 
@@ -108,6 +108,24 @@ class userController extends Controller
         $post->save();
 
         return redirect('/user')->with('success', 'Post berhasil dibuat');
+    }
+    public function apply($slug)
+    {
+        $user = Auth::user();
+        $user_detiles = User_detiles::where('user_id', $user->id)->first();
+        $apply = Apply::where('slug', $slug)->first();
+        $picture = '/default/potraid120x150.png';
+        
+        if ($user_detiles && $user_detiles->profile && file_exists(public_path('/img/' . $user_detiles->profile))) {
+            $picture = '/img/' . $user_detiles->profile;
+        } else {
+            $picture = '/default/portrait120x150.png';
+        }
+        return view('user.applydetile', [
+            'picture' => $picture,
+            'apply' => $apply,
+            'user_detiles' => $user_detiles
+        ]);
     }
 }
 

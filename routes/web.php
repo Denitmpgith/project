@@ -12,15 +12,16 @@ use App\Http\Controllers\fortopolioController;
 Route::get('/', function () {
     return view('welcome');
 });
-Route::get('/dashboard', [postController::class, 'index'])->middleware('auth');
-Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show')->middleware('auth');
+Route::get('/dashboard', [postController::class, 'index']);
+Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show');
 
 Route::get('/user', [userController::class, 'index'])->middleware('auth');
 Route::get('/user/create', [userController::class, 'create'])->middleware('auth');
 Route::post('/user', [userController::class, 'store'])->middleware('auth');
 Route::get('/user/{slug}', [userController::class, 'show'])->middleware('auth');
 
-Route::get('/apply', [applyController::class, 'index'])->middleware('auth');
+Route::get('/apply/{slug}', [userController::class, 'apply'])->middleware('auth');
+
 
 Route::get('/fortopolio', [fortopolioController::class, 'index']);
 
