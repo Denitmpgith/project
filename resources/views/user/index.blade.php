@@ -2,9 +2,8 @@
 @section('container')
 <section class="grid grid-cols-12">
     @include('user.welcome')
-    <div class="col-span-12 grid grid-cols-12">
-    @include('user.acc')
-        <div class="col-span-12 grid grid-cols-12 md:col-span-12 h-fit lg:col-start-4 lg:col-span-9">
+    <div class="col-span-12 grid grid-cols-12 ">
+        <div class="col-span-12 grid grid-cols-12 md:col-span-12 h-fit lg:col-start-1 lg:col-span-9">
             <div class="col-span-12 m-3 p-3 rounded-xl shadow md:col-span-12 h-fit">
                 <h1 class="mb-5">Ikut Serta dalam Kontes</h1>
                 @foreach ($applies as $apply)  
@@ -43,12 +42,12 @@
                 </div>                 
                 @foreach ($posts as $post)
                 <div class="bg-slate-200 p-2 rounded-lg mb-2">
-                    <div class="grid grid-cols-12 rounded mb-1 ">
-                        <div class="col-span-12 md:col-span-8 lg:col-span-9 xl:col-span-10 flex justify-between items-end">
+                    <div class="flex justify-between rounded mb-1 ">
+                        <div class="flex justify-between items-end">
                             <p>
-                            @if ( $post->level == "Stone" )
-                            <span class="text-stone-500 text-base">{{ $post->level }}</span>
-                            @elseif ( $post->level =="Bronze" )
+                                @if ( $post->level == "Stone" )
+                                <span class="text-stone-500 text-base">{{ $post->level }}</span>
+                                @elseif ( $post->level =="Bronze" )
                             <span class="text-red-500 text-base">{{ $post->level }}</span>
                             @elseif ( $post->level == "Silver" )
                             <span class="text-yellow-500 text-base">{{ $post->level }}</span>
@@ -61,8 +60,8 @@
                             @endif
                             &nbsp;<a class="text-cyan-500" href="/user/{{ $post->slug }}">{{ $post->title }}</a></p>
                         </div>
-                        <div class="col-span-12 md:col-start-9 md:col-span-4 lg:col-start-10 lg:col-span-3 xl:col-start-11 xl:col-span-2 flex justify-between items-end">
-                            <p>Reward : {{ $post->reward }}</p>
+                        <div class="flex justify-between items-center">
+                            <p>Reward : {{ $post->reward }}&nbsp;</p>
                             @if ( $post->deadline - time() < 0 )
                             <small class="text-red-600">End Contest</small>
                             @elseif ( $post->deadline - time() < 3600 )
@@ -84,6 +83,7 @@
                 <div class="flex justify-end">{{ $posts->links() }}</div>
             </div>
         </div>
+        @include('user.acc')
     </div>
 </section>
 @endsection

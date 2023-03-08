@@ -1,5 +1,5 @@
-<footer class="col-span-12 lg:col-start-2 lg:col-span-10 rounded-lg grid grid-cols-12 bg-slate-200">
-    <div class="col-start-2 col-span-10">
+<footer class="col-span-12 lg:col-start-3 lg:col-span-8 rounded-lg grid grid-cols-12 bg-slate-500">
+    <div class="col-start-3 col-span-8">
         <div class="grid grid-cols-12 pt-3 gap-3">
             <div class="col-span-3 h-20 text-center">
                 <p>about us</p>

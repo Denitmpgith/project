@@ -127,6 +127,24 @@ class userController extends Controller
             'user_detiles' => $user_detiles
         ]);
     }
+    public function applystore(Request $request, $slug)
+    {
+        $validatedData = $request->validate([
+            'submit' => 'required|in:Winner,Reject,norate'
+        ]);
+    
+        // dd($validatedData); // Tambahkan kode ini untuk menampilkan data yang sudah ditangkap
+    
+        $apply = Apply::where('slug', $slug)->firstOrFail();
+        if ($apply->rate_status) {
+            $apply->rate_status = $validatedData['submit'];
+            $apply->save();
+        }
+        
+    
+        return redirect('/user/' . $apply->post->slug)->with('success', 'Successfully updated apply status.');
+
+    }
 }
 
 

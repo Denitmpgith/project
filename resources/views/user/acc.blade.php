@@ -1,8 +1,12 @@
-<div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 m-3 p-3 rounded-xl shadow h-fit">
+<div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 m-3 p-3 rounded-xl shadow-red-500 h-fit">
     {{-- @dd($picture); --}}
     <div class="col-span-12 flex justify-center mb-3">
         <img src="{{ asset($picture) }}" width="200"/>
     </div>
+    <form class="col-span-12 rounded text-base bg-slate-200 md:text-xs lg:text-sm mb-1">
+        @csrf
+        <input type="file" placeholder="{{ $picture }}" value="" >
+    </form>
     <div class="col-span-12 p-2 rounded-lg text-base bg-slate-200 md:text-xs lg:text-sm">
         <span class="">{{ $user_detiles->first_name }}</span>
         <span class="">{{ $user_detiles->middle_name }}</span>

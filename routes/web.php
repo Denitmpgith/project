@@ -32,4 +32,7 @@ Route::get('/signin', [signinController::class, 'index'])->name('login')->middle
 Route::post('/signin', [signinController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [signinController::class, 'logout']);
 
+Route::post('/apply/{slug}', [userController::class, 'applystore'])->name('apply.store');
+
+
 // Route::fallback(function () {return redirect('/');});

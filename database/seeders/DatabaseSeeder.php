@@ -38,7 +38,7 @@ class DatabaseSeeder extends Seeder
         ]);
         user_detiles::create([
             'user_id' => 1,
-            'profile' => Str::random(10) . ".jpg",
+/*             'profile' => Str::random(10) . ".jpg", */
             'first_name' => 'Deni',
             'middle_name' => 'Indra',
             'last_name' => 'jaya',
@@ -79,7 +79,7 @@ class DatabaseSeeder extends Seeder
             'reward' => 100,
             'title' => 'Saya mencari yang Bisa menggambar Sampul buku',
             'slug' => 'mencari_yang_bisa_menggambar_sampul_buku',
-            'description' => 'Saya memiliki hasil karya tulis, saya ingin membuat buku dari hasil karya tulis saya ini. Saya butuh mode sampul buku yang sesusai dengan isi dari karya tulis saya. Tema karya tulis saya "tertawa saat bermain permainan jadul",'
+            'description' => 'Saya memiliki hasil karya tulis, saya ingin membuat buku dari hasil karya tulis saya ini. Saya butuh mode sampul buku yang sesusai dengan isi dari karya tulis saya. Tema karya tulis saya "Ai banyak mengubah cara pandang Dunia",'
         ]);
         Post::create([
             'deadline' => time()+(2*60*60*24),

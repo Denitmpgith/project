@@ -16,7 +16,7 @@ return new class extends Migration
         Schema::create('user_detiles', function (Blueprint $table) {
             $table->id();
             $table->foreignId('user_id')->constrained();
-            $table->string('profile');
+            $table->string('profile')->nullable();
             $table->string('first_name');
             $table->string('middle_name')->default('')->nullable();
             $table->string('last_name')->default('')->nullable();

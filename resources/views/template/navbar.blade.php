@@ -1,10 +1,9 @@
 <nav class="absolute top-0 left-0 right-0 w-full shadow h-16">
     <div class="grid grid-cols-12">
-        <div class="col-span-1"></div>
-        <div class="col-span-3 flex justify-start items-center h-16">
+        <div class="col-start-2 col-span-2 lg:col-start-3 lg:col-span-2 flex justify-start items-center h-16">
             <a class="text-2xl italic text-cyan-500 align-content-center" href="/">website</a>
         </div>
-        <div class="col-span-7 ">
+        <div class="col-start-5 col-span-6">
             <div class="flex justify-start items-center h-16">
                 <button id="hamburger" name="hamburger" type="button" class="block absolute right-12 lg:hidden">
                     <span class="hamburger-line transsition duration-300 ease-in out origin-top-left "></span>
@@ -33,7 +32,6 @@
                 </navbar>
             </div>
         </div>
-        <div class="col-span-1"></div>
     </div>
 </nav>
 <script>
