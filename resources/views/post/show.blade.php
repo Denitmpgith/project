@@ -17,10 +17,17 @@
             @elseif ( $post->level == "Diamond" )
             <span class="text-purple-500 text-base">{{ $post->level }}&nbsp;</span>
             @endif
-            <div class="flex justify-between w-full ">
+            <div class="flex justify-between w-full">
                 {{-- <p>{{ $post->user->user_detiles->first_name }}</p> --}}
                 <p class="text-cyan-500">{{ $post->title }}</p>
-                <p>Reward $ {{ $post->reward }}&nbsp;</p>
+                <div class="flex justify-end">
+                    @if($post->deadline-time() >= 1)
+                        <p id="countdown{{ $post->id }}"></p>
+                    @else
+                        <p class="text-red-500">Contest end</p>
+                    @endif
+                    <p>&nbsp; Reward $ {{ $post->reward }}&nbsp;</p>
+                </div>
             </div>
         </div>
         <div class="col-span-12">
@@ -69,3 +76,40 @@
     </div>
 </section>
 @endsection
+<script>
+    document.addEventListener("DOMContentLoaded", function(event) {
+      function countdown(deadline, countdownElement) {
+        var countdownInterval = setInterval(function() {
+          var currentTime = new Date().getTime();
+          var timeLeft = deadline - currentTime;
+          var days = Math.floor(timeLeft / (1000 * 60 * 60 * 24));
+          var hours = Math.floor((timeLeft % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+          var minutes = Math.floor((timeLeft % (1000 * 60 * 60)) / (1000 * 60));
+          var seconds = Math.floor((timeLeft % (1000 * 60)) / 1000); 
+          if (timeLeft <= 0) {
+              clearInterval(countdownInterval);
+              countdownElement.innerHTML = "Contest End";
+            } else {
+              if (days <= 0) {
+                if (hours <= 0) {
+                  if (minutes <= 0) {
+                    countdownElement.innerHTML = "count down end : " + "<span class='text-red-700'>" + seconds + "</span>" + " second";
+                  } else {
+                    countdownElement.innerHTML = "count down end : " + "<span class='text-red-500'>" + minutes + ":" + seconds + "</span>";
+                  }
+                } else {
+                  countdownElement.innerHTML = "count down end : " + "<span class='text-yellow-500'>" + hours + ":" + minutes + ":" + seconds + "</span>";
+                }
+              } else {
+                countdownElement.innerHTML = "count down end : " + "<span class='text-green-500'>" + days + " day " + hours + ":" + minutes + ":" + seconds + "</span>";
+              }
+            }
+        }, 1000);
+      }
+    
+    @if($post->deadline-time() > 0)
+        var countdownElement{{ $post->id }} = document.getElementById("countdown{{ $post->id }}");
+        countdown({{ $post->deadline }}000, countdownElement{{ $post->id }});
+    @endif
+    });
+  </script>
