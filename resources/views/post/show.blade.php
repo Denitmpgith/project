@@ -35,42 +35,141 @@
         </div>
     </div>
     @if($post->applies->count() > 0)
-    <h5 class="col-span-12 ">Applies job</h5>
-    <hr class="col-span-12 ">
-    <div class="col-span-12 grid grid-cols-12 gap-2">
-        @foreach ($post->applies as $apply)
-            <div class="col-span-12 lg:col-span-3 bg-slate-200 rounded p-2">
-                <p>{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</p>
-                <div>{{ $apply->title }}</div>
-                @foreach($apply->applyFile as $applyFile)
-                    <div>{{ $applyFile->file }}</div>
-                @endforeach
-            </div>
-        @endforeach
-    </div>
+        <hr class="col-span-2 mt-3">
+        <div class="col-span-12 pb-2 flex justify-start text-cyan-500">
+            <p>{{ $post->applies->count() }} applies ,&nbsp;</p>
+            <p>from {{ $post->applies->groupBy('user_id')->count() }} user</p>
+        </div>
+        <hr class="col-span-12 mb-3">
+        <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
+            @foreach ($post->applies->sortBy(function ($apply) {
+                return $apply->rate_status == 'Winner' ? 3 : ($apply->rate_status == 'Runner Up' ? 2 : ($apply->rate_status == 'norate' ? 1 : 0));
+            })->reverse() as $apply)                        
+                @if($apply->rate_status == 'Winner')
+                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+                        <div class="text-green-600 bg-white px-2 flex justify-between rounded-t-lg">
+                            <p >{{ $apply->rate_status }}</p>
+                            <p>$ {{ number_format(floor($post->reward/100*70/$post->applies->where('rate_status', 'Winner')->count() * 100) / 100, 0, '.', '') }}</p>
+                        </div>
+                        <div class="h-[200px] mt-2 flex justify-center w-full">
+                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
+                        </div>
+                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
+                        <div class="">
+                            <div class="flex justify-between">
+                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                            </div>
+                            @if($apply->applyFile->count() > 0)
+                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
+                            @endif
+                        </div>
+                    </div>
+                @elseif($apply->rate_status == 'Runner Up')
+                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+                        <div class="text-yellow-600 bg-white px-2 flex justify-between rounded-t-lg">
+                            <p >{{ $apply->rate_status }}</p>
+                            <p>$ {{ number_format(floor($post->reward/100*20/$post->applies->where('rate_status', 'Runner Up')->count() * 100) / 100, 0, '.', '') }}</p>
+                        </div>
+                        <div class="h-[200px] mt-2 flex justify-center w-full">
+                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
+                        </div>
+                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
+                        <div class="">
+                            <div class="flex justify-between">
+                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                            </div>
+                            @if($apply->applyFile->count() > 0)
+                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
+                            @endif
+                        </div>
+                    </div>
+                @elseif($apply->rate_status == 'norate')
+                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+                        <div class="text-black bg-white px-2 flex justify-between rounded-t-lg">
+                            <p >{{ $apply->rate_status }}</p>
+                            <p>$ {{ number_format(floor($post->reward/100*10/$post->applies->where('rate_status', 'norate')->count() * 100) / 100, 0, '.', '') }}</p>
+                        </div>
+                        <div class="h-[200px] mt-2 flex justify-center w-full">
+                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
+                        </div>
+                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
+                        <div class="">
+                            <div class="flex justify-between">
+                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                            </div>
+                            @if($apply->applyFile->count() > 0)
+                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
+                            @endif
+                        </div>
+                    </div>
+                @elseif($apply->rate_status == 'Reject')
+                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+                        <div class="text-red-600 bg-white px-2 flex justify-center rounded-t-lg">
+                            <p >{{ $apply->rate_status }}</p>
+                        </div>
+                        <div class="h-[200px] mt-2 flex justify-center w-full">
+                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
+                        </div>
+                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
+                        <div class="">
+                            <div class="flex justify-between">
+                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                            </div>
+                            @if($apply->applyFile->count() > 0)
+                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
+                            @endif
+                        </div>
+                    </div>
+                @endif
+            @endforeach
+        </ul>                  
+    @endif   
     <div class="col-span-12 flex justify-end mt-3 gap-3">
         <a class="bg-blue-500 rounded-lg p-1 w-32 text-center text-white hover:bg-blue-600" href="#">Join Contest</a>
     </div>
-    @endif
     @if($post->comments->count() > 0)
-    <div class="col-span-12">
-        <h5>Question and Answer:</h5>
-        <hr>
-        <ul>
-            @foreach ($post->comments as $comment)
-                <li>{{ $comment->user->user_detiles->first_name }}</li>
-                <li>{{ $comment->comment }}</li>
-                <ul>
+                <hr class="col-span-2 mt-3">
+                <h1 class="col-span-12 pb-1 text-cyan-500">Question and Answer :</h1>
+                <hr class="col-span-12 mb-3">
+                @foreach ($post->comments as $comment)
+                <ul class="col-span-12">
+                    <div class="col-span-12 grid grid-cols-12 bg-slate-200 p-2 mb-2 rounded lg:rounded-l-full ">
+                        <div class="hidden col-start-1 col-span-1 p-1 lg:flex lg:justify-start">
+                            <div class="shadow h-12 w-12 rounded-full bg-white">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                        <div class="col-span-12 mb-2 lg:col-start-2 lg:col-span-11">
+                            <p>{{ $comment->user->user_detiles->first_name }}</p>
+                            <div class="flex justify-between">
+                                <p>{{ $comment->comment }}</p>
+                                <p class="text-xs">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>
+                        </div>
+                    </div>
                     @foreach ($comment->replyComments as $reply)
-                        <li>{{ $reply->user->user_detiles->first_name }}</li>
-                        <li>{{ $reply->replycomment }}</li>
+                    <ul class="col-span-12 grid grid-cols-12 mb-1">
+                        <div class="hidden col-start-1 col-span-1 lg:flex lg:justify-end p-2 ">
+                            <div class="shadow h-10 w-10 rounded-full bg-slate-300">
+                                <img src="" alt="">
+                            </div>
+                        </div>
+                        <div class="lg:col-start-2 col-span-12 bg-slate-200 p-2 rounded-l-lg">
+                            <p>{{ $reply->user->user_detiles->first_name }}&nbsp;</p>
+                            <div class="flex justify-between">
+                                <p>{{ $reply->replycomment }}</p>
+                                <p class="text-xs">{{ $post->created_at->diffForHumans() }}</p>
+                            </div>
+                        </div>
+                    </ul>
                     @endforeach
-                    <hr>
                 </ul>
-            @endforeach
-        </ul>
-    </div>
-    @endif
+                @endforeach
+                @endif  
     <div class="col-span-12 flex justify-end mt-3 gap-3">
         <a class="bg-slate-500 rounded-lg p-1 w-32 text-center text-white hover:bg-slate-600" href="/dashboard">Back</a>
     </div>

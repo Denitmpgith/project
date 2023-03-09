@@ -41,12 +41,34 @@
                     </div>
                     <hr class="col-span-12 mb-3">
                     <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
-                        @foreach ($post->applies->sortByDesc(function ($apply) {return $apply->rate_status == 'Winner' ? 2 : ($apply->rate_status == 'norate' ? 1 : 0);}) as $apply)
+                        @foreach ($post->applies->sortBy(function ($apply) {
+                            return $apply->rate_status == 'Winner' ? 3 : ($apply->rate_status == 'Runner Up' ? 2 : ($apply->rate_status == 'norate' ? 1 : 0));
+                        })->reverse() as $apply)                        
                             @if($apply->rate_status == 'Winner')
                                 <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                                    <div class="text-blue-600 bg-white px-2 flex justify-between rounded-t-lg">
+                                    <div class="text-green-600 bg-white px-2 flex justify-between rounded-t-lg">
                                         <p >{{ $apply->rate_status }}</p>
-                                        <p>$ {{ number_format(floor($post->reward/100*90/$post->applies->where('rate_status', 'Winner')->count() * 100) / 100, 0, '.', '') }}</p>
+                                        <p>$ {{ number_format(floor($post->reward/100*70/$post->applies->where('rate_status', 'Winner')->count() * 100) / 100, 0, '.', '') }}</p>
+                                    </div>
+                                    <div class="h-[200px] mt-2 flex justify-center w-full">
+                                        <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
+                                    </div>
+                                    <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ Str::limit($apply->title, 30) }}</a></li>
+                                    <div class="">
+                                        <div class="flex justify-between">
+                                            <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                            <small class="">{{ $post->created_at->diffForHumans() }}</small>
+                                        </div>
+                                        @if($apply->applyFile->count() > 0)
+                                            <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
+                                        @endif
+                                    </div>
+                                </div>
+                            @elseif($apply->rate_status == 'Runner Up')
+                                <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+                                    <div class="text-yellow-600 bg-white px-2 flex justify-between rounded-t-lg">
+                                        <p >{{ $apply->rate_status }}</p>
+                                        <p>$ {{ number_format(floor($post->reward/100*20/$post->applies->where('rate_status', 'Runner Up')->count() * 100) / 100, 0, '.', '') }}</p>
                                     </div>
                                     <div class="h-[200px] mt-2 flex justify-center w-full">
                                         <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
@@ -117,7 +139,7 @@
                                 <img src="" alt="">
                             </div>
                         </div>
-                        <div class="col-span-12 mb-2 lg:col-start-2 lg:col-span-10">
+                        <div class="col-span-12 mb-2 lg:col-start-2 lg:col-span-11">
                             <p>{{ $comment->user->user_detiles->first_name }}</p>
                             <div class="flex justify-between">
                                 <p>{{ $comment->comment }}</p>

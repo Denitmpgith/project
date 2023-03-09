@@ -13,7 +13,7 @@ Route::get('/', function () {
     return view('welcome');
 });
 Route::get('/dashboard', [postController::class, 'index']);
-Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show');
+Route::get('/dashboard/{slug}', [PostController::class, 'show'])->name('post.show')->middleware('auth');
 
 Route::get('/user', [userController::class, 'index'])->middleware('auth');
 Route::get('/user/create', [userController::class, 'create'])->middleware('auth');

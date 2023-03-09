@@ -130,7 +130,7 @@ class userController extends Controller
     public function applystore(Request $request, $slug)
     {
         $validatedData = $request->validate([
-            'submit' => 'required|in:Winner,Reject,norate'
+            'submit' => 'required|in:Winner,Runner Up,Reject,norate'
         ]);
     
         // dd($validatedData); // Tambahkan kode ini untuk menampilkan data yang sudah ditangkap

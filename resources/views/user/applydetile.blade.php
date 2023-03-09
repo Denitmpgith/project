@@ -27,6 +27,7 @@
                 <form class="flex justify-end gap-3" method="post" action="{{ route('apply.store', $apply->slug) }}">
                     @csrf
                     <button class="bg-green-500 rounded-lg p-1 w-32 text-center text-white hover:bg-green-600" type="submit" name="submit" value="Winner">Winner</button>
+                    <button class="bg-green-500 rounded-lg p-1 w-32 text-center text-white hover:bg-green-600" type="submit" name="submit" value="Runner Up">Runner Up</button>
                     <button class="bg-red-500 rounded-lg p-1 w-32 text-center text-white hover:bg-red-600" type="submit" name="submit" value="Reject">Reject</button>
                     <button class="bg-blue-700 rounded-lg p-1 w-32 text-center text-white hover:bg-slate-600" type="submit" name="submit" value="norate">Cancel rate</button>
                 </form>
