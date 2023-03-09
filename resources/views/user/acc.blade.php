@@ -1,4 +1,4 @@
-<div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 m-3 p-3 rounded-xl shadow-red-500 h-fit">
+<div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 m-3 p-3 rounded-xl shadow h-fit">
     {{-- @dd($picture); --}}
     <div class="col-span-12 flex justify-center mb-3">
         <img src="{{ asset($picture) }}" width="200"/>
