@@ -41,7 +41,7 @@
     </div>
     @if($post->applies->count() > 0)
         <hr class="col-span-2 mt-3">
-        <div class="col-span-12 pb-2 flex justify-start text-xl font-bold text-cyan-500 ">
+        <div class="col-span-12 pb-2 flex justify-start text-xl font-bold text-cyan-600 ">
             <p>{{ $post->applies->count() }} applies ,&nbsp;</p>
             <p>from {{ $post->applies->groupBy('user_id')->count() }} user</p>
         </div>
@@ -70,13 +70,13 @@
                     </div>
                     @endif
                         <p class="font-semibold">{{ $apply['title'] }}</p>
-                        <p class="text-gray-600">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
+                        @if ($apply['applyFileCount'] > 0 )
+                            <p class="text-gray-600 text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
+                        @endif
+                        <p class="text-gray-600 text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
                         <div class="flex justify-between items-center">
-                            @if ($apply['applyFileCount'] > 0 )
-                                <p class="text-gray-600">{{ $apply['applyFileCount'] }} Files</p>
-                            @endif
                             @if ($apply['rateStatus'] != 'Reject' && $apply['rateStatus'] != 'norate')
-                                <span class="px-2 py-1 text-sm font-semibold text-white rounded-lg bg-{{ $apply['color'] }}">{{ $apply['rateStatus'] }}</span>
+                                <span class="mt-2 px-2 py-1 text-sm font-semibold text-white rounded-lg bg-{{ $apply['color'] }}">{{ $apply['rateStatus'] }}</span>
                             @endif
                         </div>
                     </div>
