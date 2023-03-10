@@ -34,5 +34,8 @@ Route::post('/logout', [signinController::class, 'logout']);
 
 Route::post('/apply/{slug}', [userController::class, 'applystore'])->name('apply.store');
 
+Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
+
+
 
 // Route::fallback(function () {return redirect('/');});

@@ -22,7 +22,7 @@
                             <small class="text-green-600">{{ floor(($post->deadline - time())/86400) }} day left</small>
                             @elseif ( $post->deadline - time() < 2419200 )
                             <small class="text-green-600">{{ floor(($post->deadline - time())/604800) }} week left</small>
-                            @endif 
+                            @endif
                         </div>
                     </div>
                     <small>create at : {{ $post->created_at->diffForHumans() }} | </small>

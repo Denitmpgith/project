@@ -40,49 +40,7 @@
         </div>
     </div>
     @if($post->applies->count() > 0)
-        <hr class="col-span-2 mt-3">
-        <div class="col-span-12 pb-2 flex justify-start text-xl font-bold text-cyan-600 ">
-            <p>{{ $post->applies->count() }} applies ,&nbsp;</p>
-            <p>from {{ $post->applies->groupBy('user_id')->count() }} user</p>
-        </div>
-        <hr class="col-span-12 mb-3">
-        <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
-            <div class="col-span-12 grid grid-cols-12 gap-4">
-                @foreach ($appliesData as $apply)
-                <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                    @if ($apply['rateStatus'] == 'Winner')
-                        <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
-                            <p>{{ $apply['rateStatus'] }}</p>
-                            <p>$ {{ $apply['reward'] }}</p>
-                        </div>
-                    @elseif ($apply['rateStatus'] == 'Runner Up')
-                        <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
-                            <p>{{ $apply['rateStatus'] }}</p>
-                            <p>$ {{ $apply['reward'] }}</p>
-                        </div>
-                    @elseif ($apply['rateStatus'] == 'norate')
-                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
-                        <p>{{ $apply['rateStatus'] }}</p>
-                    </div>
-                    @elseif ($apply['rateStatus'] == 'Reject')
-                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
-                        <p>{{ $apply['rateStatus'] }}</p>
-                    </div>
-                    @endif
-                        <p class="font-semibold">{{ $apply['title'] }}</p>
-                        @if ($apply['applyFileCount'] > 0 )
-                            <p class="text-gray-600 text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
-                        @endif
-                        <p class="text-gray-600 text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
-                        <div class="flex justify-between items-center">
-                            @if ($apply['rateStatus'] != 'Reject' && $apply['rateStatus'] != 'norate')
-                                <span class="mt-2 px-2 py-1 text-sm font-semibold text-white rounded-lg bg-{{ $apply['color'] }}">{{ $apply['rateStatus'] }}</span>
-                            @endif
-                        </div>
-                    </div>
-                @endforeach
-            </div>  
-        </ul>                  
+    @include('user.iapply')                     
     @endif
     @if ($post->user_id !== auth()->id())
     <div class="col-span-12 flex justify-end mt-3 gap-3">
@@ -93,7 +51,6 @@
     <hr class="col-span-2 mt-3">
     <h1 class="col-span-12 pb-1 text-xl font-bold text-cyan-600">Question and Answer :</h1>
     <hr class="col-span-12 mb-3">
-    
     <ul class="col-span-12">
         @foreach ($post->comments as $comment)
         <li class="mb-4">
@@ -110,11 +67,19 @@
                     </div>
                     <div class="flex items-center mt-2">
                         <span class="text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}&nbsp;</span>
-                        <a href="#" class="text-xs text-gray-500 mr-2 hover:text-blue-500">Reply</a>
+                        <a id="tombol-reply" href="#" class="text-xs text-gray-500 mr-2 hover:text-blue-500" onclick="toggleForm()">Reply</a>
                     </div>
-                </div>
+                    <div id="reply-form" style="display:none;">
+                        <form method="POST" action="{{ route('comments.reply', $comment->id) }}">
+                            @csrf
+                            <div class="flex justify-between items-end">
+                                <input name="reply" placeholder="Type your reply here..." rows="3" class="w-full h-6 p-0 m-0 rounded border-gray-300 focus:border-blue-500 focus:outline-none"></input>
+                                <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>                
             </div>
-    
             @foreach ($comment->replyComments as $reply)
             <div class="grid grid-cols-12 bg-gray-200 p-2 rounded-lg ml-8 my-1">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
@@ -137,11 +102,9 @@
         @endforeach
     </ul>
     @endif    
-
-<div class="col-span-12 flex justify-end mt-4">
-    <a class="bg-gray-600 rounded-lg py-1 px-4 w-32 text-center text-white hover:bg-gray-700" href="/dashboard">Back</a>
-</div>
-
+    <div class="col-span-12 flex justify-end mt-4">
+        <a class="bg-gray-600 rounded-lg py-1 px-4 w-32 text-center text-white hover:bg-gray-700" href="/dashboard">Back</a>
+    </div>
 </section>
 @endsection
 <script>
@@ -180,4 +143,18 @@
         countdown({{ $post->deadline }}000, countdownElement{{ $post->id }});
     @endif
     });
+
+    @foreach ($post->comments as $comment)
+    function toggleForm() {
+    const button = document.getElementById('tombol-reply');
+    const form = document.getElementById('reply-form');
+        if (form.style.display === "none") {
+            form.style.display = "block";
+            button.innerHTML = "Cancel";
+        } else {
+            form.style.display = "none";
+            button.innerHTML = "Reply";
+        }
+    }
+    @endforeach
 </script>
