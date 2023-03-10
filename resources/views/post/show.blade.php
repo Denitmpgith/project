@@ -1,9 +1,14 @@
 @extends('template.main')
 
 @section('container')
-<section class="container grid grid-cols-12 gap-2 mt-2">
-    <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-1 shadow">
-        <div class="col-span-12 flex justify-start">
+<section class="grid grid-cols-12 gap-2 mt-2 px-5">
+    <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-2 shadow">
+        @if ($post->user_id == auth()->id())
+        <span class="col-span-12 ">
+            <p class="text-white bg-amber-600 px-5 py-1 w-fit rounded-lg">( The contest is your own )</p>
+        </span>
+        @endif  
+        <div class="col-span-12 flex justify-start ">
             @if ( $post->level == "Stone" )
             <span class="text-stone-500 text-base">{{ $post->level }}&nbsp;</span>
             @elseif ( $post->level =="Bronze" )
@@ -19,7 +24,7 @@
             @endif
             <div class="flex justify-between w-full">
                 {{-- <p>{{ $post->user->user_detiles->first_name }}</p> --}}
-                <p class="text-cyan-500">{{ $post->title }}</p>
+                <p class="text-cyan-500 font-bold">{{ $post->title }}</p>
                 <div class="flex justify-end">
                     @if($post->deadline-time() >= 1)
                         <p id="countdown{{ $post->id }}"></p>
@@ -42,95 +47,48 @@
         </div>
         <hr class="col-span-12 mb-3">
         <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
-            @foreach ($post->applies->sortBy(function ($apply) {
-                return $apply->rate_status == 'Winner' ? 3 : ($apply->rate_status == 'Runner Up' ? 2 : ($apply->rate_status == 'norate' ? 1 : 0));
-            })->reverse() as $apply)                        
-                @if($apply->rate_status == 'Winner')
-                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                        <div class="text-green-600 bg-white px-2 flex justify-between rounded-t-lg">
-                            <p >{{ $apply->rate_status }}</p>
-                            <p>$ {{ number_format(floor($post->reward/100*70/$post->applies->where('rate_status', 'Winner')->count() * 100) / 100, 0, '.', '') }}</p>
+            <div class="col-span-12 grid grid-cols-12 gap-4">
+                @foreach ($appliesData as $apply)
+                <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+                    @if ($apply['rateStatus'] == 'Winner')
+                        <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
+                            <p>{{ $apply['rateStatus'] }}</p>
+                            <p>$ {{ $apply['reward'] }}</p>
                         </div>
-                        <div class="h-[200px] mt-2 flex justify-center w-full">
-                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
+                    @elseif ($apply['rateStatus'] == 'Runner Up')
+                        <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
+                            <p>{{ $apply['rateStatus'] }}</p>
+                            <p>$ {{ $apply['reward'] }}</p>
                         </div>
-                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
-                        <div class="">
-                            <div class="flex justify-between">
-                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
-                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
-                            </div>
-                            @if($apply->applyFile->count() > 0)
-                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
+                    @elseif ($apply['rateStatus'] == 'norate')
+                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
+                        <p>{{ $apply['rateStatus'] }}</p>
+                    </div>
+                    @elseif ($apply['rateStatus'] == 'Reject')
+                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
+                        <p>{{ $apply['rateStatus'] }}</p>
+                    </div>
+                    @endif
+                        <p class="font-bold">{{ $apply['title'] }}</p>
+                        <p class="text-gray-600">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
+                        <div class="flex justify-between items-center">
+                            @if ($apply['applyFileCount'] > 0 )
+                                <p class="text-gray-600">{{ $apply['applyFileCount'] }} Files</p>
+                            @endif
+                            @if ($apply['rateStatus'] != 'Reject' && $apply['rateStatus'] != 'norate')
+                                <span class="px-2 py-1 text-sm font-semibold text-white rounded-lg bg-{{ $apply['color'] }}">{{ $apply['rateStatus'] }}</span>
                             @endif
                         </div>
                     </div>
-                @elseif($apply->rate_status == 'Runner Up')
-                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                        <div class="text-yellow-600 bg-white px-2 flex justify-between rounded-t-lg">
-                            <p >{{ $apply->rate_status }}</p>
-                            <p>$ {{ number_format(floor($post->reward/100*20/$post->applies->where('rate_status', 'Runner Up')->count() * 100) / 100, 0, '.', '') }}</p>
-                        </div>
-                        <div class="h-[200px] mt-2 flex justify-center w-full">
-                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
-                        </div>
-                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
-                        <div class="">
-                            <div class="flex justify-between">
-                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
-                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
-                            </div>
-                            @if($apply->applyFile->count() > 0)
-                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
-                            @endif
-                        </div>
-                    </div>
-                @elseif($apply->rate_status == 'norate')
-                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                        <div class="text-black bg-white px-2 flex justify-between rounded-t-lg">
-                            <p >{{ $apply->rate_status }}</p>
-                            <p>$ {{ number_format(floor($post->reward/100*10/$post->applies->where('rate_status', 'norate')->count() * 100) / 100, 0, '.', '') }}</p>
-                        </div>
-                        <div class="h-[200px] mt-2 flex justify-center w-full">
-                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
-                        </div>
-                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
-                        <div class="">
-                            <div class="flex justify-between">
-                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
-                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
-                            </div>
-                            @if($apply->applyFile->count() > 0)
-                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
-                            @endif
-                        </div>
-                    </div>
-                @elseif($apply->rate_status == 'Reject')
-                    <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                        <div class="text-red-600 bg-white px-2 flex justify-center rounded-t-lg">
-                            <p >{{ $apply->rate_status }}</p>
-                        </div>
-                        <div class="h-[200px] mt-2 flex justify-center w-full">
-                            <img class="h-[175px] w-[175px] shadow mt-2 bg-slate-500" src="" alt="">
-                        </div>
-                        <div class="text-black">{{ Str::limit($apply->title, 30) }}</div>
-                        <div class="">
-                            <div class="flex justify-between">
-                                <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
-                                <small class="">{{ $post->created_at->diffForHumans() }}</small>
-                            </div>
-                            @if($apply->applyFile->count() > 0)
-                                <p class="text-xs">{{ $apply->applyFile->count() }} file uploaded</p>
-                            @endif
-                        </div>
-                    </div>
-                @endif
-            @endforeach
+                @endforeach
+            </div>  
         </ul>                  
-    @endif   
+    @endif
+    @if ($post->user_id !== auth()->id())
     <div class="col-span-12 flex justify-end mt-3 gap-3">
         <a class="bg-blue-500 rounded-lg p-1 w-32 text-center text-white hover:bg-blue-600" href="#">Join Contest</a>
     </div>
+    @endif   
     @if($post->comments->count() > 0)
                 <hr class="col-span-2 mt-3">
                 <h1 class="col-span-12 pb-1 text-cyan-500">Question and Answer :</h1>
@@ -211,4 +169,4 @@
         countdown({{ $post->deadline }}000, countdownElement{{ $post->id }});
     @endif
     });
-  </script>
+</script>
