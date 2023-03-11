@@ -1,7 +1,7 @@
 @extends('template.main')
 
 @section('container')
-<section class="grid grid-cols-12 gap-2 mt-2 px-5">
+<section class="grid grid-cols-12 mt-2 px-5">
     <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-2 shadow">
         <span class="col-span-12 flex justify-between">
         @if ($post->user_id == auth()->id())
@@ -49,18 +49,20 @@
             </div>
         @endif
     @endif   
-    @if ($post->comments->count() > 0)
     <hr class="col-span-2 mt-2">
     <h1 class="col-span-12 pb-1 text-xl font-bold text-cyan-600">Question and Answer :</h1>
     <hr class="col-span-12">
-    <ul class="col-span-12">
-        <form class="container" method="POST" action="">
-            @csrf
-            <div class="flex justify-between items-end flex-col">
-                <textarea name="reply" placeholder="&nbsp;Your Comment here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
-                <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
-            </div>                             
-        </form>
+    <form class="col-span-12" method="POST" action="/comments">
+        @csrf
+        <div class="flex justify-between items-end flex-col ">
+            <input type="hidden" name="post_id" value="{{ $post->id }}">
+            <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+            <textarea name="comment" placeholder="&nbsp;Your Comment here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
+            <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
+        </div>                             
+    </form>
+    @if ($post->comments->count() > 0)
+    <ul class="col-span-12 ">
         @foreach ($post->comments as $comment)
         <li class="mb-3">
             <div class="grid grid-cols-12 p-1 rounded-lg">
@@ -180,5 +182,27 @@
             }
             }
         @endforeach
+
+    const form = document.querySelector('form');
+    form.addEventListener('submit', (event) => {
+        event.preventDefault(); // menghentikan action default form
+
+        const formData = new FormData(form); // membuat object FormData dengan data form
+
+        fetch('/comments', {
+            method: 'POST',
+            body: formData
+        })
+        .then(response => response.json())
+        .then(data => {
+            // lakukan apa yang ingin dilakukan setelah komentar berhasil dibuat
+            // contoh: menambahkan komentar ke halaman tanpa memperbarui halaman
+            const commentList = document.querySelector('.comment-list');
+            const newComment = document.createElement('div');
+            newComment.innerHTML = data.comment;
+            commentList.appendChild(newComment);
+        })
+        .catch(error => console.error(error));
+    });
 
 </script>

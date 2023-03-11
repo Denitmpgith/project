@@ -7,6 +7,7 @@ use App\Http\Controllers\userController;
 use App\Http\Controllers\signinController;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\applyController;
+use App\Http\Controllers\commentController;
 use App\Http\Controllers\fortopolioController;
 
 Route::get('/', function () {
@@ -34,7 +35,11 @@ Route::post('/logout', [signinController::class, 'logout']);
 
 Route::post('/apply/{slug}', [userController::class, 'applystore'])->name('apply.store');
 
-Route::post('/comments/{comment}/reply', [CommentController::class, 'reply'])->name('comments.reply');
+Route::post('/comments', [commentController::class, 'store']);
+Route::post('/comments/{comment}/reply', [commentController::class, 'store'])->name('comments.reply');
+
+
+
 
 
 
