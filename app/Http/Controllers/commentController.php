@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use Carbon\Carbon;
 use App\Models\Post;
 use App\Models\comment;
 use Illuminate\Http\Request;
@@ -18,6 +19,7 @@ class commentController extends Controller
 
         $post = Post::findOrFail($request->input('post_id'));
         $comment = new comment;
+        $comment->created_at = Carbon::now();
         $comment->post_id = $post->id;
         $comment->user_id = Auth::user()->id;
         $comment->comment = $validatedData['comment'];

@@ -35,7 +35,7 @@ Route::post('/logout', [signinController::class, 'logout']);
 
 Route::post('/apply/{slug}', [userController::class, 'applystore'])->name('apply.store');
 
-Route::post('/comments', [commentController::class, 'store']);
+Route::post('/comments', [commentController::class, 'store'])->middleware('App\Http\Middleware\BlockDirectAccess');
 Route::post('/comments/{comment}/reply', [commentController::class, 'store'])->name('comments.reply');
 
 

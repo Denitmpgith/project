@@ -81,7 +81,7 @@
                         <a id="reply-button-{{ $comment->id }}" href="#comment-form-{{ $comment->id }}" class="text-xs text-gray-500 mr-2 hover:text-blue-500" onclick="toggleForm({{ $comment->id }})">Reply</a>
                     </div>
                     <div id="reply-form-{{ $comment->id }}" style="display:none;">
-                        <form method="POST" action="{{ route('comments.reply', $comment->id) }}">
+                        <form method="POST" action="/comments/reply">
                             @csrf
                             <div class="flex justify-between items-end flex-col">
                                 <textarea name="reply" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
