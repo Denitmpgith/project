@@ -1,6 +1,14 @@
 @extends('template.main')
 @section('container')
 <section class="grid grid-cols-12 gap-3 my-5 p-2">
+<form class="col-start-2 col-span-10" method="POST" action="">
+  <h1>anda bisa membuat kontes disini</h1>
+  @csrf
+  <div class="flex justify-between items-end flex-col">
+      <textarea name="reply" placeholder="&nbsp;&nbsp;made your own contest here..." rows="3" class="rounded-lg bg-slate-100 h-16 w-full p-0 m-0 border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
+      <a href="/user/create" type="submit" class=" text-center mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</a>
+  </div>                             
+</form>
     @foreach($posts as $post)
     <div class="col-span-12 flex justify-start bg-slate-200 rounded-lg shadow p-3">
         <div class="hidden lg:block w-[100px] h-[100px] shadow rounded bg-blue-500">

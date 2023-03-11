@@ -98,9 +98,9 @@
                                 </div>
                             </form>                    --}}
                         </div>
-                        <div class="col-span-12 flex justify-between mt-2 gap-5 lg:col-span-3">
-                            <button type="submit" class="bg-green-600 text-white font-bold py-2 px-8 rounded-lg hover:bg-green-800">Submit</button>
-                            <a href="/user" class="bg-yellow-600 text-white font-bold py-2 px-9 rounded-lg hover:bg-yellow-800">Cancel</a>
+                        <div class="col-span-12 flex justify-end mt-2 gap-5 lg:col-span-3">
+                            <button type="submit" class="bg-green-600 text-white font-bold py-1 px-8 rounded-lg hover:bg-green-800">Submit</button>
+                            <a href="/user" class="bg-yellow-600 text-white font-bold py-1 px-9 rounded-lg hover:bg-yellow-800">Cancel</a>
                         </div>
                     </div>
                 </form>

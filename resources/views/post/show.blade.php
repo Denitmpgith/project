@@ -43,52 +43,61 @@
     @include('user.iapply')                     
     @endif
     @if ($post->user_id !== auth()->id())
-    <div class="col-span-12 flex justify-end mt-3 gap-3">
-        <a class="bg-blue-500 rounded-lg p-1 w-32 text-center text-white hover:bg-blue-600" href="#">Join Contest</a>
-    </div>
+        @if($post->deadline-time() >= 1)
+            <div class="col-span-12 flex justify-end mt-3 gap-3">
+                <a class="bg-blue-500 rounded-lg p-1 w-32 text-center text-white hover:bg-blue-600" href="#">Join Contest</a>
+            </div>
+        @endif
     @endif   
     @if ($post->comments->count() > 0)
-    <hr class="col-span-2 mt-3">
+    <hr class="col-span-2 mt-2">
     <h1 class="col-span-12 pb-1 text-xl font-bold text-cyan-600">Question and Answer :</h1>
-    <hr class="col-span-12 mb-3">
+    <hr class="col-span-12">
     <ul class="col-span-12">
+        <form class="container" method="POST" action="">
+            @csrf
+            <div class="flex justify-between items-end flex-col">
+                <textarea name="reply" placeholder="&nbsp;Your Comment here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
+                <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
+            </div>                             
+        </form>
         @foreach ($post->comments as $comment)
-        <li class="mb-4">
-            <div class="grid grid-cols-12 bg-gray-100 p-4 rounded-lg">
+        <li class="mb-3">
+            <div class="grid grid-cols-12 p-1 rounded-lg">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
                     <div class="shadow h-12 w-12 rounded-full bg-gray-300">
                         <img src="" alt="">
                     </div>
                 </div>
                 <div class="col-span-12 lg:col-start-2 lg:col-span-11">
-                    <div class="flex items-center mb-2">
+                    <div class="flex items-center mb-1">
                         <span class="font-bold mr-2 text-gray-700">{{ $comment->user->user_detiles->first_name }}&nbsp;</span>
                         <span class="text-sm text-gray-800"><span class="font-extrabold">"</span>{{ $comment->comment }}<span class="font-extrabold">"</span></span>
                     </div>
-                    <div class="flex items-center mt-2">
+                    <div class="flex items-center">
                         <span class="text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}&nbsp;</span>
-                        <a id="tombol-reply" href="#" class="text-xs text-gray-500 mr-2 hover:text-blue-500" onclick="toggleForm()">Reply</a>
+                        <a id="reply-button-{{ $comment->id }}" href="#comment-form-{{ $comment->id }}" class="text-xs text-gray-500 mr-2 hover:text-blue-500" onclick="toggleForm({{ $comment->id }})">Reply</a>
                     </div>
-                    <div id="reply-form" style="display:none;">
+                    <div id="reply-form-{{ $comment->id }}" style="display:none;">
                         <form method="POST" action="{{ route('comments.reply', $comment->id) }}">
                             @csrf
-                            <div class="flex justify-between items-end">
-                                <input name="reply" placeholder="Type your reply here..." rows="3" class="w-full h-6 p-0 m-0 rounded border-gray-300 focus:border-blue-500 focus:outline-none"></input>
+                            <div class="flex justify-between items-end flex-col">
+                                <textarea name="reply" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
                                 <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
-                            </div>
+                            </div>                             
                         </form>
                     </div>
                 </div>                
             </div>
             @foreach ($comment->replyComments as $reply)
-            <div class="grid grid-cols-12 bg-gray-200 p-2 rounded-lg ml-8 my-1">
+            <div class="grid grid-cols-12 p-1 rounded-lg ml-10 my-1">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
                     <div class="shadow h-10 w-10 rounded-full bg-gray-300">
                         <img src="" alt="">
                     </div>
                 </div>
                 <div class="col-span-12 lg:col-start-2 lg:col-span-11">
-                    <div class="flex items-center mb-2">
+                    <div class="flex items-center">
                         <span class="font-bold mr-2 text-gray-700">{{ $reply->user->user_detiles->first_name }}&nbsp;</span>
                         <span class="text-sm text-gray-800"><span class="font-extrabold">"</span>{{ $reply->replycomment }}<span class="font-extrabold">"</span></span>
                     </div>
@@ -99,6 +108,7 @@
             </div>
             @endforeach
         </li>
+        <hr class="bg-slate-500">
         @endforeach
     </ul>
     @endif    
@@ -144,17 +154,31 @@
     @endif
     });
 
-    @foreach ($post->comments as $comment)
-    function toggleForm() {
-    const button = document.getElementById('tombol-reply');
-    const form = document.getElementById('reply-form');
-        if (form.style.display === "none") {
-            form.style.display = "block";
-            button.innerHTML = "Cancel";
-        } else {
-            form.style.display = "none";
-            button.innerHTML = "Reply";
-        }
-    }
-    @endforeach
+        @foreach ($post->comments as $comment)
+        function toggleForm(commentId) {
+        // loop through all comment forms and hide them except for the one clicked
+            @foreach ($post->comments as $c)
+                if ({{$c->id}} !== commentId) {
+                    const otherForm = document.getElementById('reply-form-{{$c->id}}');
+                    const otherButton = document.getElementById('reply-button-{{$c->id}}');
+                    if (otherForm.style.display !== "none") {
+                        otherForm.style.display = "none";
+                        otherButton.innerHTML = "Reply";
+                    }
+                }
+            @endforeach
+
+        // show or hide the clicked comment form
+            const button = document.getElementById('reply-button-' + commentId);
+            const form = document.getElementById('reply-form-' + commentId);
+            if (form.style.display === "none") {
+                form.style.display = "block";
+                button.innerHTML = "Cancel";
+            } else {
+                form.style.display = "none";
+                button.innerHTML = "Reply";
+            }
+            }
+        @endforeach
+
 </script>
