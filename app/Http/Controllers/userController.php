@@ -145,20 +145,6 @@ class userController extends Controller
     
         return redirect('/user/' . $apply->post->slug)->with('success', 'Successfully updated apply status.');
     }
-    public function reply(Request $request, Comment $comment)
-    {
-        $this->validate($request, [
-            'reply' => 'required'
-        ]);
-
-        $reply = new Comment();
-        $reply->comment = $request->input('reply');
-        $reply->user_id = auth()->user()->id;
-        $reply->parent_id = $comment->id;
-        $reply->save();
-
-        return redirect()->back()->with('success', 'Your reply has been added successfully!');
-    }
 }
 
 

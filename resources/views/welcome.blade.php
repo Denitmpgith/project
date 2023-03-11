@@ -1,21 +1,17 @@
 @include('template.header')
 @include('template.navbar')
-<body class="grid grid-cols-12 pt-16 ">
-    <section class="col-span-12 grid grid-cols-12 bg-slate-100">
-        <div class="col-span-12 flex justify-center items-center flex-col md:col-start-1 md:col-span-6 lg:col-start-1 lg:col-span-7 h-[750px] p-16">
-            <div class="flex justify-center items-center flex-col p-10">
-                <div class="w-[150] lg:w-[500px]">
-                    <p class="text-3xl font-bold text-cyan-500 uppercase">Platform Pencari Freelancer Unggul</p>
-                    <p class="text-lg">diantara freelancer-freelancer terbaik, dengan tidak mengorbankan freelancer yang lain</p>
-                </div>
-                <div class="w-[150] lg:w-[500px]">
-                    <li class="text-lg">bukan hanya untuk mencari Freelancer berbakat, tapi menghargai freelacer yang sudah berusaha membuat sesuatu untuk penyelenggara kontes</li>
-                    <li class="text-lg">Moto kami : Waktu lebih berharga dari uang</li>
+<body class="grid grid-cols-12">
+    <section class="col-span-12 flex justify-around pt-16 items-center flex-col-reverse h-screen md:flex-row lg:flex-row">
+        <div class="col-span-12 flex justify-center items-center p-2">
+            <div class="w-[325px] h-[325px] md:h-[375px] md:w-[375px] lg:h-[500px] lg:w-[500px] xl:h-[650px] xl:w-[650px] flex justify-center items-center flex-col ">
+                <div class="">
+                    <p class="text-base md:text-lg lg:text-2xl xl:text-4xl font-bold text-cyan-500 uppercase ">Platform Pencari Freelancer Unggul</p>
+                    <p class="text-sm md:text-base lg:text-lg xl:text-2xl">diantara freelancer-freelancer terbaik, dengan tidak mengorbankan freelancer yang lain</p>
                 </div>
             </div>
         </div>
-        <div class="col-span-12 flex justify-center items-center md:col-start-7 md:col-span-6 lg:col-start-8 lg:col-span-5">
-            <div class="w-[150] lg:h-[750px] flex justify-center items-center flex-col">
+        <div class="col-span-12 flex justify-center items-center p-2">
+            <div class="w-[325px] h-[325px] md:h-[375px] md:w-[375px] lg:h-[500px] lg:w-[500px] xl:h-[650px] xl:w-[650px] flex justify-center items-center flex-col ">
                 <img src="default/untitled.png" alt="">
             </div>
         </div>

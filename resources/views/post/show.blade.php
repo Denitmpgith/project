@@ -63,7 +63,7 @@
     </form>
     @if ($post->comments->count() > 0)
     <ul class="col-span-12 ">
-        @foreach ($post->comments as $comment)
+        @foreach ($post->comments->sortByDesc('created_at') as $comment)
         <li class="mb-3">
             <div class="grid grid-cols-12 p-1 rounded-lg">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
@@ -84,14 +84,16 @@
                         <form method="POST" action="/comments/reply">
                             @csrf
                             <div class="flex justify-between items-end flex-col">
-                                <textarea name="reply" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
+                                <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                <textarea name="replyComment" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
                                 <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
                             </div>                             
                         </form>
                     </div>
                 </div>                
             </div>
-            @foreach ($comment->replyComments as $reply)
+            @foreach ($comment->replyComments->sortBy('created_at') as $reply)
             <div class="grid grid-cols-12 p-1 rounded-lg ml-10 my-1">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
                     <div class="shadow h-10 w-10 rounded-full bg-gray-300">
