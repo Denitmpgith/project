@@ -56,7 +56,7 @@
                                     <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ Str::limit($apply->title, 30) }}</a></li>
                                     <div class="">
                                         <div class="flex justify-between">
-                                            <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                            <small class="ml-1">By {{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
                                             <small class="">{{ $post->created_at->diffForHumans() }}</small>
                                         </div>
                                         @if($apply->applyFile->count() > 0)
@@ -76,7 +76,7 @@
                                     <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ Str::limit($apply->title, 30) }}</a></li>
                                     <div class="">
                                         <div class="flex justify-between">
-                                            <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                            <small class="ml-1">By {{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
                                             <small class="">{{ $post->created_at->diffForHumans() }}</small>
                                         </div>
                                         @if($apply->applyFile->count() > 0)
@@ -96,7 +96,7 @@
                                     <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ Str::limit($apply->title, 30) }}</a></li>
                                     <div class="">
                                         <div class="flex justify-between">
-                                            <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                            <small class="ml-1">By {{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
                                             <small class="">{{ $post->created_at->diffForHumans() }}</small>
                                         </div>
                                         @if($apply->applyFile->count() > 0)
@@ -115,7 +115,7 @@
                                     <li class="text-cyan-500"><a href="/apply/{{ $apply->slug }}">{{ Str::limit($apply->title, 30) }}</a></li>
                                     <div class="">
                                         <div class="flex justify-between">
-                                            <small class="ml-1">{{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
+                                            <small class="ml-1">By {{ $apply->user->user_detiles->first_name ?? 'not registered' }}</small>
                                             <small class="">{{ $post->created_at->diffForHumans() }}</small>
                                         </div>
                                         @if($apply->applyFile->count() > 0)
@@ -127,45 +127,62 @@
                         @endforeach
                     </ul>                  
                 @endif                   
-                @if($post->comments->count() > 0)
-                <hr class="col-span-2 mt-3">
-                <h1 class="col-span-12 pb-1 text-cyan-500">Question and Answer :</h1>
-                <hr class="col-span-12 mb-3">
-                @foreach ($post->comments as $comment)
-                <ul class="col-span-12">
-                    <div class="col-span-12 grid grid-cols-12 bg-slate-200 p-2 mb-2 rounded lg:rounded-l-full ">
-                        <div class="hidden col-start-1 col-span-1 p-1 lg:flex lg:justify-start">
-                            <div class="shadow h-12 w-12 rounded-full bg-white">
-                                <img src="" alt="">
-                            </div>
-                        </div>
-                        <div class="col-span-12 mb-2 lg:col-start-2 lg:col-span-11">
-                            <p>{{ $comment->user->user_detiles->first_name }}</p>
-                            <div class="flex justify-between">
-                                <p>{{ $comment->comment }}</p>
-                                <p class="text-xs">{{ $post->created_at->diffForHumans() }}</p>
-                            </div>
+    @if ($post->comments->count() > 0)
+    <hr class="col-span-12 bg-slate-500">
+        <ul class="col-span-12 ">
+        @foreach ($post->comments->sortByDesc('created_at') as $comment)
+            <li class="mb-3">
+                <div class="grid grid-cols-12 p-1 rounded-lg">
+                    <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
+                        <div class="shadow h-12 w-12 rounded-full bg-gray-300">
+                            <img src="" alt="">
                         </div>
                     </div>
-                    @foreach ($comment->replyComments as $reply)
-                    <ul class="col-span-12 grid grid-cols-12 mb-1">
-                        <div class="hidden col-start-1 col-span-1 lg:flex lg:justify-end p-2 ">
-                            <div class="shadow h-10 w-10 rounded-full bg-slate-300">
-                                <img src="" alt="">
-                            </div>
+                    <div class="col-span-12 lg:col-start-2 lg:col-span-11">
+                        <div class="flex items-center mb-1">
+                            <span class="font-bold mr-2 text-gray-700">{{ $comment->user->user_detiles->first_name }}&nbsp;</span>
+                            <span class="text-sm text-gray-800"><span class="font-extrabold">"</span>{{ $comment->comment }}<span class="font-extrabold">"</span></span>
                         </div>
-                        <div class="lg:col-start-2 col-span-12 bg-slate-200 p-2 rounded-l-lg">
-                            <p>{{ $reply->user->user_detiles->first_name }}&nbsp;</p>
-                            <div class="flex justify-between">
-                                <p>{{ $reply->replycomment }}</p>
-                                <p class="text-xs">{{ $post->created_at->diffForHumans() }}</p>
-                            </div>
+                        <div class="flex items-center">
+                            <span class="text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}&nbsp;</span>
+                            <a id="reply-button-{{ $comment->id }}" href="#comment-form-{{ $comment->id }}" class="text-xs text-gray-500 mr-2 hover:text-blue-500" onclick="toggleForm({{ $comment->id }})">Reply</a>
                         </div>
-                    </ul>
+                        <div id="reply-form-{{ $comment->id }}" style="display:none;">
+                            <form method="POST" action="/comments/reply">
+                                @csrf
+                                <div class="flex justify-between items-end flex-col">
+                                    <input type="hidden" name="comment_id" value="{{ $comment->id }}">
+                                    <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
+                                    <textarea name="replyComment" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}" autofocus></textarea>
+                                    <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
+                                </div>                             
+                            </form>
+                        </div>
+                    </div>                
+                </div>
+                    @foreach ($comment->replyComments->sortBy('created_at') as $reply)
+                    <div class="grid grid-cols-12 p-1 rounded-lg ml-10 my-1">
+                    <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
+                        <div class="shadow h-10 w-10 rounded-full bg-gray-300">
+                            <img src="" alt="">
+                        </div>
+                    </div>
+                    <div class="col-span-12 lg:col-start-2 lg:col-span-11">
+                        <div class="flex items-center">
+                            <span class="font-bold mr-2 text-gray-700">{{ $reply->user->user_detiles->first_name }}&nbsp;</span>
+                            <span class="text-sm text-gray-800"><span class="font-extrabold">"</span>{{ $reply->replycomment }}<span class="font-extrabold">"</span></span>
+                        </div>
+                        <div class="flex items-center mt-2">
+                            <span class="text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}&nbsp;</span>
+                        </div>
+                    </div>
+                    </div>
                     @endforeach
-                </ul>
-                @endforeach
-                @endif  
+            </li>
+            <hr class="bg-slate-500">
+        @endforeach
+        </ul>
+    @endif 
             </div>
             <div class="col-span-12 flex justify-end align-bottom gap-3">
                 {{-- @if($post->user, auth)
@@ -178,3 +195,34 @@
     </div>
 </section>
 @endsection
+
+<script>
+    @foreach ($post->comments as $comment)
+        function toggleForm(commentId) {
+            // loop through all comment forms and hide them except for the one clicked
+            @foreach ($post->comments as $c)
+                if ({{$c->id}} !== commentId) {
+                    const otherForm = document.getElementById('reply-form-{{$c->id}}');
+                    const otherButton = document.getElementById('reply-button-{{$c->id}}');
+                    if (otherForm.style.display !== "none") {
+                        otherForm.style.display = "none";
+                        otherButton.innerHTML = "Reply";
+                    }
+                }
+            @endforeach
+
+            // show or hide the clicked comment form
+            const button = document.getElementById('reply-button-' + commentId);
+            const form = document.getElementById('reply-form-' + commentId);
+            if (form.style.display === "none") {
+                form.style.display = "block";
+                button.innerHTML = "Cancel";
+                const textarea = form.querySelector('textarea');
+                textarea.focus();
+            } else {
+                form.style.display = "none";
+                button.innerHTML = "Reply";
+            }
+        }
+    @endforeach
+</script>

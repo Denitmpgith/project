@@ -5,30 +5,28 @@
         </div>
         <div class="col-start-5 col-span-6">
             <div class="flex justify-start items-center h-16">
-                <button id="hamburger" name="hamburger" type="button" class="block absolute right-12 lg:hidden">
+                <button id="hamburger" name="hamburger" type="button" class="block absolute right-12 lg:hidden aria-label="Toggle navigation">
                     <span class="hamburger-line transsition duration-300 ease-in out origin-top-left "></span>
                     <span class="hamburger-line transsition duration-300 ease-in out"></span>
                     <span class="hamburger-line transsition duration-300 ease-in out origin-bottom-left"></span>
                 </button>
-                <navbar id="nav-menu" class="hidden absolute py-5 bg-white shadow rounded-xl max-w-[200px] w-full right-0 top-full lg:flex lg:justify-end lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
-                    <ul class="block lg:flex">
-                        <li class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('/') ? 'active' : '' }}"><a class="" href="/">Home</a></li>
-                        <hr class="my-2">
-                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/dashboard">Lihat Kontes</a></li>
+                <navbar id="nav-menu" class="hidden absolute bg-white shadow rounded-xl max-w-[200px] w-full right-0 top-full lg:flex lg:justify-end lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
+                    <ul class="block justify-center items-center lg:flex">
+                        <li><a class="text-base text-dark mx-3 flex hover:text-cyan-500 {{ Request::is('/') ? 'text-cyan-500' : '' }}" href="/">Home</a></li>
+                        <li><a class="text-base text-dark mx-3 flex hover:text-cyan-500 {{ Request::is('dashboard') ? 'text-cyan-500' : '' }}" href="/dashboard">Lihat Kontes</a></li>
                         @auth
-                        <li {{ auth()->User()->username }}></li>
-                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/fortopolio">Fortopolio</a></li>
-                        <li><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 {{ Request::is('signin') ? 'active' : '' }}" href="/user">My Profile</a></li>
-                        <hr class="mt-4">
-                            <form action="/logout" method="post">
-                            @csrf
-                            <button class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500 " type ="submit">logout</button>
+                          <li><a class="text-base text-dark mx-3 flex hover:text-cyan-500 {{ Request::is('fortopolio') ? 'text-cyan-500' : '' }}" href="/fortopolio">Fortopolio</a></li>
+                          <li><a class="text-base text-dark mx-3 flex hover:text-cyan-500 {{ Request::is('user') ? 'text-cyan-500' : '' }}" href="/user">My Profile</a></li>
+                          <li>
+                            <form class="text-base text-dark mx-3 hover:text-cyan-500 my-0" action="/logout" method="post">
+                              @csrf
+                              <button type ="submit">logout</button>
                             </form>
-                        </ul>
+                          </li>
                         @else
-                        <li ><a class="text-base text-dark py-1 mx-3 flex hover:text-cyan-500  {{ Request::is('signin') ? 'active' : '' }}" href="/signin">Login</a></li>    
+                          <li ><a class="text-base text-dark mx-3 flex hover:text-cyan-500  {{ Request::is('signin') ? 'text-cyan-500' : '' }}" href="/signin">Login</a></li>    
                         @endauth
-                    </ul>
+                      </ul>                      
                 </navbar>
             </div>
         </div>

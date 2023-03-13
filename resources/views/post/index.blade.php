@@ -1,50 +1,58 @@
 @extends('template.main')
 @section('container')
 <section class="grid grid-cols-12 gap-3 my-5 p-2">
-<form class="col-start-2 col-span-10" method="POST" action="">
-  <h1>anda bisa membuat kontes disini</h1>
-  @csrf
-  <div class="flex justify-between items-end flex-col">
-      <textarea name="reply" placeholder="&nbsp;&nbsp;made your own contest here..." rows="3" class="rounded-lg bg-slate-100 h-16 w-full p-0 m-0 border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
-      <a href="/user/create" type="submit" class=" text-center mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</a>
-  </div>                             
-</form>
-    @foreach($posts as $post)
-    <div class="col-span-12 flex justify-start bg-slate-200 rounded-lg shadow p-3">
-        <div class="hidden lg:block w-[100px] h-[100px] shadow rounded bg-blue-500">
-            <img src="" alt="">
-        </div>
-        <div class="w-full px-3">
-            <div class="flex justify-start">
-                @if ( $post->level == "Stone" )
-                <span class="text-stone-500 text-base">{{ $post->level }}&nbsp;</span>
-                @elseif ( $post->level =="Bronze" )
-                <span class="text-red-500 text-base">{{ $post->level }}&nbsp;</span>
-                @elseif ( $post->level == "Silver" )
-                <span class="text-yellow-500 text-base">{{ $post->level }}&nbsp;</span>
-                @elseif ( $post->level == "Gold" )
-                <span class="text-lime-500 text-base">{{ $post->level }}&nbsp;</span>
-                @elseif ( $post->level == "Platinum" )
-                <span class="text-cyan-500 text-base">{{ $post->level }}&nbsp;</span>
-                @elseif ( $post->level == "Diamond" )
-                <span class="text-purple-500 text-base">{{ $post->level }}&nbsp;</span>
-                @endif
-                <div class="flex justify-between w-full ">
-                    <a class="text-cyan-500" href="/dashboard/{{ $post->slug }}"><h4>{{ $post->title }}</h4></a>
-                    @if($post->deadline-time() >= 1)
-                      <p id="countdown{{ $post->id }}"></p>
-                    @else
-                      <p class="text-red-500">Contest End</p>
-                    @endif
-                </div>
-            </div>
+  @foreach($posts as $post)
+    @if($post->deadline-time() >= 1)
+      <div class="col-span-12 flex justify-start bg-slate-200 rounded-lg shadow p-3">
+          <div class="hidden lg:block w-[100px] h-[100px] shadow rounded bg-blue-500">
+              <img src="" alt="">
+          </div>
+          <div class="w-full px-3">
             <div class="flex justify-between">
-                <p>{{ Str::limit($post->description, 75) }}</p>
-                <p>&nbsp;Reward $ {{ $post->reward }}</p>
-            </div>
-        </div>
-    </div>
-    @endforeach
+              <div>
+                @if ($post->user_id == auth()->id())
+                    <p class="text-white text-center bg-amber-600 px-2 py-1 w-fit rounded">( The contest is your own )</p>
+                @endif  
+              </div>
+              <div>
+                @if($post->deadline-time() >= 1)
+                <p id="countdown{{ $post->id }}" class=" px-2 bg-white rounded"></p>
+                @else
+                <p class="text-red-500">Contest end</p>
+                @endif
+              </div>
+            </div>  
+            <div class="flex justify-start">
+                  @if ( $post->level == "Stone" )
+                  <span class="text-stone-500 text-base">{{ $post->level }}&nbsp;</span>
+                  @elseif ( $post->level =="Bronze" )
+                  <span class="text-red-500 text-base">{{ $post->level }}&nbsp;</span>
+                  @elseif ( $post->level == "Silver" )
+                  <span class="text-yellow-500 text-base">{{ $post->level }}&nbsp;</span>
+                  @elseif ( $post->level == "Gold" )
+                  <span class="text-lime-500 text-base">{{ $post->level }}&nbsp;</span>
+                  @elseif ( $post->level == "Platinum" )
+                  <span class="text-cyan-500 text-base">{{ $post->level }}&nbsp;</span>
+                  @elseif ( $post->level == "Diamond" )
+                  <span class="text-purple-500 text-base">{{ $post->level }}&nbsp;</span>
+                  @endif
+                  <div class="flex justify-between w-full ">
+                      <a class="text-cyan-500" href="/dashboard/{{ $post->slug }}"><h4>{{ $post->title }}</h4></a>
+                  </div>
+              </div>
+              <div class="flex justify-between">
+                  <p>{{ Str::limit($post->description, 75) }}</p>
+                  <p>&nbsp;Reward $ {{ $post->reward }}</p>
+              </div>
+          </div>
+      </div>
+    @endif  
+  @endforeach
+      <div class="col-span-12 flex justify-between items-end flex-col">
+        <h1>Ingin Membuat kontest seperti di atas ?</h1>
+          {{-- <textarea name="reply" placeholder="&nbsp;&nbsp;made your own contest here..." rows="3" class="rounded-lg bg-slate-100 h-16 w-full p-0 m-0 border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea> --}}
+        <a href="/user/create" class="flex justify-center items-center text-center bg-blue-500 text-white rounded my-3 w-28 h-7 p-1 hover:bg-blue-600">create contest</a>
+      </div>                             
 </section>
 @endsection
 

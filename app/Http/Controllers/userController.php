@@ -81,8 +81,7 @@ class userController extends Controller
     {
         $validatedData = $request->validate([
             'deadline' => 'required|numeric',
-            'level' => 'required',
-            'title' => 'required',
+            'title' => 'required|max:255',
             'reward' => 'required|numeric',
             'description' => 'required',
         ]);      
@@ -93,8 +92,22 @@ class userController extends Controller
         $post = new Post;
         $post->user_id = $user->id;
         $post->deadline = time() + ($validatedData['deadline'] * 24 * 60 * 60);
-        $post->level = $validatedData['level'];
         $post->title = $validatedData['title'];
+
+        if ($validatedData['reward'] < 100) {
+            $post->level = "Stone";
+        } else if ($validatedData['reward'] < 200) {
+            $post->level = "Bronze";
+        } else if ($validatedData['reward'] < 300) {
+            $post->level = "Silver";
+        } else if ($validatedData['reward'] < 400) {
+            $post->level = "Gold";
+        } else if ($validatedData['reward'] < 500) {
+            $post->level = "Platinum";
+        } else {
+            $post->level = "Diamond";
+        }
+
         $post->reward = $validatedData['reward'];
             $slug = Str::slug($validatedData['title']);
             $latestPost = Post::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();

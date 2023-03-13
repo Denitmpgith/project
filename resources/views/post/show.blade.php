@@ -3,16 +3,20 @@
 @section('container')
 <section class="grid grid-cols-12 mt-2 px-5">
     <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-2 shadow">
-        <span class="col-span-12 flex justify-between">
-        @if ($post->user_id == auth()->id())
-            <p class="text-white bg-amber-600 px-5 py-1 w-fit rounded-lg">( The contest is your own )</p>
-        @endif  
-            @if($post->deadline-time() >= 1)
-            <p id="countdown{{ $post->id }}" class=" px-2 py-1 bg-white rounded"></p>
-            @else
-            <p class="text-red-500">Contest end</p>
-            @endif
-        </span>
+        <div class="col-span-12 flex justify-between">
+            <div>
+                @if ($post->user_id == auth()->id())
+                    <p class="text-white text-center bg-amber-600 px-2 py-1 w-fit rounded">( The contest is your own )</p>
+                @endif  
+            </div>
+            <div>
+                @if($post->deadline-time() >= 1)
+                <p id="countdown{{ $post->id }}" class=" px-2 bg-white rounded"></p>
+                @else
+                <p class="text-red-500">Contest end</p>
+                @endif
+            </div>
+        </div>  
         <div class="col-span-12 flex justify-start ">
             @if ( $post->level == "Stone" )
             <span class="text-stone-500 text-xl">{{ $post->level }}&nbsp;</span>
@@ -58,7 +62,7 @@
             <input type="hidden" name="post_id" value="{{ $post->id }}">
             <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
             <textarea name="comment" placeholder="&nbsp;Your Comment here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
-            <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
+            <button type="submit" class="mt-2 bg-blue-500 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
         </div>                             
     </form>
     @if ($post->comments->count() > 0)
@@ -86,7 +90,7 @@
                             <div class="flex justify-between items-end flex-col">
                                 <input type="hidden" name="comment_id" value="{{ $comment->id }}">
                                 <input type="hidden" name="user_id" value="{{ Auth::user()->id }}">
-                                <textarea name="replyComment" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea>
+                                <textarea name="replyComment" placeholder="&nbsp;Your reply here..." rows="3" class="bg-slate-100 h-20 w-full p-0 m-0 rounded border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}" autofocus></textarea>
                                 <button type="submit" class="mt-2 bg-blue-500 text-white rounded w-28 h-6 p-0 m-0 hover:bg-blue-600">Submit</button>
                             </div>                             
                         </form>
@@ -158,9 +162,9 @@
     @endif
     });
 
-        @foreach ($post->comments as $comment)
+    @foreach ($post->comments as $comment)
         function toggleForm(commentId) {
-        // loop through all comment forms and hide them except for the one clicked
+            // loop through all comment forms and hide them except for the one clicked
             @foreach ($post->comments as $c)
                 if ({{$c->id}} !== commentId) {
                     const otherForm = document.getElementById('reply-form-{{$c->id}}');
@@ -172,18 +176,20 @@
                 }
             @endforeach
 
-        // show or hide the clicked comment form
+            // show or hide the clicked comment form
             const button = document.getElementById('reply-button-' + commentId);
             const form = document.getElementById('reply-form-' + commentId);
             if (form.style.display === "none") {
                 form.style.display = "block";
                 button.innerHTML = "Cancel";
+                const textarea = form.querySelector('textarea');
+                textarea.focus();
             } else {
                 form.style.display = "none";
                 button.innerHTML = "Reply";
             }
-            }
-        @endforeach
+        }
+    @endforeach
 
     const form = document.querySelector('form');
     form.addEventListener('submit', (event) => {

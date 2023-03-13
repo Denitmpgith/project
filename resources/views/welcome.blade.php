@@ -5,14 +5,14 @@
         <div class="col-span-12 flex justify-center items-center p-2">
             <div class="w-[325px] h-[325px] md:h-[375px] md:w-[375px] lg:h-[500px] lg:w-[500px] xl:h-[650px] xl:w-[650px] flex justify-center items-center flex-col ">
                 <div class="">
-                    <p class="text-base md:text-lg lg:text-2xl xl:text-4xl font-bold text-cyan-500 uppercase ">Platform Pencari Freelancer Unggul</p>
-                    <p class="text-sm md:text-base lg:text-lg xl:text-2xl">diantara freelancer-freelancer terbaik, dengan tidak mengorbankan freelancer yang lain</p>
+                    <p class="text-lg md:text-xl lg:text-2xl xl:text-4xl font-bold text-cyan-500 uppercase ">Platform Pencari Freelancer Unggul</p>
+                    <p class="text-base md:text-lg lg:text-xl xl:text-2xl">diantara freelancer-freelancer terbaik, dengan tidak mengorbankan freelancer yang lain</p>
                 </div>
             </div>
         </div>
         <div class="col-span-12 flex justify-center items-center p-2">
             <div class="w-[325px] h-[325px] md:h-[375px] md:w-[375px] lg:h-[500px] lg:w-[500px] xl:h-[650px] xl:w-[650px] flex justify-center items-center flex-col ">
-                <img src="default/untitled.png" alt="">
+                <img src="default/box2.png" alt="">
             </div>
         </div>
     </section>

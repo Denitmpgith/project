@@ -10,22 +10,22 @@
                 <div class="bg-slate-200 p-2 rounded-lg mb-2">
                     <div class="rounded mb-1">
                         <div class="grid grid-cols-12 rounded mb-1 ">
-                            <div class="col-span-12 md:col-span-8 lg:col-span-9 xl:col-span-10 flex justify-between items-end">
+                            <div class="col-span-12 flex justify-between items-end">
                                 <p class="text-cyan-500"><a class="text-cyan-500" href="/user/{{ $apply->post->slug }}">{{ $apply->post->title }}</a></p>
-                            </div>
-                            <div class="col-span-12 md:col-start-9 md:col-span-4 lg:col-start-10 lg:col-span-3 xl:col-start-11 xl:col-span-2 flex justify-between items-end">
-                                <p>Reward : {{ $apply->post->reward }}</p>
-                                @if ( $apply->post->deadline - time() < 0 )
-                                <small class="text-red-600">End Contest</small>
-                                @elseif ( $apply->post->deadline - time() < 3600 )
-                                <small class="text-red-600">{{ floor(($apply->post->deadline - time())/60) }} minute left</small>
-                                @elseif ( $apply->post->deadline - time() < 86400 )
-                                <small class="text-yellow-600">{{ floor(($apply->post->deadline - time())/3600) }} hour left</small>
-                                @elseif ( $apply->post->deadline - time() < 604800 )
-                                <small class="text-green-600">{{ floor(($apply->post->deadline - time())/86400) }} day left</small>
-                                @elseif ( $apply->post->deadline - time() < 2419200 )
-                                <small class="text-green-600">{{ floor(($apply->post->deadline - time())/604800) }} week left</small>
-                                @endif 
+                                <div class="flex justify-between items-end">
+                                    <p>Reward : {{ $apply->post->reward }}&nbsp;</p>
+                                    @if ( $apply->post->deadline - time() < 0 )
+                                    <small class="text-red-600">End Contest</small>
+                                    @elseif ( $apply->post->deadline - time() < 3600 )
+                                    <small class="text-red-600">{{ floor(($apply->post->deadline - time())/60) }} minute left</small>
+                                    @elseif ( $apply->post->deadline - time() < 86400 )
+                                    <small class="text-yellow-600">{{ floor(($apply->post->deadline - time())/3600) }} hour left</small>
+                                    @elseif ( $apply->post->deadline - time() < 604800 )
+                                    <small class="text-green-600">{{ floor(($apply->post->deadline - time())/86400) }} day left</small>
+                                    @elseif ( $apply->post->deadline - time() < 2419200 )
+                                    <small class="text-green-600">{{ floor(($apply->post->deadline - time())/604800) }} week left</small>
+                                    @endif 
+                                </div>
                             </div>
                         </div>
                         <p class="">{{ $apply->title }}</p>
@@ -45,9 +45,9 @@
                     <div class="flex justify-between rounded mb-1 ">
                         <div class="flex justify-between items-end">
                             <p>
-                                @if ( $post->level == "Stone" )
-                                <span class="text-stone-500 text-base">{{ $post->level }}</span>
-                                @elseif ( $post->level =="Bronze" )
+                            @if ( $post->level == "Stone" )
+                            <span class="text-stone-500 text-base">{{ $post->level }}</span>
+                            @elseif ( $post->level =="Bronze" )
                             <span class="text-red-500 text-base">{{ $post->level }}</span>
                             @elseif ( $post->level == "Silver" )
                             <span class="text-yellow-500 text-base">{{ $post->level }}</span>
@@ -60,7 +60,7 @@
                             @endif
                             &nbsp;<a class="text-cyan-500" href="/user/{{ $post->slug }}">{{ $post->title }}</a></p>
                         </div>
-                        <div class="flex justify-between items-center">
+                        <div class="flex justify-between items-end">
                             <p>Reward : {{ $post->reward }}&nbsp;</p>
                             @if ( $post->deadline - time() < 0 )
                             <small class="text-red-600">End Contest</small>
