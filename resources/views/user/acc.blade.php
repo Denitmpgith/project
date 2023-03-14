@@ -11,7 +11,7 @@
         <span class="">{{ $user_detiles->first_name }}</span>
         <span class="">{{ $user_detiles->middle_name }}</span>
         <span class="">{{ $user_detiles->last_name }}</span>
-        <span class="">( {{ $user_detiles->gender }} )</span>
+        @if($user_detiles->gender)<span class="">( {{ $user_detiles->gender }} )</span>@endif
         <p class="">{{ $user_detiles->address }}</p>
         <p class="">{{ $user_detiles->city }}</p>
         <p class="">{{ $user_detiles->country }}</p>

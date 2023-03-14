@@ -2,11 +2,11 @@
 
 @section('container')
 <section class="grid grid-cols-12 mt-2 px-5">
-    <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-2 shadow">
+    <div class="col-span-12 grid grid-cols-12 p-2 shadow">
         <div class="col-span-12 flex justify-between">
             <div>
                 @if ($post->user_id == auth()->id())
-                    <p class="text-white text-center bg-amber-600 px-2 py-1 w-fit rounded">( The contest is your own )</p>
+                    <p class="text-dark text-center bg-slate-200 px-2 py-1 w-fit rounded">The contest is your own</p>
                 @endif  
             </div>
             <div>
@@ -53,14 +53,11 @@
     <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
         <div class="col-span-12 grid grid-cols-12 gap-4">
             @foreach ($appliesData as $apply)
-            <div class="col-span-12 bg-slate-200 p-2 rounded-lg md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
+            <div class="col-span-12 bg-slate-200 p-2 rounded md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
                 @if ($apply['rateStatus'] == 'Winner')
                     <div class="text-{{ $apply['color'] }} px-2 flex justify-between rounded-tr-lg p-2">
                         <div class="-m-3 rounded">
                             <img src="{{ asset('default/winner3.png') }}">
-                        </div>
-                        <div class="w-full h-full">
-                            <img src="{{ asset('public/post-images/' . $applyfile->filename) }}" alt="">
                         </div>
                         <div class="flex justify-end">
                             <p>{{ $apply['rateStatus'] }}&nbsp;</p>
@@ -68,7 +65,7 @@
                         </div>
                     </div>
                 @elseif ($apply['rateStatus'] == 'Runner Up')
-                <div class="text-{{ $apply['color'] }} px-2 flex justify-between rounded-tr-lg p-2">
+                <div class="text-{{ $apply['color'] }} px-2 flex justify-between p-2">
                     <div class="-m-3 rounded">
                         <img src="{{ asset('default/runnerup.png') }}">
                     </div>
@@ -78,14 +75,14 @@
                     </div>
                 </div>
                 @elseif ($apply['rateStatus'] == 'norate')
-                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
+                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
                     <p>{{ $apply['rateStatus'] }}</p>
-                </div>
-                <div class="w-full h-full">
-                    <img src="{{ asset('public/post-images/' . $applyfile->filename) }}" alt="">
+                    {{-- <div class="w-full h-full">
+                        <img src="{{ asset('public/post-images/' . $applyfile->filename) }}" alt="">
+                    </div> --}}
                 </div>
                 @elseif ($apply['rateStatus'] == 'Reject')
-                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between rounded-t-lg">
+                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
                     <p>{{ $apply['rateStatus'] }}</p>
                 </div>
                 @endif
@@ -108,7 +105,7 @@
     @endif   
     <hr class="col-span-2 mt-2">
     <h1 class="col-span-12 pb-1 text-xl font-bold text-cyan-600">Question and Answer :</h1>
-    <hr class="col-span-12">
+    <hr class="col-span-12 mb-2">
     <form class="col-span-12" method="POST" action="/comments">
         @csrf
         <div class="flex justify-between items-end flex-col ">
@@ -122,7 +119,7 @@
     <ul class="col-span-12 ">
         @foreach ($post->comments->sortByDesc('created_at') as $comment)
         <li class="mb-3">
-            <div class="grid grid-cols-12 p-1 rounded-lg">
+            <div class="grid grid-cols-12 p-1">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
                     <div class="shadow h-12 w-12 rounded-full bg-gray-300">
                         <img src="" alt="">
@@ -151,7 +148,7 @@
                 </div>                
             </div>
             @foreach ($comment->replyComments->sortBy('created_at') as $reply)
-            <div class="grid grid-cols-12 p-1 rounded-lg ml-10 my-1">
+            <div class="grid grid-cols-12 p-1 ml-10 my-1">
                 <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
                     <div class="shadow h-10 w-10 rounded-full bg-gray-300">
                         <img src="" alt="">
