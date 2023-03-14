@@ -162,20 +162,20 @@
                 </div>
                     @foreach ($comment->replyComments->sortBy('created_at') as $reply)
                     <div class="grid grid-cols-12 p-1 rounded-lg ml-10 my-1">
-                    <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
-                        <div class="shadow h-10 w-10 rounded-full bg-gray-300">
-                            <img src="" alt="">
+                        <div class="hidden lg:flex lg:justify-start col-span-1 p-1">
+                            <div class="shadow h-10 w-10 rounded-full bg-gray-300">
+                                <img src="" alt="">
+                            </div>
                         </div>
-                    </div>
-                    <div class="col-span-12 lg:col-start-2 lg:col-span-11">
-                        <div class="flex items-center">
-                            <span class="font-bold mr-2 text-gray-700">{{ $reply->user->user_detiles->first_name }}&nbsp;</span>
-                            <span class="text-sm text-gray-800"><span class="font-extrabold">"</span>{{ $reply->replycomment }}<span class="font-extrabold">"</span></span>
+                        <div class="col-span-12 lg:col-start-2 lg:col-span-11">
+                            <div class="flex items-center">
+                                <span class="font-bold mr-2 text-gray-700">{{ $reply->user->user_detiles->first_name }}&nbsp;</span>
+                                <span class="text-sm text-gray-800"><span class="font-extrabold">"</span>{{ $reply->replycomment }}<span class="font-extrabold">"</span></span>
+                            </div>
+                            <div class="flex items-center mt-2">
+                                <span class="text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}&nbsp;</span>
+                            </div>
                         </div>
-                        <div class="flex items-center mt-2">
-                            <span class="text-gray-500 text-xs">{{ $post->created_at->diffForHumans() }}&nbsp;</span>
-                        </div>
-                    </div>
                     </div>
                     @endforeach
             </li>

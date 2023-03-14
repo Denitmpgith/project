@@ -8,6 +8,7 @@ use Illuminate\Database\Eloquent\Model;
 class applyFile extends Model
 {
     use HasFactory;
+    protected $guarded =['id'];
     public function apply()
     {
         return $this->belongsTo(apply::class);

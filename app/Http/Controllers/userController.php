@@ -109,7 +109,7 @@ class userController extends Controller
         }
 
         $post->reward = $validatedData['reward'];
-            $slug = Str::slug($validatedData['title']);
+            $slug = Str::snake($validatedData['title']);
             $latestPost = Post::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
             if($latestPost) {
                 $latestSlug = $latestPost->slug;
@@ -155,7 +155,6 @@ class userController extends Controller
             $apply->save();
         }
         
-    
         return redirect('/user/' . $apply->post->slug)->with('success', 'Successfully updated apply status.');
     }
 }

@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->foreignId('apply_id')->constrained();
-            $table->string('file');
+            $table->string('filename');
             $table->string('title');
             $table->string('slug');
         });

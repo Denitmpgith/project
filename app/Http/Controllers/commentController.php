@@ -25,7 +25,7 @@ class commentController extends Controller
         $comment->post_id = $post->id;
         $comment->user_id = Auth::user()->id;
         $comment->comment = $validatedData['comment'];
-            $slug = Str::slug($validatedData['comment']);
+            $slug = Str::snake($validatedData['comment']);
             $slug = substr($slug, 0, 40);
             $latestPost = comment::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
             if($latestPost) {
@@ -38,9 +38,9 @@ class commentController extends Controller
         // $request->all();
         $comment->save();
 
-        
         return redirect()->back()->with('success', 'Comment berhasil dibuat');
     }
+    
     public function storeReply(Request $request)
     {
         $validatedData = $request->validate([
@@ -53,11 +53,11 @@ class commentController extends Controller
         $replyComment->user_id = Auth::user()->id;
         $replyComment->comment_id = $comment->id;
         $replyComment->replycomment = $validatedData['replyComment'];
-            $slug = Str::slug($validatedData['replyComment']);
-            $slug = substr($slug, 0, 40);
-            $latestPost = comment::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
-            if($latestPost) {
-                $latestSlug = $latestPost->slug;
+
+            $slug = Str::snake($validatedData['replyComment']);
+            $latestApply = comment::whereRaw("slug RLIKE '^{$slug}(_[0-9]+)?$'")->latest('id')->first();
+            if($latestApply) {
+                $latestSlug = $latestApply->slug;
                 $pieces = explode('_', $latestSlug);
                 $index = intval(end($pieces));
                 $slug .= '_' . ($index + 1);

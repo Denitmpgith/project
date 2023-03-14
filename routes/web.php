@@ -21,8 +21,10 @@ Route::get('/user/create', [userController::class, 'create'])->middleware('auth'
 Route::post('/user', [userController::class, 'store'])->middleware('auth');
 Route::get('/user/{slug}', [userController::class, 'show'])->middleware('auth');
 
-Route::get('/apply/{slug}', [userController::class, 'apply'])->middleware('auth');
-
+Route::get('/apply', [applyController::class, 'index'])->middleware('auth');
+Route::get('/apply/{slug}', [applyController::class, 'create'])->middleware('auth');
+Route::post('/apply/{slug}', [applyController::class, 'store'])->name('apply.store')->middleware('auth');
+// Route::post('/apply/{slug}', [applyController::class, 'storeAFile'])->name('apply.storeAFile')->middleware('auth');
 
 Route::get('/fortopolio', [fortopolioController::class, 'index']);
 
@@ -33,7 +35,7 @@ Route::get('/signin', [signinController::class, 'index'])->name('login')->middle
 Route::post('/signin', [signinController::class, 'authenticate'])->middleware('guest');
 Route::post('/logout', [signinController::class, 'logout']);
 
-Route::post('/apply/{slug}', [userController::class, 'applystore'])->name('apply.store');
+// Route::post('/apply/{slug}', [userController::class, 'applystore'])->name('apply.store');
 
 Route::post('/comments', [commentController::class, 'storeComment'])
     ->middleware('App\Http\Middleware\BlockDirectAccess');

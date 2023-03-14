@@ -63,12 +63,4 @@ class postController extends Controller
             'appliesData' => $appliesData,
         ]);
     }
-    
-                
 }
-
-// if ($auth && $owner && $auth->id === $owner->id) {
-//     // user terautentikasi adalah pemilik postingan
-// } else {
-//     // user terautentikasi bukan pemilik postingan
-// }
