@@ -4,8 +4,11 @@ namespace App\Http\Controllers;
 
 use App\Models\Post;
 use App\Models\User;
+use App\Models\Apply;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Log;
+
 
 class postController extends Controller
 {
@@ -54,13 +57,15 @@ class postController extends Controller
                     $applyData['color'] = 'red-600';
                     break;
             }
-    
+            // $applyData['applyFile'] = $apply->applyFile->first();
             $appliesData[] = $applyData;
         }
-    
+        // dd($apply->applyFiles);
         return view('post.show', [
             'post' => $post,
             'appliesData' => $appliesData,
+            'applyfile' => $apply->applyFiles ? $apply->applyFiles->first() : null,
         ]);
+        
     }
 }

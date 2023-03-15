@@ -2,7 +2,7 @@
 
 @section('container')
 <section class="grid grid-cols-12 mt-2 px-5">
-    <div class="col-span-12 grid grid-cols-12 p-2 shadow">
+    <div class="col-span-12 grid grid-cols-12 p-2 shadow bg-blue-50">
         <div class="col-span-12 flex justify-between">
             <div>
                 @if ($post->user_id == auth()->id())
@@ -32,7 +32,6 @@
             <span class="text-purple-500 text-xl">{{ $post->level }}&nbsp;</span>
             @endif
             <div class="flex justify-between w-full">
-                {{-- <p>{{ $post->user->user_detiles->first_name }}</p> --}}
                 <p class="text-cyan-500 text-xl font-bold my-1">{{ $post->title }}</p>
                 <div class="flex justify-end">
                     <p>&nbsp; Reward $ {{ $post->reward }}&nbsp;</p>
@@ -53,45 +52,42 @@
     <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
         <div class="col-span-12 grid grid-cols-12 gap-4">
             @foreach ($appliesData as $apply)
-            <div class="col-span-12 bg-slate-200 p-2 rounded md:col-span-6 lg:col-span-4 xl:col-span-3 h-fit">
-                @if ($apply['rateStatus'] == 'Winner')
-                    <div class="text-{{ $apply['color'] }} px-2 flex justify-between rounded-tr-lg p-2">
+                <div class="col-span-12 p-2 shadow md:col-span-6 lg:col-span-4 xl:col-span-3 bg-slate-100">
+                    @if ($apply['rateStatus'] == 'Winner')
+                        <div class="text-{{ $apply['color'] }} px-2 flex justify-between rounded-tr-lg p-2">
+                            <div class="-m-3 rounded">
+                                <img src="{{ asset('default/winner3.png') }}">
+                            </div>
+                            <div class="flex justify-end">
+                                <p>{{ $apply['rateStatus'] }}&nbsp;</p>
+                                <p>$ {{ $apply['reward'] }}</p>
+                            </div>
+                        </div>
+                    @elseif ($apply['rateStatus'] == 'Runner Up')
+                    <div class="text-{{ $apply['color'] }} px-2 flex justify-between p-2">
                         <div class="-m-3 rounded">
-                            <img src="{{ asset('default/winner3.png') }}">
+                            <img src="{{ asset('default/runnerup.png') }}">
                         </div>
                         <div class="flex justify-end">
                             <p>{{ $apply['rateStatus'] }}&nbsp;</p>
                             <p>$ {{ $apply['reward'] }}</p>
                         </div>
                     </div>
-                @elseif ($apply['rateStatus'] == 'Runner Up')
-                <div class="text-{{ $apply['color'] }} px-2 flex justify-between p-2">
-                    <div class="-m-3 rounded">
-                        <img src="{{ asset('default/runnerup.png') }}">
+                    @elseif ($apply['rateStatus'] == 'norate')
+                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
+                        <p>{{ $apply['rateStatus'] }}</p>
                     </div>
-                    <div class="flex justify-end">
-                        <p>{{ $apply['rateStatus'] }}&nbsp;</p>
-                        <p>$ {{ $apply['reward'] }}</p>
+                    @elseif ($apply['rateStatus'] == 'Reject')
+                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
+                        <p>{{ $apply['rateStatus'] }}</p>
                     </div>
-                </div>
-                @elseif ($apply['rateStatus'] == 'norate')
-                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
-                    <p>{{ $apply['rateStatus'] }}</p>
-                    {{-- <div class="w-full h-full">
-                        <img src="{{ asset('public/post-images/' . $applyfile->filename) }}" alt="">
-                    </div> --}}
-                </div>
-                @elseif ($apply['rateStatus'] == 'Reject')
-                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
-                    <p>{{ $apply['rateStatus'] }}</p>
-                </div>
-                @endif
-                    <p class="font-semibold">{{ $apply['title'] }}</p>
-                    @if ($apply['applyFileCount'] > 0 )
-                        <p class="text-gray-600 text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
                     @endif
-                    <p class="text-gray-600 text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
-            </div>
+                            <p class="font-semibold">{{ $apply['title'] }}</p>
+                        @if ($apply['applyFileCount'] > 0 )
+                            <p class="text-gray-600 text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
+                        @endif
+                        <p class="text-gray-600 text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
+                </div>
             @endforeach
         </div>  
     </ul>                    

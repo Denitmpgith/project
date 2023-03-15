@@ -8,6 +8,7 @@ use App\Http\Controllers\signinController;
 use App\Http\Controllers\signupController;
 use App\Http\Controllers\applyController;
 use App\Http\Controllers\commentController;
+use App\Http\Controllers\userApplyController;
 use App\Http\Controllers\fortopolioController;
 
 Route::get('/', function () {
@@ -20,6 +21,8 @@ Route::get('/user', [userController::class, 'index'])->middleware('auth');
 Route::get('/user/create', [userController::class, 'create'])->middleware('auth');
 Route::post('/user', [userController::class, 'store'])->middleware('auth');
 Route::get('/user/{slug}', [userController::class, 'show'])->middleware('auth');
+Route::get('/user/apply/{slug}', [userApplyController::class, 'index'])->middleware('auth');
+
 
 Route::get('/apply', [applyController::class, 'index'])->middleware('auth');
 Route::get('/apply/{slug}', [applyController::class, 'create'])->middleware('auth');
