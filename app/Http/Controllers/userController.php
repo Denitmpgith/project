@@ -43,27 +43,27 @@ class userController extends Controller
         $user = Auth::user();
         $user_detiles = User_detiles::where('user_id', $user->id)->first();
         $post = Post::with('user', 'user.user_detiles', 'user.apply.applyFile', 'applies', 'comments', 'comments.replyComments')
-                    ->where('user_id', $user->id)
-                    ->where('slug', $slug)
-                    ->firstOrFail();
+            ->where('user_id', $user->id)
+            ->where('slug', $slug)
+            ->firstOrFail();
         $owner = User::find($post->user_id);
-    
+
         $applies = $post->applies->sortBy(function ($apply) {
             return $apply->rate_status == 'Winner' ? 3 : ($apply->rate_status == 'Runner Up' ? 2 : ($apply->rate_status == 'norate' ? 1 : 0));
         })->reverse();
-    
+
         $appliesData = [];
-    
+
         foreach ($applies as $apply) {
             $applyData = [
                 'rateStatus' => $apply->rate_status,
                 'title' => Str::limit($apply->title, 25),
                 'userFirstName' => $apply->user->user_detiles->first_name ?? 'not registered',
                 'createdAt' => $post->created_at->diffForHumans(),
-                'applyFileCount' => $apply->applyFile->count(),
+                'applyFileCount' => $apply->applyFile ? $apply->applyFile->count() : 0,
                 'slug' => $apply->slug,
             ];
-    
+
             switch ($apply->rate_status) {
                 case 'Winner':
                     $applyData['reward'] = number_format(floor($post->reward/100*70/$post->applies->where('rate_status', 'Winner')->count() * 100) / 100, 0, '.', '');
@@ -81,32 +81,17 @@ class userController extends Controller
                     $applyData['color'] = 'red-600';
                     break;
             }
-            // $applyData['applyFile'] = $apply->applyFile->first();
-            $appliesData[] = $applyData;
+            
+            $applyFile = $apply->applyFiles ? $apply->applyFiles->first() : null;
+            $appliesData[] = array_merge($applyData, ['applyFile' => $applyFile]);
         }
-        // dd($apply->applyFiles);
+
         return view('user.show', [
             'post' => $post,
             'appliesData' => $appliesData,
-            'applyfile' => $apply->applyFiles ? $apply->applyFiles->first() : null,
         ], compact('post', 'user_detiles'));
-        // $user = Auth::user();
-        // $user_detiles = User_detiles::where('user_id', $user->id)->first();
-        // $post = Post::with('user', 'user.user_detiles', 'user.apply.applyFile', 'applies', 'comments', 'comments.replyComments')
-        //             ->where('user_id', $user->id)
-        //             ->where('slug', $slug)
-        //             ->firstOrFail();
-        
-        // $picture = '/default/potraid120x150.png';
-        
-        // if ($user_detiles && $user_detiles->profile && file_exists(public_path('/img/' . $user_detiles->profile))) {
-        //     $picture = '/img/' . $user_detiles->profile;
-        // } else {
-        //     $picture = '/default/portrait120x150.png';
-        // }
-
-        // return view('user.show', compact('post', 'picture', 'user_detiles'));
     }
+
     public function create()
     {
         $levelObj = new Level();
@@ -208,6 +193,3 @@ class userController extends Controller
         return redirect('/user/' . $apply->post->slug)->with('success', 'Successfully updated apply status.');
     }
 }
-
-
-

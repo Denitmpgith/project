@@ -35,14 +35,14 @@
                 @endforeach
                 <div class="flex justify-end">{{ $applies->links() }}</div>
             </div>        
-            <div class="col-span-12 m-3 p-3 md:col-span-12 h-fit">
+            <div class="col-span-12 m-3 p-3 md:col-span-12 h-fit ">
                 <div class="mb-2 flex justify-between items-center rounded-lg ">
                     <h1 class="px-2 py-2">Kontes yang di Buat</h1>
                     <a href="/user/create" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg">Tambah Baru</a>
                 </div>                 
                 @foreach ($posts as $post)
-                <div class="shadow p-2 mb-2 hover:bg-blue-50">
-                    <a href="/user/{{ $post->slug }}">
+                <a href="/user/{{ $post->slug }}">
+                    <div class="shadow p-2 mb-2 hover:bg-blue-50">
                         <div class="flex justify-between rounded mb-1 ">
                             <div class="flex justify-between items-end">
                                 <p class="text-cyan-500" >
@@ -79,8 +79,8 @@
                         <div class="rounded mb-3">
                             {{ $post->description }}
                         </div>
-                    </a>
-                </div>          
+                    </div>          
+                </a>
                 @endforeach
                 <div class="flex justify-end">{{ $posts->links() }}</div>
             </div>

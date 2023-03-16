@@ -3,8 +3,8 @@
 <section class="grid grid-cols-12 ">
     @include('user.welcome')
     <div class="col-span-12 grid grid-cols-12">
-        <div class="col-span-12 m-3 p-3 rounded-xl shadow ">
-            <div class="grid grid-cols-12 rounded-xl mb-1 p-3 ">
+        <div class="col-span-12 m-3 p-3 shadow ">
+            <div class="grid grid-cols-12 mb-1 p-3 ">
                 <div class="col-span-12 items-end mb-1 p-3 bg-blue-50">
                     <div class="grid grid-cols-12 rounded mb-1">
                         <div class="col-span-12 md:col-span-9 lg:col-span-9 xl:col-span-10 flex justify-between items-center">
