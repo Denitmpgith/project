@@ -1,8 +1,9 @@
 @extends('template.main')
 @section('container')
 <section class="grid grid-cols-12 gap-1 my-5 p-2">
+
   @foreach($posts as $post)
-    @if($post->deadline-time() >= 1)
+  @if($post->deadline-time() >= 1)
     <a class="col-span-12 grid grid-cols-12" href="/dashboard/{{ $post->slug }}">
       <div class="col-span-12 flex justify-start shadow p-2 hover:bg-slate-100 ">
           <div class="hidden lg:block w-[100px] h-[100px] shadow">
@@ -43,11 +44,11 @@
                 @endif
               </div>
             </div>
-              <div class="flex justify-between">
-                  <p>{{ Str::limit($post->description, 75) }}</p>
-                  <p>&nbsp;Reward $ {{ $post->reward }}</p>
-              </div>
-          </div>
+            <div class="flex justify-between">
+                <p>{{ Str::limit($post->description, 75) }}</p>
+                <p>&nbsp;Reward $ {{ $post->reward }}</p>
+            </div>
+        </div>
       </div>
     </a>
     @endif  

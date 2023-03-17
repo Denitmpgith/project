@@ -90,19 +90,17 @@ class applyController extends Controller
                 return redirect()->back()->withErrors(['error' => 'Ukuran gambar harus berupa rasio 1:1']);
             } else if ($width != 250 || $height != 250) {
                 // Ubah ukuran gambar menjadi 250x250
-                $new_image = imagecreatetruecolor(250, 250);
+                $new_image = imagecreatetruecolor(500, 500);
                 if($extension == 'jpg') {
                     $image = imagecreatefromjpeg($path);
                 } else if($extension == 'png') {
                     $image = imagecreatefrompng($path);
                 }
-                imagecopyresampled($new_image, $image, 0, 0, 0, 0, 250, 250, $width, $height);
+                imagecopyresampled($new_image, $image, 0, 0, 0, 0, 500, 500, $width, $height);
                 imagedestroy($image);
                 imagejpeg($new_image, $path->getPathname(), 90);
                 imagedestroy($new_image);
             }
-            
-            
             
             $applyFile = new ApplyFile;
             $applyFile->apply_id = $apply->id;

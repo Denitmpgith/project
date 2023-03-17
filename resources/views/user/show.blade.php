@@ -42,49 +42,54 @@
                     <hr class="col-span-12 mb-3">
                     <ul class="col-span-12 grid grid-cols-12 gap-2 mb-2">
                         @foreach ($appliesData as $apply)
-                            <div class="col-span-12 p-2 shadow md:col-span-6 lg:col-span-4 xl:col-span-3 hover:bg-blue-50">
-                                <a href="/user/apply/{{ $apply['slug'] }}">
-                                    @if ($apply['rateStatus'] == 'Winner')
-                                        <div class="text-{{ $apply['color'] }} px-2 flex justify-between rounded-tr-lg p-2">
-                                            <div class="-m-3 rounded">
-                                                <img src="{{ asset('default/winner3.png') }}">
-                                            </div>
-                                            <div class="flex justify-end">
-                                                <p>{{ $apply['rateStatus'] }}&nbsp;</p>
-                                                <p>$ {{ $apply['reward'] }}</p>
-                                            </div>
-                                        </div>
-                                    @elseif ($apply['rateStatus'] == 'Runner Up')
-                                    <div class="text-{{ $apply['color'] }} px-2 flex justify-between p-2">
+                        <a class="col-span-12 p-2 shadow md:col-span-6 lg:col-span-4 xl:col-span-3 hover:bg-blue-50" href="/user/apply/{{ $apply['slug'] }}">
+                            <div class="">
+                                @if ($apply['rateStatus'] == 'Winner')
+                                    <div class="text-{{ $apply['color'] }} px-2 flex justify-between rounded-tr-lg p-2">
                                         <div class="-m-3 rounded">
-                                            <img src="{{ asset('default/runnerup.png') }}">
+                                            <img src="{{ asset('default/winner3.png') }}">
                                         </div>
                                         <div class="flex justify-end">
                                             <p>{{ $apply['rateStatus'] }}&nbsp;</p>
                                             <p>$ {{ $apply['reward'] }}</p>
                                         </div>
                                     </div>
-                                    @elseif ($apply['rateStatus'] == 'norate')
-                                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
-                                        <p>{{ $apply['rateStatus'] }}</p>
+                                @elseif ($apply['rateStatus'] == 'Runner Up')
+                                <div class="text-{{ $apply['color'] }} px-2 flex justify-between p-2">
+                                    <div class="-m-3 rounded">
+                                        <img src="{{ asset('default/runnerup.png') }}">
                                     </div>
-                                    @elseif ($apply['rateStatus'] == 'Reject')
-                                    <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
-                                        <p>{{ $apply['rateStatus'] }}</p>
+                                    <div class="flex justify-end">
+                                        <p>{{ $apply['rateStatus'] }}&nbsp;</p>
+                                        <p>$ {{ $apply['reward'] }}</p>
                                     </div>
-                                    @endif
-                                            <p class="font-semibold">{{ $apply['title'] }}</p>
-                                        @if ($apply['applyFileCount'] > 0 )
-                                            <p class="text-gray-600 text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
-                                        @endif
-                                        <p class="text-gray-600 text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
-                                </a>
+                                </div>
+                                @elseif ($apply['rateStatus'] == 'norate')
+                                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
+                                    <p>{{ $apply['rateStatus'] }}</p>
+                                </div>
+                                @elseif ($apply['rateStatus'] == 'Reject')
+                                <div class="text-{{ $apply['color'] }} bg-white px-2 flex justify-between">
+                                    <p>{{ $apply['rateStatus'] }}</p>
+                                </div>
+                                @endif
+                                <p class="font-semibold">{{ $apply['title'] }}</p>
+                                @if ($apply['applyFileCount'] > 0 )
+                                    <p class="text-gray-600 text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
+                                @endif
+                                <p class="text-gray-600 text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
                             </div>
+                        </a>
                         @endforeach
                     </ul>                  
                 @endif                   
                 @if ($post->comments->count() > 0)
-                <hr class="col-span-12 bg-slate-500">
+                    <hr class="col-span-12 bg-slate-500">
+                    <div class="col-span-12 pb-2 flex justify-start text-cyan-500">
+                        <p>{{ $post->comments->count() }} Comment ,&nbsp;</p>
+                        <p>from {{ $post->comments->groupBy('user_id')->count() }} user</p>
+                    </div>
+                    <hr class="col-span-12 mb-3">
                     <ul class="col-span-12 ">
                     @foreach ($post->comments->sortByDesc('created_at') as $comment)
                         <li class="mb-3">

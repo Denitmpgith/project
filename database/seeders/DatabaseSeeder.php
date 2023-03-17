@@ -181,27 +181,27 @@ class DatabaseSeeder extends Seeder
         ]);
         applyFile::create([
             'apply_id' => 1,
-            'filename' => 'namafile1.file',
-            'title' => 'List Apply Postingan Pertama',
-            'slug' => 'list_apply_postingan_pertama',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
+            'title' => 'Apply Postingan Pertama',
+            'slug' => 'apply_postingan_pertama',
         ]);
         applyFile::create([
             'apply_id' => 1,
-            'filename' => 'namafile2.file',
-            'title' => 'List Apply Postingan Kedua',
-            'slug' => 'list_apply_postingan_kedua',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzN.jpg',
+            'title' => 'Apply Postingan Kedua',
+            'slug' => 'apply_postingan_kedua',
         ]);
         applyFile::create([
             'apply_id' => 1,
-            'filename' => 'namafile3.file',
-            'title' => 'List Apply Postingan Ketiga',
-            'slug' => 'list_apply_postingan_ketiga',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzO.jpg',
+            'title' => 'Apply Postingan Ketiga',
+            'slug' => 'apply_postingan_ketiga',
         ]);
         applyFile::create([
             'apply_id' => 1,
-            'filename' => 'namafile4.file',
-            'title' => 'List Apply Postingan Empat',
-            'slug' => 'list_apply_postingan_Empat',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzP.jpg',
+            'title' => 'Apply Postingan Empat',
+            'slug' => 'apply_postingan_Empat',
         ]);
         applyRate::create([
             'apply_id' => 1,

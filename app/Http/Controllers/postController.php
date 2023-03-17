@@ -15,9 +15,18 @@ class postController extends Controller
 {
     public function index()
     {
-        $posts = Post::with('applies','comments', 'comments.replyComments')->latest('id')->get();
-        return view('post.index', compact('posts'));
+        $posts = Post::with('applies', 'comments', 'comments.replyComments')->latest('id')->get();
+        $postLevels = Post::pluck('level')->toArray();
+            
+        // dd($postLevels); // tambahkan baris ini untuk mencetak nilai variabel
+    
+        return view('post.index', [
+            'posts' => $posts,
+            // 'class' => $class,
+        ]);
     }
+    
+
     public function show($slug)
     {
         $user = Auth::user();

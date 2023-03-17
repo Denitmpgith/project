@@ -1,17 +1,17 @@
-<footer class="col-span-12 lg:col-start-3 lg:col-span-8 rounded-lg grid grid-cols-12 bg-slate-500">
+<footer class="col-span-12 lg:col-start-3 lg:col-span-8 grid grid-cols-12 bg-slate-500">
     <div class="col-start-3 col-span-8">
-        <div class="grid grid-cols-12 pt-3 gap-3">
+        <div class="grid grid-cols-12 pt-3 gap-3 text-white">
             <div class="col-span-3 h-20 text-center">
-                <p>about us</p>
+                <p>Kategori</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>about us</p>
+                <p>Aturan Kontes</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>about us</p>
+                <p>Tentang Kita</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>about us</p>
+                <p>Kontak</p>
             </div>
         </div>
     </div>

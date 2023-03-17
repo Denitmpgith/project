@@ -25,6 +25,9 @@ Route::get('/user/create', [userController::class, 'create'])->middleware('auth'
 Route::post('/user', [userController::class, 'store'])->middleware('auth');
 Route::get('/user/{slug}', [userController::class, 'show'])->middleware('auth');
 Route::get('/user/apply/{slug}', [userApplyController::class, 'index'])->middleware('auth');
+// Route::post('/user/store', [userApplyController::class, 'userapplystore'])->middleware('auth');
+Route::post('/user/{slug}/store', [userApplyController::class, 'userapplystore'])->middleware('auth');
+
 
 
 Route::get('/apply', [applyController::class, 'index'])->middleware('auth');
@@ -47,9 +50,6 @@ Route::post('/comments', [commentController::class, 'storeComment'])
 ->middleware('App\Http\Middleware\BlockDirectAccess');
 Route::post('/comments/reply', [commentController::class, 'storeReply'])
 ->middleware('App\Http\Middleware\BlockDirectAccess');
-
-
-
 
 
 Route::get('/{user}', [usagerController::class, 'showProfile'])->name('user.profile');

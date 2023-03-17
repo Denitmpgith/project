@@ -2,16 +2,19 @@
 @section('container')
 <section class="grid grid-cols-12">
     @include('user.welcome')
-    <div class="col-span-12 grid grid-cols-12 ">
-        <div class="col-span-12 grid grid-cols-12 md:col-span-12 h-fit lg:col-start-1 lg:col-span-9">
-            <div class="col-span-12 m-3 p-3 md:col-span-12 h-fit">
-                <h1 class="mb-5">Ikut Serta dalam Kontes</h1>
+    <div class="col-span-12 grid grid-cols-12 mt-3 gap-3">
+        <div class="col-span-12 grid grid-cols-12 md:col-span-12 h-fit lg:col-start-1 lg:col-span-9 shadow">
+            @if( $applies->count() > 0)
+            <div class="col-span-12 m-2 p-3 md:col-span-12 h-fit">
+                <div class="mb-2 flex justify-between items-center shadow p-2">
+                    <h1 class="">Ikut Serta dalam Kontes</h1>
+                </div> 
                 @foreach ($applies as $apply)  
-                <div class="p-2 shadow mb-2">
+                <div class="p-2 shadow mb-1">
                     <div class="rounded mb-1">
                         <div class="grid grid-cols-12 rounded mb-1 ">
                             <div class="col-span-12 flex justify-between items-end">
-                                <p class="text-cyan-500"><a class="text-cyan-500" href="/user/{{ $apply->post->slug }}">{{ $apply->post->title }}</a></p>
+                                <p class="capitalize text-blue-500">{{ $apply->post->title }}</p>
                                 <div class="flex justify-between items-end">
                                     <p>Reward : {{ $apply->post->reward }}&nbsp;</p>
                                     @if ( $apply->post->deadline - time() < 0 )
@@ -34,11 +37,12 @@
                 </div>          
                 @endforeach
                 <div class="flex justify-end">{{ $applies->links() }}</div>
-            </div>        
+            </div>
+            @endif       
             <div class="col-span-12 m-3 p-3 md:col-span-12 h-fit ">
-                <div class="mb-2 flex justify-between items-center rounded-lg ">
+                <div class="mb-2 flex justify-between items-center shadow p-2">
                     <h1 class="px-2 py-2">Kontes yang di Buat</h1>
-                    <a href="/user/create" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded-lg">Tambah Baru</a>
+                    <a href="/user/create" class="bg-slate-500 hover:bg-slate-700 text-white font-bold py-2 px-4 rounded">Create Contest</a>
                 </div>                 
                 @foreach ($posts as $post)
                 <a href="/user/{{ $post->slug }}">
