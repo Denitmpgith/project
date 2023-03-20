@@ -74,7 +74,8 @@ class Relasi_Table extends TestCase
     }
     public function test_table_apply_dan_table_user()
     {
-        $this->assertEquals($this->user->username, $this->apply->user->username);
+        $user = User::where('username', $this->apply->user->username)->first();
+        $this->assertEquals($this->apply->user->username, $user->username);
     }
     public function test_table_applyFile_dan_apply()
     {

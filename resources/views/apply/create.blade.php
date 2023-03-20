@@ -46,28 +46,26 @@
     </div>
     <div class="col-span-12">
         <form method="POST" action="{{ route('apply.store', ['slug' => $post->slug]) }}" enctype="multipart/form-data">
-        {{-- <form method="POST" action="/apply"> --}}
             @csrf
             <div class="w-full mt-2">
-                <div class="flex justify-between items-start mb-1">
-                    <label for="title" class="w-[200px]">Title :&nbsp;</label>
-                    <input name="title" placeholder="Title your apply" type="text" class="border w-full">
-                </div>
-                <div class="flex justify-between items-start mb-1">
-                    <label for="description" class="w-[200px]">Description :&nbsp;</label>
-                    <textarea name="description" placeholder="Description your apply" type="text" class="border w-full"></textarea>
-                    @error('description')
-                    <div>{{ $message }}</div>
-                    @enderror
-                </div>
-                <div>
-                    <div class="flex justify-between items-start mb-1">
-                        <label for="aftitle" class="w-[200px]">Title file :</label>
+                <div class="flex justify-start items-start flex-col mb-1">
+                    <div class="flex justify-start items-start flex-row mb-1 w-full">
+                        <label for="title" class="w-52">Title&nbsp;</label>
+                        <input name="title" placeholder="Title your apply" type="text" class="border w-full">
+                    </div>
+                    <div class="flex justify-start items-start flex-row mb-1 w-full">
+                        <label for="description" class="w-52">Description&nbsp;</label>
+                        <textarea name="description" placeholder="Description your apply" type="text" class="border w-full @error('description') is-invalid @enderror"></textarea>
+                        @error('description')
+                        <div>{{ $message }}</div>
+                        @enderror
+                    </div>
+                    <div class="flex justify-start items-start flex-row mb-1 w-full">
+                        <label for="aftitle" class="w-52">Title file</label>
                         <input name="aftitle" placeholder="Title your apply" type="text" class="border w-full">
                     </div>
-                    <div class="flex justify-start items-start mb-1">
-                        <label for="filename" class="w-[200px]">File :</label>
-                        {{-- <input type="file" name="files[]" id="files" multiple> --}}
+                    <div class="flex justify-start items-start flex-row mb-1 w-full">
+                        <label for="filename" class="w-52">File</label>
                         <input type="file" name="filename" id="filename" class="@error('filename') is-invalid @enderror">
                         @error('filename')
                             <div>{{ $message }}</div>

@@ -12,8 +12,7 @@ use Illuminate\Support\Str;
 use Illuminate\Support\Facades\Auth;
 use Intervention\Image\Image;
 use Intervention\Image\Gd\Driver as GdDriver;
-
-
+use PhpParser\Node\Stmt\Label;
 
 class applyController extends Controller
 {
@@ -88,8 +87,8 @@ class applyController extends Controller
                 // Tolak gambar yang bukan rasio 1:1
                 unlink($path); // hapus gambar yang sudah di-upload
                 return redirect()->back()->withErrors(['error' => 'Ukuran gambar harus berupa rasio 1:1']);
-            } else if ($width != 250 || $height != 250) {
-                // Ubah ukuran gambar menjadi 250x250
+            } else if ($width != 500 || $height != 500) {
+                // Ubah ukuran gambar menjadi 500x500
                 $new_image = imagecreatetruecolor(500, 500);
                 if($extension == 'jpg') {
                     $image = imagecreatefromjpeg($path);

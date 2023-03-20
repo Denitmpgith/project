@@ -23,9 +23,6 @@
                         <div class="flex justify-between items-end flex-wrap">
                             <div class="w-[650px]">
                                 <div class="flex justify-between items-end">
-{{--                                     <div class="">                                                                               
-                                        <input id="islevel" type="text" tabindex="-1" class="border w-[75px]">
-                                    </div> --}}
                                     <div>
                                         <label for="title" class="text-xs block text-gray-700">&nbsp;&nbsp;&nbsp;&nbsp;Title :</label>
                                         <input type="text" name="title" id="title" placeholder="Title" class="w-[570px] px-3 @error('title') is-invalid @enderror" value="{{ old('title') }}" autofocus autocomplete="off">

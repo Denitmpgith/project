@@ -47,6 +47,9 @@ class DatabaseSeeder extends Seeder
             'country' => 'Indonesia',
             'm_phone' => '0894561237',
             'email' => 'alamat@gmail.com',
+            'job_status' => 'Junior Web Developer',
+            'work_now' => "www.gotat.my.id",
+            'website' => "www.gotat.my.id"
         ]);
         user_detiles::create([
             'user_id' => 2,
@@ -59,6 +62,8 @@ class DatabaseSeeder extends Seeder
             'country' => 'Indonesia',
             'm_phone' => '0812456789',
             'email' => 'mautauaja@gmail.com',
+            'job_status' => 'Sales Representative',
+            'work_now' => "www.gotat.my.id"
         ]);
         user_detiles::create([
             'user_id' => 3,
@@ -71,6 +76,7 @@ class DatabaseSeeder extends Seeder
             'country' => 'Indonesia',
             'm_phone' => '0813574833',
             'email' => 'udir@gmail.com',
+            'job_status' => 'Junior Software Enginering'
         ]);
         Post::create([
             'deadline' => time()+(1*60*60*24),

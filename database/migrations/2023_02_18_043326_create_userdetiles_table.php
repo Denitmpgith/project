@@ -21,11 +21,15 @@ return new class extends Migration
             $table->string('middle_name')->default('')->nullable();
             $table->string('last_name')->default('')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();
-            $table->string('address');
-            $table->string('city');
-            $table->string('country');
-            $table->string('m_phone');
-            $table->string('email');
+            $table->string('job_status')->nullable();
+            $table->string('address')->nullable();
+            $table->string('city')->nullable();
+            $table->string('country')->nullable();
+            $table->string('m_phone')->nullable();
+            $table->string('email')->nullable();
+            $table->string('work_now')->nullable();
+            $table->string('website')->nullable();
+            $table->string('hero')->nullable();
             $table->timestamps();
         });
     }
