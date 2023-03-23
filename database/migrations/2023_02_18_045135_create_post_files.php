@@ -18,8 +18,6 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('post_id')->constrained()->onDelete('cascade');
             $table->string('filename')->nullable();
-            $table->string('title')->nullable();
-            $table->string('slug')->nullable();
         });
     }
 
