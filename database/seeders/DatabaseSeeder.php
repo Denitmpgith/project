@@ -127,10 +127,11 @@ class DatabaseSeeder extends Seeder
             'slug' => 'fortfolio_detile_pertama',
             'description' => 'Terimakasih anda sudah membaca detile fortfolio dari fortfolio pertama',
             'name_file' => Str::random(10) . ".jpg",
+            'title' => 'Gambar Logo',
         ]);
         postFile::create([
             'post_id' => 1,
-            'name_file' => Str::random(10) . ".jpg",
+            'filename' => Str::random(10) . ".jpg",
         ]);
         partPost::create([
             'post_id' => 1,

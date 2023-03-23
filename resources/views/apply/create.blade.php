@@ -3,16 +3,16 @@
 
 @section('container')
 <section class="grid grid-cols-12 mt-2 px-5">
-    <div class="col-span-12 grid grid-cols-12 bg-slate-200 rounded-lg p-2 shadow">
+    <div class="col-span-12 grid grid-cols-12 bg-neutral-900 rounded-lg p-2 shadow">
         <div class="col-span-12 flex justify-between">
             <div>
                 @if ($post->user_id == auth()->id())
-                    <p class="text-white text-center bg-amber-600 px-2 py-1 w-fit rounded">( The contest is your own )</p>
+                    <p class="text-white text-center bg-neutral-800 px-2 py-1 w-fit rounded">( The contest is your own )</p>
                 @endif  
             </div>
             <div>
                 @if($post->deadline-time() >= 1)
-                <p id="countdown{{ $post->id }}" class=" px-2 bg-white rounded"></p>
+                <p id="countdown{{ $post->id }}" class=" px-2 bg-neutral-800 rounded"></p>
                 @else
                 <p class="text-red-500">Contest end</p>
                 @endif
@@ -36,12 +36,12 @@
                 {{-- <p>{{ $post->user->user_detiles->first_name }}</p> --}}
                 <p class="text-cyan-500 text-xl font-bold my-1">{{ $post->title }}</p>
                 <div class="flex justify-end">
-                    <p>&nbsp; Reward $ {{ $post->reward }}&nbsp;</p>
+                    <p class="text-white">&nbsp; Reward $ {{ $post->reward }}&nbsp;</p>
                 </div>
             </div>
         </div>
         <div class="col-span-12">
-            <p>{{ $post->description }}</p>
+            <p class="text-white">{{ $post->description }}</p>
         </div>
     </div>
     <div class="col-span-12">
@@ -50,36 +50,36 @@
             <div class="w-full mt-2">
                 <div class="flex justify-start items-start flex-col mb-1">
                     <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="title" class="w-52">Title&nbsp;</label>
-                        <input name="title" placeholder="Title your apply" type="text" class="border w-full">
+                        <label for="title" class="w-52 text-white">Title&nbsp;</label>
+                        <input name="title" placeholder="Title your apply" type="text" class="bg-black text-white border-solid border w-full">
                     </div>
                     <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="description" class="w-52">Description&nbsp;</label>
-                        <textarea name="description" placeholder="Description your apply" type="text" class="border w-full @error('description') is-invalid @enderror"></textarea>
+                        <label for="description" class="w-52 text-white">Description&nbsp;</label>
+                        <textarea name="description" placeholder="Description your apply" type="text" class="bg-black text-white border w-full @error('description') is-invalid @enderror"></textarea>
                         @error('description')
                         <div>{{ $message }}</div>
                         @enderror
                     </div>
                     <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="aftitle" class="w-52">Title file</label>
-                        <input name="aftitle" placeholder="Title your apply" type="text" class="border w-full">
+                        <label for="aftitle" class="w-52 text-white">Title file</label>
+                        <input name="aftitle" placeholder="Title your apply" type="text" class="bg-black text-white border w-full">
                     </div>
                     <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="filename" class="w-52">File</label>
-                        <input type="file" name="filename" id="filename" class="@error('filename') is-invalid @enderror">
+                        <label for="filename" class="w-52 text-white">File</label>
+                        <input type="file" name="filename" id="filename" class="@error('filename') is-invalid @enderror text-white">
                         @error('filename')
                             <div>{{ $message }}</div>
                         @enderror
                     </div>
                 </div>                
                 <div class="flex justify-end w-full">
-                    <button type="submit" class="flex justify-end bg-green-600 text-white font-bold py-1 px-8 rounded-lg hover:bg-green-800">Submit</button>
+                    <button type="submit" class="mt-2 bg-neutral-800 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-neutral-700">Submit</button>
                 </div>
             </div>
         </form>
     </div>
     <div class="col-span-12 flex justify-end mt-4">
-        <a class="bg-gray-600 rounded-lg py-1 px-4 w-32 text-center text-white hover:bg-gray-700" href="/dashboard/{{ $post->slug }}">Back</a>
+        <a class="mt-2 bg-neutral-800 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-neutral-700" href="/dashboard/{{ $post->slug }}">Back</a>
     </div>
 </section>
 @endsection
@@ -100,15 +100,15 @@
               if (days <= 0) {
                 if (hours <= 0) {
                   if (minutes <= 0) {
-                    countdownElement.innerHTML = "contest end : " + "<span class='text-red-700'>" + seconds + "</span>" + " second";
+                    countdownElement.innerHTML = "<span class='text-white'>contest end : </span>" + "<span class='text-red-700'>" + seconds + "</span>" + " second";
                   } else {
-                    countdownElement.innerHTML = "contest end : " + "<span class='text-red-500'>" + minutes + " : " + seconds + "</span>";
+                    countdownElement.innerHTML = "<span class='text-white'>contest end : </span>" + "<span class='text-red-500'>" + minutes + " : " + seconds + "</span>";
                   }
                 } else {
-                  countdownElement.innerHTML = "contest end : " + "<span class='text-yellow-500'>" + hours + " : " + minutes + " : " + seconds + "</span>";
+                  countdownElement.innerHTML = "<span class='text-white'>contest end : </span>" + "<span class='text-yellow-500'>" + hours + " : " + minutes + " : " + seconds + "</span>";
                 }
               } else {
-                countdownElement.innerHTML = "contest end : " + "<span class='text-green-500'>" + days + " day " + hours + " : " + minutes + " : " + seconds + "</span>";
+                countdownElement.innerHTML = "<span class='text-white'>contest end : </span>" + "<span class='text-green-500'>" + days + " day " + hours + " : " + minutes + " : " + seconds + "</span>";
               }
             }
         }, 1000);

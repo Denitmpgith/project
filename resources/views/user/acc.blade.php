@@ -1,4 +1,4 @@
-<div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 gap-2 p-3 rounded-xl shadow h-fit">
+<div class="col-span-12 grid grid-cols-12 md:col-span-12 lg:col-span-3 gap-2 p-3 rounded shadow h-fit bg-neutral-900 mt-3">
     {{-- @dd($picture); --}}
     <div class="col-span-12 flex justify-center mb-3">
         <img src="{{ asset($picture) }}" width="200"/>
@@ -7,7 +7,7 @@
         @csrf
         <input type="file" placeholder="{{ $picture }}" value="" >
     </form>
-    <div class="col-span-12 p-2 rounded-lg text-base bg-slate-200 md:text-xs lg:text-sm">
+    <div class="col-span-12 p-2 text-white rounded text-base bg-neutral-800 md:text-xs lg:text-sm">
         <span class="">{{ $user_detiles->first_name }}</span>
         <span class="">{{ $user_detiles->middle_name }}</span>
         <span class="">{{ $user_detiles->last_name }}</span>
@@ -18,7 +18,7 @@
         <p class="">{{ $user_detiles->m_phone }}</p>
         <p class="">{{ $user_detiles->email }}</p>
     </div>
-    <div class="col-span-12 p-2 rounded-lg text-base bg-slate-200 md:text-xs lg:text-sm">
+    <div class="col-span-12 p-2 text-white rounded text-base bg-neutral-800 md:text-xs lg:text-sm">
         @if(auth()->check())
         <p>Detile user Apply or Join Contest :</p>
             <p>Winner : {{ auth()->user()->apply()->where('rate_status', 'Winner')->count() }}</p>
