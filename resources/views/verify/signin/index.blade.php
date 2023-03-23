@@ -1,15 +1,15 @@
 @include('template.header')
 @include('template.navbar')
-<section class="flex justify-center items-center w-full bg-black">
-  <div class="container flex justify-center items-center min-h-screen ">
+<section class="flex justify-center items-center bg-black">
+  <div class="container flex justify-center items-center flex-col min-h-screen">
     @if(session()->has('success'))
-      <div class="alert alert-success alert-dismissible fade show" role="alert">
+      <div class="alert alert-success alert-dismissible fade show text-green-500 mb-5 p-2 bg-white rounded" role="alert">
         {{ session('success') }}
         <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
       </div>
     @endif
     @if(session()->has('loginError'))
-    <div class="alert alert-success alert-dismissible fade show" role="alert">
+    <div class="alert alert-success alert-dismissible fade show text-green-500 mb-5 p-2 bg-white rounded" role="alert">
       {{ session('loginError') }}
       <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
     </div>
@@ -36,7 +36,7 @@
               <button class="h-7 w-28 text-white bg-neutral-800 rounded hover:bg-neutral-700">submit</button>
           </div>
       </div>
-      <div class="flex justify-center align-items-center flex-row">
+      <div class="flex justify-center align-items-center flex-row mt-3">
           <span class="text-white">register&nbsp;</span>
           <a href="/signup" class="flex justify-center align-items-center text-yellow-500">here</a>
       </div>

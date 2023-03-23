@@ -46,7 +46,7 @@
                                 </div>
                                 <div class="">
                                     <label for="reward" class="text-xs block text-white ">reward :</label>
-                                    <input id="isreward" type="text" pattern="[0-9]+" name="reward" placeholder="Reward $" class="border-b bg-neutral-900 text-white w-[100px] @error('reward') is-invalid @enderror" autocomplete="off">
+                                    <input id="isreward" type="text" pattern="[0-9]+" name="reward" placeholder="min Rp 200rb" class="border-b bg-neutral-900 text-white w-[100px] @error('reward') is-invalid @enderror" autocomplete="off">
                                     @error('reward')
                                     <div class="invalid-feedback">
                                         {{ $message }}

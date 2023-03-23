@@ -17,7 +17,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('user_id')->constrained();
             $table->string('profile')->nullable();
-            $table->string('first_name');
+            $table->string('first_name')->default('')->nullable();
             $table->string('middle_name')->default('')->nullable();
             $table->string('last_name')->default('')->nullable();
             $table->enum('gender', ['male', 'female'])->nullable();

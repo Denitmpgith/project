@@ -10,7 +10,7 @@
                     <span class="hamburger-line transsition duration-300 ease-in out bg-white"></span>
                     <span class="hamburger-line transsition duration-300 ease-in out origin-bottom-left bg-white"></span>
                 </button>
-                <navbar id="nav-menu" class="hidden absolute bg-white shadow rounded-xl max-w-[200px] w-full right-0 top-full lg:flex lg:justify-end lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
+                <navbar id="nav-menu" class="hidden absolute bg-neutral-900 p-3 opacity-50 shadow rounded max-w-[200px] w-full right-0 top-full lg:flex lg:justify-end lg:static lg:bg-transparent lg:max-w-full lg:shadow-none lg:rounded-none">
                     <ul class="block justify-center items-center lg:flex">
                         <li><a class="text-base text-white mx-3 flex hover:text-cyan-500 {{ Request::is('/') ? 'text-cyan-500' : '' }}" href="/">Home</a></li>
                         <li><a class="text-base text-white mx-3 flex hover:text-cyan-500 {{ Request::is('dashboard') ? 'text-cyan-500' : '' }}" href="/dashboard">Lihat Kontes</a></li>
