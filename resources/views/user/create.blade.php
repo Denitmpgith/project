@@ -85,27 +85,18 @@
                                 <script>
                                     const input = document.getElementById('input_file');
                                     const fileList = document.getElementById('file_list');
-                                    
                                     // Membuat elemen style baru dan menambahkan CSS-nya
                                     const style = document.createElement('style');
                                     style.innerHTML = '#file_list li { margin-bottom: 5px; display: flex; justify-content: space-between; }';
                                     document.head.appendChild(style);
-                                
                                     input.addEventListener('change', () => {
                                     // Mengambil seluruh file yang diupload
                                     const files = input.files;
-                                
                                     // Menambahkan setiap nama file dan input text sebagai elemen list
                                     for (let i = 0; i < files.length; i++) {
                                         const fileName = files[i].name;
                                         const li = document.createElement('li');
                                         li.textContent = `${i + 1}) ${fileName}`;
-                                        const inputText = document.createElement('input');
-                                        inputText.setAttribute('type', 'text');
-                                        inputText.setAttribute('maxlength', '255');
-                                        inputText.setAttribute('placeholder', 'Deskripsi File');
-                                        inputText.setAttribute('style', 'width: 250px; color: black;');
-                                        li.appendChild(inputText);
                                         fileList.appendChild(li);
                                     }
                                     });

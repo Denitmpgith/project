@@ -113,79 +113,6 @@ class userController extends Controller
             'user_detiles' => $user_detiles
         ]);
     }
-    // public function store(Request $request)
-    // {
-    //     $validatedData = $request->validate([
-    //         'deadline' => 'required|numeric',
-    //         'title' => 'required|max:255',
-    //         'reward' => 'required|numeric',
-    //         'description' => 'required',
-    //     ]);      
-
-    //     // dd($validatedData);
-
-    //     $user = Auth::user();
-    //     $post = new Post;
-    //     $post->user_id = $user->id;
-    //     $post->deadline = time() + ($validatedData['deadline'] * 24 * 60 * 60);
-    //     $post->title = $validatedData['title'];
-
-    //     if ($validatedData['reward'] < 100) {
-    //         $post->level = "Stone";
-    //     } else if ($validatedData['reward'] < 200) {
-    //         $post->level = "Bronze";
-    //     } else if ($validatedData['reward'] < 300) {
-    //         $post->level = "Silver";
-    //     } else if ($validatedData['reward'] < 400) {
-    //         $post->level = "Gold";
-    //     } else if ($validatedData['reward'] < 500) {
-    //         $post->level = "Platinum";
-    //     } else {
-    //         $post->level = "Diamond";
-    //     }
-
-    //     $post->reward = $validatedData['reward'];
-    //         $slug = Str::snake($validatedData['title']);
-    //         $latestPost = Post::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
-    //         if($latestPost) {
-    //             $latestSlug = $latestPost->slug;
-    //             $pieces = explode('_', $latestSlug);
-    //             $index = intval(end($pieces));
-    //             $slug .= '_' . ($index + 1);
-    //         }
-    //     $post->slug = $slug;
-    //     $post->description = $validatedData['description'];
-    //     $post->save();
-
-    //     // Validasi request
-    //     $request->validate([
-    //         'input_file' => 'required|array|min:1',
-    //         'input_file.*' => 'required|file|max:2048'
-    //     ]);
-
-    //     // Mengambil seluruh file yang diupload
-    //     $files = $request->file('input_file');
-
-    //     // Menambahkan setiap file dan deskripsi ke dalam database
-    //     foreach ($files as $key => $file) {
-
-    //         $extension = $request->file('filename')->getClientOriginalExtension();
-    //         $filename = Str::random(40) . '.' . $extension;
-    //         $path = $request->file('filename')->move(storage_path('app/public/post-images'), $filename);
-
-    //         // Simpan file ke dalam direktori yang diinginkan
-    //         $file->storeAs('public/post_files', $filename);
-
-    //         // Membuat postFile baru
-    //         $postFile = new postFile();
-    //         $postFile->post_id = $post->id;
-    //         $postFile->filename = $filename;
-    //         $postFile->title = $request->input('description.' . $key);
-    //         $postFile->save();
-    //     }
-
-    //     return redirect('/user')->with('success', 'Post berhasil dibuat');
-    // }
     public function store(Request $request)
     {
         $validatedData = $request->validate([
@@ -233,37 +160,29 @@ class userController extends Controller
         $request->validate([
             'input_file' => 'nullable|array|min:1',
             'input_file.*' => 'required|file|max:1048'
+            // 'input_file.*' => 'required|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:2048'
         ]);
 
         if ($request->hasFile('input_file')) {
             // Mengambil seluruh file yang diupload
             $files = $request->file('input_file');
-            // $extension = $request->file('input_file')->getClientOriginalExtension();
-            // $filename = Str::random(40) . '.' . $extension;
 
             // Menambahkan setiap file dan deskripsi ke dalam database
             foreach ($files as $key => $file) {
-                $extension = $file->getClientOriginalExtension(); // mengambil extension dari masing-masing file
+                $extension = $file->getClientOriginalExtension();
                 $filename = Str::random(40) . '.' . $extension;
-                // Simpan file ke dalam direktori yang diinginkan
-                $file->move(storage_path('app/public/post-images'), $filename);
-
-                // Membuat postFile baru
+                
+                if($extension == 'jpg' || $extension == 'png') { // perbaikan if
+                    $file->move(storage_path('app/public/post-images'), $filename);
+                } else {
+                    $file->move(storage_path('app/public/post-noimages'), $filename);
+                }
+            
                 $postFile = new PostFile();
                 $postFile->post_id = $post->id;
                 $postFile->filename = $filename;
-                $postFile->title = $request->input('file_description.' . $key);
-                    $slug = Str::slug($validatedData['title']);
-                        $latestPost = Post::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
-                        if ($latestPost) {
-                            $latestSlug = $latestPost->slug;
-                            $pieces = explode('-', $latestSlug);
-                            $index = intval(end($pieces));
-                            $slug .= '-' . ($index + 1);
-                        }
-                $postFile->slug = $slug;
                 $postFile->save();
-            }
+            }            
         }
 
         return redirect('/user')->with('success', 'Post berhasil dibuat');

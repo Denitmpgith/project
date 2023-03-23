@@ -41,6 +41,15 @@
         <div class="col-span-12">
             <p class="text-white">{{ $post->description }}</p>
         </div>
+        @foreach($post->postFile as $file)
+            <div class="col-span-12">
+                @if(pathinfo($file->filename, PATHINFO_EXTENSION) === 'jpg' || pathinfo($file->filename, PATHINFO_EXTENSION) === 'png')
+                    <img style="width: 150px; height: 150px;" src="{{ asset('post-images/' . $file->filename) }}" alt="Gambar {{ $file->id }}">
+                @else
+                    <a class="text-white" href="{{ asset('post-noimages/' . $file->filename) }}" download>{{ $file->filename }}</a>
+                @endif
+            </div>
+        @endforeach      
     </div>
     @if($post->applies->count() > 0)
         <hr class="col-span-2 mt-3">
