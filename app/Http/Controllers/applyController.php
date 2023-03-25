@@ -42,7 +42,6 @@ class applyController extends Controller
             'title' => 'required',
             'description' => 'required',
             'filename' => 'required',
-            'aftitle' => 'required',
     
         ]);
     
@@ -66,9 +65,9 @@ class applyController extends Controller
         $apply->rate_status = 'norate';
         $apply->save();
     
-        $file = $request->file('filename');
+        $files = $request->file('filename');
         if ($request->hasFile('filename')) {
-            foreach ($file as $key => $file) {
+            foreach ($files as $key => $file) {
             if ($file->isValid()) {
             $originalFilename = $file->getClientOriginalName();
             $extension = $file->getClientOriginalExtension();
@@ -105,16 +104,6 @@ class applyController extends Controller
             $applyFile = new ApplyFile;
             $applyFile->apply_id = $apply->id;
             $applyFile->filename = $filename;
-            $applyFile->title = $validatedData['aftitle'];
-            $slug = Str::snake($validatedData['aftitle']);
-            $latestApply = Apply::whereRaw("slug RLIKE '^{$slug}(_[0-9]+)?$'")->latest('id')->first();
-            if ($latestApply) {
-                $latestSlug = $latestApply->slug;
-                $pieces = explode('_', $latestSlug);
-                $index = intval(end($pieces));
-                $slug .= '_' . ($index + 1);
-            }
-            $applyFile->slug = $slug;
             $applyFile->save();
             }
         } 

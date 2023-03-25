@@ -190,26 +190,18 @@ class DatabaseSeeder extends Seeder
         applyFile::create([
             'apply_id' => 1,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
-            'title' => 'Apply Postingan Pertama',
-            'slug' => 'apply_postingan_pertama',
         ]);
         applyFile::create([
             'apply_id' => 1,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzN.jpg',
-            'title' => 'Apply Postingan Kedua',
-            'slug' => 'apply_postingan_kedua',
         ]);
         applyFile::create([
             'apply_id' => 1,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzO.jpg',
-            'title' => 'Apply Postingan Ketiga',
-            'slug' => 'apply_postingan_ketiga',
         ]);
         applyFile::create([
             'apply_id' => 1,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzP.jpg',
-            'title' => 'Apply Postingan Empat',
-            'slug' => 'apply_postingan_Empat',
         ]);
         applyRate::create([
             'apply_id' => 1,

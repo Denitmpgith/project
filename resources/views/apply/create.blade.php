@@ -57,19 +57,15 @@
                         <label for="description" class="w-52 text-white">Description&nbsp;</label>
                         <textarea name="description" placeholder="Description your apply" type="text" class="bg-black text-white border w-full @error('description') is-invalid @enderror"></textarea>
                         @error('description')
-                        <div>{{ $message }}</div>
+                        <div class="text-red-500">{{ $message }}</div>
                         @enderror
-                    </div>
-                    <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="aftitle" class="w-52 text-white">Title file</label>
-                        <input name="aftitle" placeholder="Title your apply" type="text" class="bg-black text-white border w-full">
                     </div>
                     <div class="flex justify-center flex-col w-full bg-neutral-800 mt-2 p-3">
                         <div class="flex justify-center items-center flex-col w-full">
                                 <label for="input_file" class="px-5 bg-white text-black">Upload File</label>
                                 <input id="input_file" type="file" class="@error('filename') is-invalid @enderror text-white hidden" multiple name="filename[]">
                                 @error('filename')
-                                <div>{{ $message }}</div>
+                                <div class="text-red-500">{{ $message }}</div>
                                 @enderror
                         </div>
                         <div class="col-span-12">

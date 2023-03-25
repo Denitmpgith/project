@@ -18,8 +18,6 @@ return new class extends Migration
             $table->timestamps();
             $table->foreignId('apply_id')->constrained();
             $table->string('filename')->nullable();
-            $table->string('title')->nullable();
-            $table->string('slug')->nullable();
         });
     }
 

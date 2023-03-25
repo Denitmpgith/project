@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Post;
 use App\Models\User;
 use App\Models\Apply;
+use App\Models\applyFile;
 use App\Models\postFile;
 use Illuminate\Support\Str;
 use App\Models\User_detiles;
@@ -33,8 +34,8 @@ class postController extends Controller
         $user = Auth::user();
         $user_detiles = User_detiles::where('user_id', $user->id)->first();
         $post = Post::with('user', 'user.user_detiles', 'user.apply.applyFile', 'applies', 'comments', 'comments.replyComments', 'postFile')
-        ->where('slug', $slug)
-        ->firstOrFail();    
+                ->where('slug', $slug)
+                ->firstOrFail();    
         $owner = User::find($post->user_id);
 
         $applies = $post->applies->sortBy(function ($apply) {
@@ -50,6 +51,7 @@ class postController extends Controller
                 'userFirstName' => $apply->user->user_detiles->first_name ?? 'not registered',
                 'createdAt' => $post->created_at->diffForHumans(),
                 'applyFileCount' => $apply->applyFile ? $apply->applyFile->count() : 0,
+                'applyFileName' => $apply->applyFile->pluck('filename')->toArray(),
                 'slug' => $apply->slug,
             ];
 
@@ -71,7 +73,8 @@ class postController extends Controller
                     break;
             }
             
-            $applyFile = $apply->applyFiles ? $apply->applyFiles->first() : null;
+            $applyFile = applyFile::where('apply_id', $apply->id)->first();
+            // $applyFile = $apply->applyFiles ? $apply->applyFiles->first() : null;
             $appliesData[] = array_merge($applyData, ['applyFile' => $applyFile]);
         }
 

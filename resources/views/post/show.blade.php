@@ -91,10 +91,14 @@
                         <p class="text-white">{{ $apply['rateStatus'] }}</p>
                     </div>
                     @endif
-                            <p class="font-semibold text-cyan-600">{{ $apply['title'] }}</p>
                         @if ($apply['applyFileCount'] > 0 )
+                            @php
+                                $filename = reset($apply['applyFileName']);
+                            @endphp
+                            <img src="{{ asset('post-images/' . $filename) }}" alt="">
                             <p class="text-white text-xs">{{ $apply['applyFileCount'] }} Files has upload</p>
                         @endif
+                        <p class="font-semibold text-cyan-600">{{ $apply['title'] }}</p>
                         <p class="text-white text-xs">By {{ $apply['userFirstName'] }} {{ $apply['createdAt'] }}</p>
                 </div>
             @endforeach
