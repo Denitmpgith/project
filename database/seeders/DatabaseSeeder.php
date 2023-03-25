@@ -192,15 +192,15 @@ class DatabaseSeeder extends Seeder
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
         ]);
         applyFile::create([
-            'apply_id' => 1,
+            'apply_id' => 2,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzN.jpg',
         ]);
         applyFile::create([
-            'apply_id' => 1,
+            'apply_id' => 3,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzO.jpg',
         ]);
         applyFile::create([
-            'apply_id' => 1,
+            'apply_id' => 4,
             'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzP.jpg',
         ]);
         applyRate::create([
