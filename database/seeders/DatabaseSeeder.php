@@ -132,7 +132,7 @@ class DatabaseSeeder extends Seeder
         ]);
         postFile::create([
             'post_id' => 1,
-            'filename' => Str::random(10) . ".jpg",
+            'filename' => "HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzN.jpg",
         ]);
         partPost::create([
             'post_id' => 1,
@@ -193,15 +193,23 @@ class DatabaseSeeder extends Seeder
         ]);
         applyFile::create([
             'apply_id' => 2,
-            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzN.jpg',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
         ]);
         applyFile::create([
             'apply_id' => 3,
-            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzO.jpg',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
         ]);
         applyFile::create([
             'apply_id' => 4,
-            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzP.jpg',
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
+        ]);
+        applyFile::create([
+            'apply_id' => 5,
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
+        ]);
+        applyFile::create([
+            'apply_id' => 6,
+            'filename' => 'HNB6N0VPaYeDSR6Cb9Hdd3xhMRe9wEw99CGM4uzM.jpg',
         ]);
         applyRate::create([
             'apply_id' => 1,
