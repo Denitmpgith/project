@@ -42,10 +42,9 @@
             <div class="col-span-12 m-3 p-3 md:col-span-12 h-fit ">
                 @if(empty($user_detiles->first_name))
                 @else
-                <div class="mb-2 flex justify-between items-center shadow p-2">
-                    <h1 class="px-2 py-2 text-white">Kontes yang di Buat</h1>
-                    <a href="/user/create" class="flex justify-center items-center text-center bg-neutral-800 text-white rounded my-3 w-28 h-7 p-1 hover:bg-stone-700">create contest</a>
-                </div>
+                    <div class="col-span-12 flex justify-center items-center my-2 rounded flex-row px-5 bg-neutral-900 ">
+                        <h1 class="text-white">Want to make a new contest ?&nbsp;</h1><a href="/user/create" class="flex justify-center items-center text-center bg-neutral-800 text-white rounded my-3 w-28 h-7 p-1 hover:bg-stone-700">create contest</a>
+                    </div>
                 @endif                 
                 @foreach ($posts as $post)
                 <a href="/user/{{ $post->slug }}">

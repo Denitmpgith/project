@@ -5,9 +5,10 @@
         <div class="col-span-12 flex justify-center items-center p-2">
             <div class="w-[325px] h-[325px] md:h-[375px] md:w-[375px] lg:h-[500px] lg:w-[500px] xl:h-[650px] xl:w-[650px] flex justify-center items-center flex-col ">
                 <div class="Flex justify-start flex-col">
-                    <p class="text-white text-lg md:text-2xl lg:text-4xl">Selamat datang, <span class="uppercase font-bold text-cyan-500">Artifex</span></p>
-                    <p class="text-white text-xs md:text-sm lg:text-base text-left">Kami sedang mencari orang yang mampu menciptakan karya luar biasa untuk klien kami.</p>
-                    <p class="text-white text-xs md:text-sm lg:text-base text-left">Bersediakah gabung dengan tim kreatif kami dan jadilah bagian dari kami dalam menciptakan karya-karya yang luar biasa untuk klien kami.</p>
+                    <p class="text-white text-lg md:text-2xl lg:text-4xl">Hello <span class="capitalize font-bold text-cyan-500">Artifex</span>&nbsp;. . . </p>
+                    <p class="text-white text-xs md:text-sm lg:text-base text-left">We are currently looking for individuals who are capable of creating exceptional works for our clients. Would you like to join our creative team and be part of a team that creates extraordinary works for our clients?"</p>
+                    {{-- </br>
+                    <p class="text-white text-xs md:text-sm lg:text-base text-left">Kami adalah perusahaan jasa Artifex yang terdiri dari tim yang berdedikasi, terampil, dan penuh semangat dalam menghasilkan karya-karya kreatif yang memukau. Dari konsep hingga hasil akhir, kami menyediakan layanan kreatif dan teknis terbaik di industri ini, dan memiliki tim ahli yang berkomitmen untuk menghasilkan karya-karya yang memukau dengan pengalaman dan keahlian yang telah teruji. Kami mengedepankan kualitas dan inovasi dalam setiap proyek yang kami tangani, dan memastikan bahwa setiap karyawan kami dibayar dengan adil dan dihargai atas keahlian mereka. Gabunglah dengan kami dan temukan cara baru untuk menciptakan karya-karya kreatif yang luar biasa bersama dengan para ahli di bidangnya.</p> --}}
                 </div>
             </div>
         </div>
@@ -25,16 +26,16 @@
     <div class="col-start-3 col-span-8">
         <div class="grid grid-cols-12 pt-3 gap-3 text-white">
             <div class="col-span-3 h-20 text-center">
-                <p>Kategori</p>
+                <p>Category</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>Aturan Kontes</p>
+                <p>Contest Rules</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>Tentang Kita</p>
+                <p>About Us</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>Kontak</p>
+                <p>Contact</p>
             </div>
         </div>
     </div>

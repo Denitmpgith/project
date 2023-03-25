@@ -1,7 +1,9 @@
 @extends('template.main')
 @section('container')
-<section class="grid grid-cols-12 gap-1 my-5 p-2">
-
+<section class="grid grid-cols-12 gap-1 p-2">
+  <div class="col-span-12 flex justify-center items-center my-2 rounded flex-row px-5 bg-neutral-900 ">
+    <h1 class="text-white">Want to make a contest ?&nbsp;</h1><a href="/user/create" class="flex justify-center items-center text-center bg-neutral-800 text-white rounded my-3 w-28 h-7 p-1 hover:bg-stone-700">create contest</a>
+  </div>
   @foreach($posts as $post)
   @if($post->deadline-time() >= 1)
     <a class="col-span-12 grid grid-cols-12" href="/dashboard/{{ $post->slug }}">
@@ -53,13 +55,7 @@
     </a>
     @endif  
   @endforeach
-  {{-- @if(empty($user_detiles->first_name))
-  @else --}}
-    <div class="col-span-12 flex justify-between items-end flex-col">
-      <h1 class="text-white">Ingin Membuat kontest seperti di atas ?</h1>
-      <a href="/user/create" class="flex justify-center items-center text-center bg-neutral-800 text-white rounded my-3 w-28 h-7 p-1 hover:bg-stone-700">create contest</a>
-    </div>
-  {{-- @endif                           --}}
+
 </section>
 @endsection
 

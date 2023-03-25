@@ -104,7 +104,7 @@
                                     @if($comment->user_id === $post->user_id)
                                         <span class="font-bold mr-2 text-neutral-100">You&nbsp;</span>
                                     @else
-                                        <span class="font-bold mr-2 text-neutral-100">{{ $comment->user->user_detiles->first_name }}&nbsp;</span>
+                                        <a href="/{{ $comment->user->username }}"><span class="font-bold mr-2 text-cyan-500">{{ $comment->user->user_detiles->first_name }}&nbsp;</span></a>
                                     @endif
                                         <span class="text-sm text-white"><span class="font-extrabold">"</span>{{ $comment->comment }}<span class="font-extrabold">"</span></span>
                                     </div>
@@ -137,7 +137,7 @@
                                         @if($reply->user_id === $post->user_id)
                                             <span class="font-bold mr-2 text-neutral-100">You&nbsp;</span>
                                         @else
-                                            <span class="font-bold mr-2 text-neutral-100">{{ $reply->user->user_detiles->first_name }}&nbsp;</span>
+                                        <a href="/{{ $reply->user->username }}"><span class="font-bold mr-2 text-cyan-500">{{ $reply->user->user_detiles->first_name }}&nbsp;</span></a>
                                         @endif
                                             <span class="text-sm text-white"><span class="font-extrabold">"</span>{{ $reply->replycomment }}<span class="font-extrabold">"</span></span>
                                         </div>

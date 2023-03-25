@@ -2,16 +2,16 @@
     <div class="col-start-3 col-span-8">
         <div class="grid grid-cols-12 pt-3 gap-3 text-white">
             <div class="col-span-3 h-20 text-center">
-                <p>Kategori</p>
+                <p>Category</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>Aturan Kontes</p>
+                <p>Contest Rules</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>Tentang Kita</p>
+                <p>About Us</p>
             </div>
             <div class="col-span-3 h-20 text-center">
-                <p>Kontak</p>
+                <p>Contact</p>
             </div>
         </div>
     </div>
