@@ -1,8 +1,10 @@
 <?php
 
 use App\Http\Controllers\Controller;
+use app\Http\Middleware\CheckUserExists;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\postController;
+use App\Http\Controllers\depositController;
 use App\Http\Controllers\userController;
 use App\Http\Controllers\usagerController;
 use App\Http\Controllers\signinController;
@@ -45,6 +47,10 @@ Route::post('/comments', [commentController::class, 'storeComment'])
 Route::post('/comments/reply', [commentController::class, 'storeReply'])
 ->middleware('App\Http\Middleware\BlockDirectAccess');
 
+Route::get('/deposit/{username}', [depositController::class, 'index'])->middleware('auth');
 
 Route::get('/{user}', [usagerController::class, 'showProfile'])->name('user.profile');
+// Route::get('/{user}', [usagerController::class, 'showProfile'])->name('user.profile')->middleware('CheckUserExists');
+// Route::get('/user-not-found', function () {return 'User not found';})->name('user.notfound');
+
 Route::fallback(function () {return redirect('/');});

@@ -11,7 +11,7 @@
                             <h5 class="text-2xl bold text-cyan-500"><span class="text-yellow-700 text-base">{{ $post->level }}</span>&nbsp;{{ $post->title }}</h5>
                         </div>
                         <div class="col-span-12 md:col-start-10 md:col-span-3 lg:col-start-10 lg:col-span-3 xl:col-start-11 xl:col-span-2 flex justify-between items-end">
-                            <p class="text-white">Reward $ {{ $post->reward }}</p>
+                            <p class="text-white">Reward : {{ $post->reward }}</p>
                             @if ( $post->deadline - time() < 0 )
                             <small class="text-red-600">End Contest</small>
                             @elseif ( $post->deadline - time() < 3600 )

@@ -15,6 +15,7 @@ use App\Models\applyRate;
 use App\Models\fortfolio;
 use App\Models\fortDetiles;
 use App\Models\user_detiles;
+use App\Models\Utransaction;
 use App\Models\listCategory;
 use Illuminate\Support\Str;
 use Illuminate\Database\Seeder;
@@ -243,6 +244,11 @@ class DatabaseSeeder extends Seeder
             'user_id' => 1,
             'replycomment' => 'boleh, selama hasil nya baik dan saya suka',
             'slug' => 'boleh,_selama_hasil_nya_baik_dan_saya_suka',
+        ]);
+        Utransaction::create([
+            'user_id' => 1,
+            'debet' => 1000000,
+            'description' => 'storan dana via BCA',
         ]);
     }
 }

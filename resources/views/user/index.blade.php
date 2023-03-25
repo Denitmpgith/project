@@ -89,7 +89,7 @@
                     </div>          
                 </a>
                 @endforeach
-                <div  class="col-span-12 flex justify-center bg-slate-600 w-full ">
+                <div  class="col-span-12 flex justify-center w-full ">
                     <div class="flex justify-between">{{ $posts->links() }}</div>
                 </div>
             </div>

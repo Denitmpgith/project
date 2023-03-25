@@ -46,21 +46,20 @@
             </div>
             <div class="flex justify-between">
                 <p class="text-neutral-300">{{ Str::limit($post->description, 75) }}</p>
-                <p class="text-neutral-300">&nbsp;Reward $ {{ $post->reward }}</p>
+                <p class="text-neutral-300">&nbsp;Reward : {{ $post->reward }}</p>
             </div>
         </div>
       </div>
     </a>
     @endif  
   @endforeach
-  @if(empty($user_detiles->first_name))
-  @else
+  {{-- @if(empty($user_detiles->first_name))
+  @else --}}
     <div class="col-span-12 flex justify-between items-end flex-col">
       <h1 class="text-white">Ingin Membuat kontest seperti di atas ?</h1>
-        {{-- <textarea name="reply" placeholder="&nbsp;&nbsp;made your own contest here..." rows="3" class="rounded-lg bg-slate-100 h-16 w-full p-0 m-0 border-gray-300 resize-none overflow-auto focus:border-blue-500 focus:outline-none" onkeypress="if(event.keyCode == 13) { this.form.submit(); return false; }" onkeydown="if(event.keyCode == 13) {this.value = this.value + '\n'; return false;}"></textarea> --}}
       <a href="/user/create" class="flex justify-center items-center text-center bg-neutral-800 text-white rounded my-3 w-28 h-7 p-1 hover:bg-stone-700">create contest</a>
     </div>
-  @endif                          
+  {{-- @endif                           --}}
 </section>
 @endsection
 

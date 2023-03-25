@@ -34,7 +34,7 @@
             <div class="flex justify-between w-full">
                 <p class="text-cyan-500 text-xl font-bold my-1">{{ $post->title }}</p>
                 <div class="flex justify-end">
-                    <p class="text-white">&nbsp; Reward $ {{ $post->reward }}&nbsp;</p>
+                    <p class="text-white">&nbsp; Reward : {{ $post->reward }}&nbsp;</p>
                 </div>
             </div>
         </div>
@@ -105,6 +105,8 @@
         @if($post->deadline-time() >= 1)
             <div class="col-span-12 flex justify-end mt-3 gap-3">
                 <a class="mt-2 bg-neutral-800 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-neutral-700" href="/apply/{{ $post->slug }}">Join Contest</a>
+                {{-- <a class="mt-2 bg-neutral-800 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-neutral-700" href="/apply/{{ $post->slug }}">Bad Reward</a>
+                <a class="mt-2 bg-neutral-800 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-neutral-700" href="/apply/{{ $post->slug }}">Not my Skill</a> --}}
             </div>
         @endif
     @endif   

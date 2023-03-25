@@ -6,7 +6,19 @@ namespace Tests\Unit;
 use Mockery;
 use Tests\TestCase;
 use App\Models\{
-    User, Post, Apply, Comment, PartPost, PostFile, ApplyFile, ApplyRate, Fortfolio, user_detiles, FortDetiles, ReplyComment, ListCategory
+    User,
+    Post,
+    Apply,
+    Comment,
+    PartPost,
+    PostFile,
+    ApplyFile,
+    ApplyRate,
+    Fortfolio,
+    user_detiles,
+    FortDetiles,
+    ReplyComment,
+    ListCategory,
 };
 
 class Relasi_Table extends TestCase
@@ -29,7 +41,7 @@ class Relasi_Table extends TestCase
         $this->fortDetile = fortDetiles::first();
         $this->replyComment = replyComment::first();
         $this->listCategory = listCategory::first();
-
+        // $this->transaction = transaction::first();
     }
 
     public function test_table_post_dan_table_user()
@@ -93,4 +105,5 @@ class Relasi_Table extends TestCase
     {
         $this->assertEquals($this->comment->title, $this->replyComment->comment->title);
     }
+
 }

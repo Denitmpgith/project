@@ -36,7 +36,7 @@
                 {{-- <p>{{ $post->user->user_detiles->first_name }}</p> --}}
                 <p class="text-cyan-500 text-xl font-bold my-1">{{ $post->title }}</p>
                 <div class="flex justify-end">
-                    <p class="text-white">&nbsp; Reward $ {{ $post->reward }}&nbsp;</p>
+                    <p class="text-white">&nbsp; Reward : {{ $post->reward }}&nbsp;</p>
                 </div>
             </div>
         </div>
@@ -64,13 +64,49 @@
                         <label for="aftitle" class="w-52 text-white">Title file</label>
                         <input name="aftitle" placeholder="Title your apply" type="text" class="bg-black text-white border w-full">
                     </div>
-                    <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="filename" class="w-52 text-white">File</label>
-                        <input type="file" name="filename" id="filename" class="@error('filename') is-invalid @enderror text-white">
-                        @error('filename')
-                            <div>{{ $message }}</div>
-                        @enderror
-                    </div>
+                    <div class="flex justify-center flex-col w-full bg-neutral-800 mt-2 p-3">
+                        <div class="flex justify-center items-center flex-col w-full">
+                                <label for="input_file" class="px-5 bg-white text-black">Upload File</label>
+                                <input id="input_file" type="file" class="@error('filename') is-invalid @enderror text-white hidden" multiple name="filename[]">
+                                @error('filename')
+                                <div>{{ $message }}</div>
+                                @enderror
+                        </div>
+                        <div class="col-span-12">
+                            <ol class="text-white" id="file_list"></ol>
+                        </div>
+                        <script>
+                            const input = document.getElementById('input_file');
+                            const fileList = document.getElementById('file_list');
+                            let lastFileNumber = 0;
+                            const style = document.createElement('style');
+                            style.innerHTML = '#file_list li { margin-bottom: 5px; display: flex; justify-content: space-between; }';
+                            document.head.appendChild(style);
+                            input.addEventListener('change', () => {
+                              const files = input.files;
+                              for (let i = 0; i < files.length; i++) {
+                                const fileName = files[i].name;
+                                let duplicateFound = false;
+                                const listItems = fileList.querySelectorAll('li');
+                                listItems.forEach((item) => {
+                                  if (item.textContent.includes(fileName)) {
+                                    duplicateFound = true;
+                                  }
+                                });
+                                if (!duplicateFound) {
+                                  const li = document.createElement('li');
+                                  if (lastFileNumber > 0) {
+                                    li.textContent = `${lastFileNumber + 1}) ${fileName}`;
+                                  } else {
+                                    li.textContent = `${i + 1}) ${fileName}`;
+                                  }
+                                  fileList.appendChild(li);
+                                  lastFileNumber++;
+                                }
+                              }
+                            });
+                          </script>                          
+                    </div>                     
                 </div>                
                 <div class="flex justify-end w-full">
                     <button type="submit" class="mt-2 bg-neutral-800 text-center text-white rounded w-28 h-6 p-0 m-0 hover:bg-neutral-700">Submit</button>

@@ -1,7 +1,7 @@
 @extends('template.main')
 @section('container')
     <div class="rounded-b-lg w-full h-96 bg-neutral-900 grid grid-cols-12 gap-5">
-        <div class="col-start-2 col-span-10 flex justify-start items-center w-full mt-32 ">
+        <div class="col-start-2 col-span-10 flex justify-start items-center w-full flex-wrap mt-32 ">
             <div class="h-52 w-52 bg-slate-900 " >
                 <img src="" alt="">
             </div>
@@ -30,7 +30,7 @@
                 </div>
             </div>
             <div class="flex justify-center h-40 bg-neutral-800">
-                <p class="text-white">Rincian pengguna</p>
+                <p class="text-white">Level user</p>
             </div>
         </div>
         <div class="col-span-12 flex justify-start flex-col lg:col-span-8 bg-neutral-900 p-5 gap-5 rounded-t-lg">

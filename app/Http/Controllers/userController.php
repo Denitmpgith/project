@@ -7,13 +7,14 @@ use App\Models\Post;
 use App\Models\User;
 use App\Models\Apply;
 use App\Models\level;
-use App\Models\comment;
 use App\Models\postFile;
 use Illuminate\Support\Str;
 use App\Models\User_detiles;
+use App\Models\Utransaction;
 use Illuminate\Http\Request;
 use Illuminate\Routing\Controller;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\DB;
 
 class userController extends Controller
 {
@@ -99,93 +100,139 @@ class userController extends Controller
         $levels = $levelObj->level();
         $auth = Auth::user();
         $user_detiles = User_detiles::where('user_id', Auth::user()->id)->first();
-        $picture = '/default/potraid120x150.png';
         
+        $picture = '/default/potraid120x150.png';      
         if ($user_detiles && $user_detiles->profile && file_exists(public_path('/img/' . $user_detiles->profile))) {
             $picture = '/img/' . $user_detiles->profile;
         } else {
             $picture = '/default/portrait120x150.png';
         }
+
+        $transactionCount = DB::table('utransactions')
+                        ->where('user_id', Auth::user()->id)
+                        ->count();
+        if ($transactionCount === 0 || $transactionCount === null) {
+            $saldo = "nol";
+        } else {
+            $saldo = DB::table('utransactions')
+                ->selectRaw('SUM(debet) - SUM(kredit) as saldo')
+                ->where('user_id', Auth::user()->id)
+                ->groupBy('user_id')
+                ->value('saldo');
+        }
+
         return view('user.create',[
             'levels' => $levels,
             'auth' => $auth,
             'picture' => $picture,
-            'user_detiles' => $user_detiles
+            'user_detiles' => $user_detiles,
+            'saldo' => $saldo,
         ]);
     }
     public function store(Request $request)
     {
-        $validatedData = $request->validate([
-            'deadline' => 'required|numeric',
-            'title' => 'required|max:255',
-            'reward' => 'required|numeric',
-            'description' => 'required',
-        ]);
+        DB::beginTransaction();
 
-        $user = Auth::user();
+        try {
+        
+            $validatedData = $request->validate([
+                'deadline' => 'required|numeric',
+                'title' => 'required|max:255',
+                'reward' => 'required|numeric',
+                'description' => 'required',
+            ]);
 
-        $post = new Post();
-        $post->user_id = $user->id;
-        $post->deadline = time() + ($validatedData['deadline'] * 24 * 60 * 60);
-        $post->title = $validatedData['title'];
+            $user = Auth::user();
 
-        if ($validatedData['reward'] < 100) {
-            $post->level = "Stone";
-        } else if ($validatedData['reward'] < 200) {
-            $post->level = "Bronze";
-        } else if ($validatedData['reward'] < 300) {
-            $post->level = "Silver";
-        } else if ($validatedData['reward'] < 400) {
-            $post->level = "Gold";
-        } else if ($validatedData['reward'] < 500) {
-            $post->level = "Platinum";
-        } else {
-            $post->level = "Diamond";
-        }
+            $post = new Post();
+            $post->user_id = $user->id;
+            $post->deadline = time() + ($validatedData['deadline'] * 24 * 60 * 60);
+            $post->title = $validatedData['title'];
 
-        $post->reward = $validatedData['reward'];
-        $slug = Str::snake($validatedData['title']);
-            $latestPost = Post::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
-            if($latestPost) {
-                $latestSlug = $latestPost->slug;
-                $pieces = explode('_', $latestSlug);
-                $index = intval(end($pieces));
-                $slug .= '_' . ($index + 1);
+            if ($validatedData['reward'] < 500000) {
+                $post->level = "Stone";
+            } else if ($validatedData['reward'] < 1000000) {
+                $post->level = "Bronze";
+            } else if ($validatedData['reward'] < 2000000) {
+                $post->level = "Silver";
+            } else if ($validatedData['reward'] < 3000000) {
+                $post->level = "Gold";
+            } else if ($validatedData['reward'] < 4000000) {
+                $post->level = "Platinum";
+            } else {
+                $post->level = "Diamond";
             }
-        $post->slug = $slug;
-        $post->description = $validatedData['description'];
-        $post->save();
 
-        // Validasi request
-        $request->validate([
-            'input_file' => 'nullable|array|min:1',
-            'input_file.*' => 'required|file|max:1048'
-            // 'input_file.*' => 'required|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:2048'
-        ]);
+            $saldo = DB::table('utransactions')
+                ->selectRaw('SUM(debet) - SUM(kredit) as saldo')
+                ->where('user_id', Auth::user()->id)
+                ->groupBy('user_id')
+                ->value('saldo');
 
-        if ($request->hasFile('input_file')) {
-            // Mengambil seluruh file yang diupload
-            $files = $request->file('input_file');
-
-            // Menambahkan setiap file dan deskripsi ke dalam database
-            foreach ($files as $key => $file) {
-                $extension = $file->getClientOriginalExtension();
-                $filename = Str::random(40) . '.' . $extension;
-                
-                if($extension == 'jpg' || $extension == 'png') { // perbaikan if
-                    $file->move(storage_path('app/public/post-images'), $filename);
-                } else {
-                    $file->move(storage_path('app/public/post-noimages'), $filename);
-                }
+            // Memeriksa apakah pengguna memiliki saldo yang cukup
+            if ($saldo >= $validatedData['reward']) {
+                $post->reward = $validatedData['reward'];
+            } else {
+                return redirect()->back()->withErrors(['reward' => 'Saldo Anda tidak cukup']);
+            }
             
-                $postFile = new PostFile();
-                $postFile->post_id = $post->id;
-                $postFile->filename = $filename;
-                $postFile->save();
-            }            
+            $slug = Str::snake($validatedData['title']);
+                $latestPost = Post::whereRaw("slug RLIKE '^{$slug}(-[0-9]+)?$'")->latest('id')->first();
+                if($latestPost) {
+                    $latestSlug = $latestPost->slug;
+                    $pieces = explode('_', $latestSlug);
+                    $index = intval(end($pieces));
+                    $slug .= '_' . ($index + 1);
+                }
+            $post->slug = $slug;
+            $post->description = $validatedData['description'];
+            $post->save();
+
+            $request->validate([
+                'input_file' => 'nullable|array|min:1',
+                'input_file.*' => 'required|file|max:1048'
+                // 'input_file.*' => 'required|mimes:jpg,jpeg,png,pdf,doc,docx,xls,xlsx|max:2048'
+            ]);
+
+            if ($request->hasFile('input_file')) {
+                $files = $request->file('input_file');
+
+                foreach ($files as $key => $file) {
+                    $extension = $file->getClientOriginalExtension();
+                    $filename = Str::random(40) . '.' . $extension;
+                    
+                    if($extension == 'jpg' || $extension == 'png') {
+                        $file->move(storage_path('app/public/post-images'), $filename);
+                    } else {
+                        $file->move(storage_path('app/public/post-noimages'), $filename);
+                    }
+                
+                    $postFile = new PostFile();
+                    $postFile->post_id = $post->id;
+                    $postFile->filename = $filename;
+                    $postFile->save();
+                }            
+            }
+
+            $validatedData = $request->validate([
+                'title' => 'required|max:255',
+                'reward' => 'required|numeric',
+            ]);
+
+            $user = auth()->user();
+
+            $transaction = new Utransaction();
+            $transaction->user_id = $user->id;
+            $transaction->kredit = $validatedData['reward'];
+            $transaction->description = $validatedData['title'];
+            $transaction->save();
+        
+        DB::commit();
+
+            return redirect('/user')->with('success', 'Transaksi berhasil disimpan');
+        } catch (\Exception $e) {
+            DB::rollback();
+            return redirect('/user')->with('error', 'Terjadi kesalahan: ' . $e->getMessage());
         }
-
-        return redirect('/user')->with('success', 'Post berhasil dibuat');
     }
-
 }
