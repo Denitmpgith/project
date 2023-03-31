@@ -42,7 +42,7 @@
             <p class="text-white">{{ $post->description }}</p>
         </div>
         @foreach($post->postFile as $file)
-            <div class="col-span-12">
+            <div class="col-span-12 m-3">
                 @if(pathinfo($file->filename, PATHINFO_EXTENSION) === 'jpg' || pathinfo($file->filename, PATHINFO_EXTENSION) === 'png')
                     <img style="width: 150px; height: 150px;" src="{{ asset('post-images/' . $file->filename) }}" alt="Gambar {{ $file->id }}">
                 @else

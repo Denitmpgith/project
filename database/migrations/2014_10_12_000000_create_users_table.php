@@ -17,8 +17,9 @@ return new class extends Migration
             $table->id();
             $table->timestamps();
             $table->timestamp('published')->nullable();
-            $table->string('username')->unique();
-            $table->string('password');
+            $table->string('email')->unique()->nullable();
+            $table->string('username', 100)->nullable()->unique()->min(5);
+            $table->string('password')->nullable();
             $table->rememberToken();
         });
     }
