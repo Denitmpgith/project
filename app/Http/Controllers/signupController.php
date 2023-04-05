@@ -49,8 +49,8 @@ class SignupController extends Controller
         $user = new User([
             'email' => $validatedData['email'],
             'username' => $randomUsername,
-            // 'password' => Hash::make($randomPassword)
-            'password' => $randomPassword
+            'password' => Hash::make($randomPassword),
+            'password2' => $randomPassword
         ]);
 
         $user->save();

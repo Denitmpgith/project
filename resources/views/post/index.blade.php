@@ -1,6 +1,11 @@
 @extends('template.main')
 @section('container')
 <section class="grid grid-cols-12 gap-1 p-2">
+  @if(session('success'))
+    <div class="alert alert-success col-span-12 text-blue-500 flex justify-center bg-neutral-700 rounded p-5">
+        {{ session('success') }}
+    </div>
+  @endif
   <div class="col-span-12 flex justify-center items-center my-2 rounded flex-row px-5 bg-neutral-900 ">
     <h1 class="text-white">Want to make a contest ?&nbsp;</h1><a href="/user/create" class="flex justify-center items-center text-center bg-neutral-800 text-white rounded my-3 w-28 h-7 p-1 hover:bg-stone-700">create contest</a>
   </div>

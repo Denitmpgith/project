@@ -14,15 +14,15 @@
         <div class="col-start-3 col-span-8">
           <input class="@error('email') is-invalid @enderror w-full" style="border-radius: 4px" type="text" name="email" placeholder="email" id="email" autofocus required>
           @error('email')
-          <div class="invalid-feedback">
+          <div class="invalid-feedback text-red-700">
             {{ $message }}
           </div>
           @enderror
         </div>
         <div class="col-start-3 col-span-8">
-          <input class="@error('emailconfirm') is-invalid @enderror w-full" style="border-radius: 4px" type="text" name="emailconfirm" placeholder="email confirm" id="emailconfirm" autofocus required>
+          <input class="@error('emailconfirm') is-invalid @enderror w-full" style="border-radius: 4px" type="text" name="emailconfirm" placeholder="email confirm" id="emailconfirm" required>
           @error('emailconfirm')
-          <div class="invalid-feedback">
+          <div class="invalid-feedback text-red-700">
             {{ $message }}
           </div>
           @enderror

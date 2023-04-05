@@ -17,12 +17,21 @@ class signinController extends Controller
             'username' => 'required',
             'password' => 'required'
         ]);
+    
         if (Auth::attempt($credentials)) {
+            $user = Auth::user();
+            $userDetails = $user->user_detiles;
+    
+            if (!$userDetails || !$userDetails->first_name || !$userDetails->last_name || !$userDetails->address) {
+                return redirect()->route('register');
+            }
+    
             $request->session()->regenerate();
             return redirect()->intended('dashboard');
         }
+    
         return back()->with('loginError', 'Login failed !!');
-    }
+    }    
     public function logout()
     {
         Auth::logout();

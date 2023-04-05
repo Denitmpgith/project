@@ -34,12 +34,27 @@
             </div>
         </div>
         <div class="col-span-12 flex justify-start flex-col lg:col-span-8 bg-neutral-900 p-5 gap-5 rounded-t-lg">
-            <div class="flex justify-center h-48 bg-neutral-800 p-2">
-                <p class="text-white">Apply Contest</p>
+            @if( $appliesData->count() > 0)
+            <div class="flex justify-center flex-col  p-2">
+                <p class="text-white flex justify-center uppercase bg-neutral-800">My apply contest</p>
+                <div class="flex justify-between flex-row gap-5 bg-neutral-800 mt-5 p-3" >
+                        @foreach ($appliesData as $apply)
+                        <div class="text-center">
+                                @foreach ($apply->applyFile as $key => $file)
+                                    @if ($key == 0)
+                                        <img src="{{ asset('post-images/' . $file->filename) }}" alt="" width="200" height="200">
+                                    @endif
+                                @endforeach
+                            <h3 class="text-white">{{ Str::limit($apply->title, 20) }}</h3>
+                            {{-- <p class="text-white">{{ $apply->description }}</p> --}}
+                        </div>
+                        @endforeach
+                </div>
             </div>
+            @endif
             <div class="flex justify-center h-96 bg-neutral-800 p-2">
                 <p class="text-white">My Fortofolio</p>
             </div>
         </div>
     </div>
-@endsection
+@endsection 
