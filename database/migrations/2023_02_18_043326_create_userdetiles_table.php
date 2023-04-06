@@ -24,6 +24,7 @@ return new class extends Migration
             $table->string('job_status')->nullable();
             $table->string('address')->nullable();
             $table->string('city')->nullable();
+            $table->string('State')->nullable();
             $table->string('country')->nullable();
             $table->string('m_phone')->nullable();
             $table->string('email')->nullable();

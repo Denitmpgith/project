@@ -20,11 +20,17 @@ class userDetailsController extends Controller
         }
     
         return view('verify.register.index', [
+            'user' => $user, 
             'user_details' => $user_details
         ]);        
     }    
     public function store(Request $request)
     {
+        $user = auth()->user();
+        if (!$user) {
+            return redirect()->route('login');
+        }
+        
         // Validasi input dari form
         $request->validate([
             'first_name' => 'required|string|max:100',
@@ -34,6 +40,7 @@ class userDetailsController extends Controller
             'job_status' => 'nullable|string|max:100',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
             'country' => 'nullable|string|max:100',
             'm_phone' => 'nullable|string|max:25',
             'email' => 'nullable|string|email|max:100',
@@ -53,6 +60,7 @@ class userDetailsController extends Controller
         $userDetail->job_status = $request->filled('job_status') ? $request->job_status : 'Freelancer';
         $userDetail->address = $request->input('address');
         $userDetail->city = $request->input('city');
+        $userDetail->state = $request->input('state');
         $userDetail->country = $request->input('country');
         $userDetail->m_phone = $request->input('m_phone');
         $userDetail->email = $request->input('email');
@@ -62,7 +70,7 @@ class userDetailsController extends Controller
         $userDetail->save();
 
         // Redirect ke halaman dashboard dan tampilkan pesan sukses
-        return redirect()->route('dashboard')->with('success', 'Thank you for filling out the user registration form. Please feel free to continue to other tabs that you desire.');
+        return redirect()->route('dashboard')->with('success', 'Thank you for filling in the registration data');
     }
     public function edit()
     {
@@ -84,6 +92,7 @@ class userDetailsController extends Controller
             'job_status' => 'nullable|string|max:100',
             'address' => 'nullable|string|max:255',
             'city' => 'nullable|string|max:100',
+            'state' => 'nullable|string|max:100',
             'country' => 'nullable|string|max:100',
             'm_phone' => 'nullable|string|max:25',
             'email' => 'nullable|string|email|max:100',
@@ -104,6 +113,7 @@ class userDetailsController extends Controller
             'job_status',
             'address',
             'city',
+            'state',
             'country',
             'm_phone',
             'email',

@@ -22,7 +22,7 @@ class signinController extends Controller
             $user = Auth::user();
             $userDetails = $user->user_detiles;
     
-            if (!$userDetails || !$userDetails->first_name || !$userDetails->last_name || !$userDetails->address) {
+            if (!$userDetails || !$userDetails->first_name) {
                 return redirect()->route('register');
             }
     

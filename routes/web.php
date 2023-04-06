@@ -1,5 +1,6 @@
 <?php
 
+use App\Models\User;
 use App\Http\Controllers\Controller;
 use app\Http\Middleware\CheckUserExists;
 use Illuminate\Support\Facades\Route;
@@ -16,7 +17,8 @@ use App\Http\Controllers\userApplyController;
 use App\Http\Controllers\fortopolioController;
 
 Route::get('/', function () {
-    return view('welcome');
+    $totalUsers = User::count();
+    return view('welcome', ['totalUsers' => $totalUsers]);
 });
 
 
