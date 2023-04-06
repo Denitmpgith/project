@@ -7,6 +7,9 @@
                 {{ session('failed') }}
             </div>
         @endif
+        <div class="flex justify-start flex-col mt-3 w-full gap-3 bg-neutral-900 p-3 rounded shadow">
+            <h1 class="text-white text-center capitalize">Edit Form</h1>
+        </div>
         <form method="POST" action="{{ route('register.update', $user_details->id) }}">
             @csrf
             @method('PUT')

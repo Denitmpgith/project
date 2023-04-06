@@ -6,8 +6,8 @@
             {{ session('failed') }}
         </div>
         @endif
-        <div class="flex justify-start flex-col mt-3 w-full gap-3 bg-neutral-900 p-5 rounded shadow">
-        <h1 class="text-white capitalize">Form <span class="text-white uppercase">Register</span></h1>
+        <div class="flex justify-start flex-col mt-3 w-full gap-3 bg-neutral-900 p-3 rounded shadow">
+        <h1 class="text-white text-center capitalize">Registration Form</h1>
         </div>
         <form method="POST" action="{{ route('register.store') }}">
             @csrf

@@ -50,12 +50,12 @@
             <div class="w-full mt-2">
                 <div class="flex justify-start items-start flex-col mb-1">
                     <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="title" class="w-52 text-white">Title&nbsp;</label>
-                        <input name="title" placeholder="Title your apply" type="text" class="bg-black text-white border-solid border w-full">
+                        <label for="title" class="w-[150px] text-white">Title</label>
+                        <input name="title" placeholder="25-letter suggestion." type="text" class="bg-black text-white border-solid border w-[750px] placeholder-neutral-700">
                     </div>
                     <div class="flex justify-start items-start flex-row mb-1 w-full">
-                        <label for="description" class="w-52 text-white">Description&nbsp;</label>
-                        <textarea name="description" placeholder="Description your apply" type="text" class="bg-black text-white border w-full @error('description') is-invalid @enderror"></textarea>
+                        <label for="description" class="w-[150px] text-white">Description</label>
+                        <textarea name="description" placeholder="Description your apply" type="text" class="bg-black text-white border w-[750px] @error('description') is-invalid @enderror"></textarea>
                         @error('description')
                         <div class="text-red-500">{{ $message }}</div>
                         @enderror
