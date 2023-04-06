@@ -38,12 +38,18 @@ class userDetailsController extends Controller
             'last_name' => 'nullable|string|max:100',
             'gender' => 'nullable|in:male,female',
             'job_status' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'state' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-            'm_phone' => 'nullable|string|max:25',
-            'email' => 'nullable|string|email|max:100',
+            'address1' => 'nullable|string|max:255',
+            'city1' => 'nullable|string|max:100',
+            'state1' => 'nullable|string|max:100',
+            'country1' => 'nullable|string|max:100',
+            'm_phone1' => 'nullable|string|max:25',
+            'email1' => 'nullable|string|email|max:100',
+            'address2' => 'nullable|string|max:255',
+            'city2' => 'nullable|string|max:100',
+            'state2' => 'nullable|string|max:100',
+            'country2' => 'nullable|string|max:100',
+            'm_phone2' => 'nullable|string|max:25',
+            'email2' => 'nullable|string|email|max:100',
             'work_now' => 'nullable|string|max:255',
             'website' => 'nullable|string|max:255',
             'hero' => 'nullable|string|max:255',
@@ -58,12 +64,18 @@ class userDetailsController extends Controller
         $userDetail->last_name = $request->input('last_name');
         $userDetail->gender = $request->input('gender');
         $userDetail->job_status = $request->filled('job_status') ? $request->job_status : 'Freelancer';
-        $userDetail->address = $request->input('address');
-        $userDetail->city = $request->input('city');
-        $userDetail->state = $request->input('state');
-        $userDetail->country = $request->input('country');
-        $userDetail->m_phone = $request->input('m_phone');
-        $userDetail->email = $request->input('email');
+        $userDetail->address1 = $request->input('address1');
+        $userDetail->city1 = $request->input('city1');
+        $userDetail->state1 = $request->input('state1');
+        $userDetail->country1 = $request->input('country1');
+        $userDetail->m_phone1 = $request->input('m_phone1');
+        $userDetail->email1 = $request->input('email1');
+        $userDetail->address2 = $request->input('address2');
+        $userDetail->city2 = $request->input('city2');
+        $userDetail->state2 = $request->input('state2');
+        $userDetail->country2 = $request->input('country2');
+        $userDetail->m_phone2 = $request->input('m_phone2');
+        $userDetail->email2 = $request->input('email2');
         $userDetail->work_now = $request->input('work_now');
         $userDetail->website = $request->input('website');
         $userDetail->hero = $request->input('hero');
@@ -90,12 +102,18 @@ class userDetailsController extends Controller
             'last_name' => 'nullable|string|max:100',
             'gender' => 'nullable|in:male,female',
             'job_status' => 'nullable|string|max:100',
-            'address' => 'nullable|string|max:255',
-            'city' => 'nullable|string|max:100',
-            'state' => 'nullable|string|max:100',
-            'country' => 'nullable|string|max:100',
-            'm_phone' => 'nullable|string|max:25',
-            'email' => 'nullable|string|email|max:100',
+            'address1' => 'nullable|string|max:255',
+            'city1' => 'nullable|string|max:100',
+            'state1' => 'nullable|string|max:100',
+            'country1' => 'nullable|string|max:100',
+            'm_phone1' => 'nullable|string|max:25',
+            'email1' => 'nullable|string|email|max:100',
+            'address2' => 'nullable|string|max:255',
+            'city2' => 'nullable|string|max:100',
+            'state2' => 'nullable|string|max:100',
+            'country2' => 'nullable|string|max:100',
+            'm_phone2' => 'nullable|string|max:25',
+            'email2' => 'nullable|string|email|max:100',
             'work_now' => 'nullable|string|max:255',
             'website' => 'nullable|string|max:255',
             'hero' => 'nullable|string|max:255',
@@ -111,12 +129,18 @@ class userDetailsController extends Controller
             'last_name',
             'gender',
             'job_status',
-            'address',
-            'city',
-            'state',
-            'country',
-            'm_phone',
-            'email',
+            'address1',
+            'city1',
+            'state1',
+            'country1',
+            'm_phone1',
+            'email1',
+            'address2',
+            'city2',
+            'state2',
+            'country2',
+            'm_phone2',
+            'email2',
             'work_now',
             'website',
             'hero'

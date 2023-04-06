@@ -20,13 +20,17 @@
                     <p class="capitalize font-semibold text-white">My Profile</p>
                 </div>
                 <div class="flex justify-start items-start flex-col h-40 bg-neutral-800 w-full px-2">
+                    @if ($user->user_detiles->job_status != null)
                     <div class="flex justify-between items-center flex-row w-full" >
                         <span class="text-white">{{ $user->user_detiles->job_status }}</span>
                         <p class="text-white">{{ $user->user_detiles->website }}</p>
                     </div>
-                    <div class="flex justify-between items-start flex-col" >
-                        <p class="text-white">Freelancer from {{ $user->user_detiles->country }}</p>
-                    </div>
+                    @endif
+                    @if ($user->user_detiles->country1 != null)
+                        <div class="flex justify-between items-start flex-col" >
+                            <p class="text-white">Freelancer from {{ $user->user_detiles->country1 }}</p>
+                        </div>
+                    @endif
                 </div>
             </div>
             <div class="flex justify-center h-40 bg-neutral-800">
