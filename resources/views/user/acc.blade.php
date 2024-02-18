@@ -11,6 +11,11 @@
         @if(empty($user_detiles->first_name))
             <span class="">anda belum melengkapi data</span>
         @else
+            {{-- <a href="{{ route('user.profile', ['user' => 'nama_pengguna']) }}">
+            <span class="">{{ $user_detiles->first_name }}</span>
+            <span class="">{{ $user_detiles->middle_name }}</span>
+            <span class="">{{ $user_detiles->last_name }}</span>
+            </a> --}}
             <span class="">{{ $user_detiles->first_name }}</span>
             <span class="">{{ $user_detiles->middle_name }}</span>
             <span class="">{{ $user_detiles->last_name }}</span>

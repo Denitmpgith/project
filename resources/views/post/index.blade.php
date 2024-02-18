@@ -1,4 +1,6 @@
+<!DOCTYPE html>
 @extends('template.main')
+
 @section('container')
 <section class="grid grid-cols-12 gap-1 p-2">
   @if(session('success'))

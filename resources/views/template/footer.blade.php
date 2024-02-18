@@ -1,4 +1,4 @@
-<footer class="col-span-12 lg:col-start-3 lg:col-span-8 grid grid-cols-12 bg-neutral-900">
+<footer id="footerId" class="col-span-12 lg:col-start-1 lg:col-span-12 grid grid-cols-12 bg-neutral-900">
     <div class="col-start-3 col-span-8">
         <div class="grid grid-cols-12 pt-3 gap-3 text-white">
             <div class="col-span-3 h-20 text-center">
@@ -20,3 +20,15 @@
     </div>
 </footer>
 </html>
+<script>
+    var bodyElement = document.body;
+    var footerElement = document.getElementById('footerId');
+    var tinggiKonten = bodyElement.clientHeight;
+    var tinggiLayar = window.innerHeight;
+
+    if (tinggiKonten < tinggiLayar) {
+    footerElement.style.position = 'absolute';
+    footerElement.style.bottom = '0';
+    footerElement.style.width = '100%';
+    }
+</script>
